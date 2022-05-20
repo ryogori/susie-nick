@@ -15,7 +15,7 @@ sudo docker-compose run web python3 -m django startproject {#任意のプロジ�
 ```
 2, プロジェクトフォルダ内にあるsettings.pyのDATABASESという項目を編集
 ```
-vim settings.py
+sudo vim settings.py
 ```
 ###### settings.pyの中身
 
