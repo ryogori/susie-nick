@@ -15,13 +15,13 @@
                     <input type="submit" name="submit" value="検索">
                 </form>
                 <div>
-                    <a href="home.html">ホームページ</a>
+                    <a href="{% url 'muscle_app:home' %}">ホーム</a>
                     <a href="">記事一覧</a>
-                    <a href="menu_leg.html">脚</a>
-                    <a href="menu_abs.html">腹部</a>
-                    <a href="menu_chest.html">胸部</a>
-                    <a href="menu_back.html">背中</a>
-                    <a href="menu_arm.html">腕</a>
+                    <a href="{% url 'muscle_app:leg' %}">脚</a>
+                    <a href="{% url 'muscle_app:abs' %}">腹部</a>
+                    <a href="{% url 'muscle_app:chest' %}">胸部</a>
+                    <a href="{% url 'muscle_app:back' %}">背中</a>
+                    <a href="{% url 'muscle_app:arm' %}">腕</a>
                 </div>
                 <div>
                     <button onclick="">ログイン</button>

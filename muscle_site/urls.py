@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('muscle_app.urls')),
+    path('muscle_app/', include('muscle_app.urls')),
 ]
