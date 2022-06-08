@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>back</title>
-</head>
-<body>
-    <h1>背中</h1>
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
     
-</body>
+    {% block extra_head %}
+        <link rel=""stylesheet" href="{% static '' %}">
+    {% endblock %}
+
+    {% block title_block %}
+        back
+    {% endblock %}
+
+    {% block body_block %}
+        <h1>背中</h1>
+    {% endblock %}
 </html>
