@@ -18,11 +18,24 @@
     <body>
         <div class="wrapper">
             <header>
-                <h1>スージー＆ニック</h1>
-                <form action="" method="get">
-                    <input type="search" name="search" placeholder="検索キーワードを入力してください">
-                    <input type="submit" name="submit" value="検索">
-                </form>
+                <div class="top_wrapper">
+                    <div class="top_left_wrapper">
+                        <div class="logo">
+                            <h1>スージー＆ニック</h1>
+                        </div>
+                    </div>
+                    <div class="top_right_wrapper">
+                        <form action="" method="get">
+                            <input type="search" name="search" placeholder="検索キーワードを入力してください">
+                            <input type="submit" name="submit" value="検索">
+                        </form>
+                        <div class="login">
+                            <button onclick="">ログイン</button>
+                            <button onclick="">新規登録</button>
+                            <!-- <button onclick="">ログアウト</button> -->
+                        </div>
+                    </div>
+                </div>
                 <div class="menu_bar">
                     <nav>
                         <ul>
@@ -35,10 +48,6 @@
                             <li><a href="{% url 'muscle_app:arm' %}">腕</a></li>
                         </ul>
                     </nav>
-                </div>
-                <div>
-                    <button onclick="">ログイン</button>
-                    <button onclick="">ログアウト</button>
                 </div>
             </header>
             {% block body_block %}

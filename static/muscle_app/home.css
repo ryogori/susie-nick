@@ -1,3 +1,11 @@
+.wrapper {
+    margin-left: 15%;
+    width: 70%; 
+    max-width: 70%;
+    text-align: center;
+    padding: 1px;
+}
+
 body {
     margin: 0px;
 }
@@ -6,12 +14,32 @@ header {
     margin: 0px;
 }
 
-.wrapper {
-    margin-left: 15%;
-    width: 70%; 
-    max-width: 70%;
-    text-align: center;
-    padding: 1px;
+/* .logo {
+    
+} */
+
+.logo h1 {
+    text-align: left;
+}
+
+.top_wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* .top_left_wrapper {
+    flex: top;
+} */
+
+.top_right_wrapper {
+    display: flex;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    padding-right: 10px;
 }
 
 nav {
@@ -23,13 +51,15 @@ nav {
 }
 
 ul {
-    padding:0px;
+    padding: 0px;
     display: flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 li {
-    list-style: none;
     width: 16.6%;
+    list-style: none;
 }
 
 a {
