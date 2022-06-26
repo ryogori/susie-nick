@@ -1,5 +1,5 @@
 from django import views
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 
 # from muscle_app.models import Article
 from .forms import ArticleForm
@@ -39,5 +39,11 @@ def mark_insertView(request):
         obj.save()
     return render(request, "muscle_app/mark_insert.html",{'form':form})
 
-
+def mark_viewViews(request):
+    db_views = get_object_or_404(Article,id = 1)
+    content = {
+        'title' : db_views.title,
+        'body' : db_views.body
+    }
+    return render(request,"muscle_app/mark_view.html",{'db_view':content})
 

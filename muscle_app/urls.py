@@ -16,9 +16,10 @@ urlpatterns = [
     path('arm', views.armView, name="arm"),
     #markはマークダウンでの登録画面の呼び出し
     path('mark',views.markView,name="mark"),
-    #mark_insertは登録後の画面（登録したことを通知）
+    #mark_insertは登録したことを通知
     path('mark_insert',views.mark_insertView,name="mark_insert"),
-
+    #mark_viewは登録したマークダウンを見ることができる
+    path('mark_view',views.mark_viewViews,name="mark_view"),
 ]
 
 if settings.DEBUG:
