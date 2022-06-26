@@ -6,7 +6,7 @@
 
     </head>
     <body>
-        <form action="" method="post" >
+        <form action="{% url 'muscle_app:mark_insert' %}" method="post" >
             {%csrf_token%}
             {{form.media}}
             {{form.as_p}}

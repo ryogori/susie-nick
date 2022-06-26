@@ -14,8 +14,11 @@ urlpatterns = [
     path('chest', views.chestView, name="chest"),
     path('back', views.backView, name="back"),
     path('arm', views.armView, name="arm"),
-   #markはマークダウン編集画面の呼び出し
+    #markはマークダウンでの登録画面の呼び出し
     path('mark',views.markView,name="mark"),
+    #mark_insertは登録後の画面（登録したことを通知）
+    path('mark_insert',views.mark_insertView,name="mark_insert"),
+
 ]
 
 if settings.DEBUG:

@@ -30,3 +30,14 @@ def markView(request):
     mkdown = {'form':form,}
     return render(request, "muscle_app/markdown.html",mkdown)
 
+def mark_insertView(request):
+    form = forms.ArticleForm(request.POST or None)
+    if form.is_valid():
+        title = form.cleaned_data["title"]
+        body = form.cleaned_data["content"]
+        obj = Article(title=title, body=body)
+        obj.save()
+    return render(request, "muscle_app/mark_insert.html",{'form':form})
+
+
+
