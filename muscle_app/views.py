@@ -1,3 +1,4 @@
+from email import contentmanager
 from django import views
 from django.shortcuts import render,get_object_or_404
 
@@ -35,12 +36,13 @@ def mark_insertView(request):
     if form.is_valid():
         title = form.cleaned_data["title"]
         body = form.cleaned_data["content"]
-        obj = Article(title=title, body=body)
-        obj.save()
+        Article.objects.create(title=title, body=body)
+        # obj = Article(title=title, body=body)
+        # obj.save()
     return render(request, "muscle_app/mark_insert.html",{'form':form})
 
 def mark_viewViews(request):
-    db_views = get_object_or_404(Article,id = 1)
+    db_views = get_object_or_404(Article,id = 6)
     content = {
         'title' : db_views.title,
         'body' : db_views.body
