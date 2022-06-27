@@ -42,7 +42,7 @@ def mark_insertView(request):
     return render(request, "muscle_app/mark_insert.html",{'form':form})
 
 def mark_viewViews(request):
-    db_views = get_object_or_404(Article,id = 6)
+    db_views = get_object_or_404(Article,id = 8)
     content = {
         'title' : db_views.title,
         'body' : db_views.body
