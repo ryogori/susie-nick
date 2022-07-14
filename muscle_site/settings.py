@@ -144,8 +144,5 @@ MDEDITOR_CONFIGS = {
         'language': 'en',
     }
 }
-<<<<<<< HEAD
-=======
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
->>>>>>> feature

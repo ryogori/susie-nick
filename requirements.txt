@@ -1,5 +1,5 @@
 Django==4.0.3
 mysqlclient
-django-mdeditort
+django-mdeditor
 Markdown
 pillow
