@@ -1,0 +1,16 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
+
+    </head>
+    <body>
+        <form action="{% url 'muscle_app:mark_insert' %}" method="post" >
+            {%csrf_token%}
+            {{form.media}}
+            {{form.as_p}}
+            <p> <input type = "submit" value = "送信する"> </p>
+        </form>
+    </body>
+</html>

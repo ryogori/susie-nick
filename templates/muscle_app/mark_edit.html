@@ -1,0 +1,18 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
+        <title>記事編集画面</title>
+    </head>
+    <body>
+        <form action="{% url 'muscle_app:mark_edit' %}" method="post" >
+            {%csrf_token%}
+            {{update_form.media}}
+            {{update_form.as_p}}
+            <p> <input type = "submit" value = "更新する"> </p>
+        </form>
+        <button type="button" onclick=location.href="{% url 'muscle_app:home'%}">TOPへ戻る</button><br>
+        <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">記事一覧へ戻る</button><br>
+    </body>
+</html>
