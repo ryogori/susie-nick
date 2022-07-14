@@ -20,6 +20,15 @@ urlpatterns = [
     path('mark_insert',views.mark_insertView,name="mark_insert"),
     #mark_viewは登録したマークダウンを見ることができる
     path('mark_view',views.mark_viewViews,name="mark_view"),
+<<<<<<< HEAD
+=======
+    #mark_editはマークダウンでの編集画面の呼び出し
+    path('mark_edit',views.mark_editViews,name="mark_edit"),
+    #mark_listはタイトルとユーザー名を表示した一覧画面
+    path('mark_list',views.mark_listViews,name="mark_list"),
+    #mark_detailは記事の詳細画面を表示
+    path('mark_detail/<int:id>',views.mark_detailViews,name="mark_detail"),
+>>>>>>> feature
 ]
 
 if settings.DEBUG:
