@@ -3,3 +3,5 @@ mysqlclient
 django-mdeditor
 Markdown
 pillow
+bcrypt
+django[argon2]

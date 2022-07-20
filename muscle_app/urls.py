@@ -26,6 +26,8 @@ urlpatterns = [
     path('mark_list',views.mark_listViews,name="mark_list"),
     #mark_detailは記事の詳細画面を表示
     path('mark_detail/<int:id>',views.mark_detailViews,name="mark_detail"),
+    path('sign_up', views.Sign_up.as_view(), name="sign_up"),
+    path('login', views.Login, name="login"),
 ]
 
 if settings.DEBUG:
