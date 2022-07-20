@@ -10,6 +10,12 @@ from django.shortcuts import render,get_object_or_404
 from .forms import ArticleForm
 from .models import Article
 from . import forms
+# アカウント操作関連
+from django.views.generic import CreateView, View
+from . forms import Sign_up_Form, LoginForm
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 # Create your views here.
 def indexView(request):
@@ -29,11 +35,49 @@ def backView(request):
 
 def armView(request):
     return render(request, "muscle_app/arm.html")
+
+class Sign_up(CreateView):
+    def post(self, request, *args, **kwargs):
+        form = Sign_up_Form(data=request.POST)
+        if form.is_valid():
+            form.save()
+            user_id = "@" + form.cleaned_data.get('user_id')
+            username = form.cleaned_data.get('username')
+            email= form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(email=email, password=password)
+            login(request, user)
+            return redirect('/')
+        return render(request, 'muscle_app/sign_up.html', {'form': form,})
+
+    def get(self, request, *args, **kwargs):
+        form = Sign_up_Form(request.POST)
+        return  render(request, 'muscle_app/sign_up.html', {'form': form,})
+    
+sign_up = Sign_up.as_view()
+
+class Login(View):
+    def post(self, request, *arg, **kwargs):
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('username')
+            user = User.objects.get(email=email)
+            login(request, user)
+            return redirect('/')
+        return render(request, 'muscle_app/login.html', {'form': form,})
+
+    def get(self, request, *args, **kwargs):
+        form = LoginForm(request.POST)
+        return render(request, 'muscle_app/login.html', {'form': form,})
+
+Login = Login.as_view()
+
 #markdownの画面を呼び出す（新規）
 def markView(request):
     form = ArticleForm()
     mkdown = {'form':form,}
     return render(request, "muscle_app/markdown.html",mkdown)
+
 #保存する時の処理（保存した結果は表示しない）
 def mark_insertView(request):
     form = forms.ArticleForm(request.POST or None)
@@ -46,6 +90,7 @@ def mark_insertView(request):
         # obj = Article(title=title, body=body)
         # obj.save()
     return render(request, "muscle_app/mark_insert.html",{'form':form})
+
 #ID指定の表示
 def mark_viewViews(request):
     db_views = get_object_or_404(Article,id = 13)

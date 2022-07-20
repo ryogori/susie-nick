@@ -30,8 +30,10 @@
                             <input type="submit" name="submit" value="検索">
                         </form>
                         <div class="login">
-                            <button onclick="">ログイン</button>
-                            <button onclick="">新規登録</button>
+                            <!-- {}の最初と最後に%を付けると有効になる。 -->
+                            <button onclick=location.href="{% url 'muscle_app:login' %}">ログイン</button>
+                            <!-- <button onclick="">ログイン</button> -->
+                            <button onclick=location.href="{% url 'muscle_app:sign_up' %}">新規登録</button>
                             <!-- <button onclick="">ログアウト</button> -->
                         </div>
                     </div>
