@@ -2,12 +2,6 @@ from pickletools import TAKEN_FROM_ARGUMENT1
 from django.db import models
 from mdeditor.fields import MDTextField
 
-<<<<<<< HEAD
-class Article(models.Model):
-    title = models.CharField(max_length=200)
-    body = MDTextField(verbose_name = '記事',  default='ここに記事を記入')
-   
-=======
 
 # 必要な機能　ID(デフォルトのプライマリキー)　ユーザー名 タイトル　本文　作成日　更新日　記事のカテゴライズ
 class Article(models.Model):
@@ -17,7 +11,15 @@ class Article(models.Model):
     create_data = models.DateTimeField(auto_now_add=True,help_text='作成日')
     update_data = models.DateTimeField(auto_now=True,help_text='更新日')
     category = models.CharField(max_length=7,default='all')#タグを想定、内容は(abs,arm,back,base,chest,allを想定、デフォはall)
->>>>>>> feature
+
     def __str__(self):
         return self.title
 
+#ブログでモデルのクラス比較用 7/29以降削除OK
+# class TimeStampModel(models.Model):
+
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+# class Meta:#  abstract = Trueにしておくと、マイグレーションしてもテーブルが作られることはない。
+#     abstract = True

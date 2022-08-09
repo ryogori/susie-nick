@@ -133,10 +133,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATIC_ROOT = [BASE_DIR / "static"]
 
 # staticfiles_dirsを追加
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [ BASE_DIR / "static"]
 
+#mdeditoの英語版ブログで追加しろと言われた奴
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_ROOT = os.path.join( BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
 
 MDEDITOR_CONFIGS = {
@@ -144,8 +146,5 @@ MDEDITOR_CONFIGS = {
         'language': 'en',
     }
 }
-<<<<<<< HEAD
-=======
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
->>>>>>> feature

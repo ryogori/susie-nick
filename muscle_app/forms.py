@@ -3,12 +3,6 @@ from .models import Article
 
 from mdeditor.fields import MDTextFormField
 
-<<<<<<< HEAD
-class ArticleForm (forms.Form):
-    title = forms.CharField ()
-    content = MDTextFormField()
-
-=======
 tagu = (
     ("all","all"),
     ("chest","胸"),
@@ -18,15 +12,14 @@ tagu = (
     ("leg","脚"),
 )
 
-class ArticleForm (forms.Form):
+class ArticleForm(forms.Form):
     user_name = forms.CharField()
     title = forms.CharField ()
     content = MDTextFormField()
     category = forms.ChoiceField(choices=tagu)
     
-class Update_ArticleForm (forms.Form):
+class Update_ArticleForm(forms.Form):
     title = forms.CharField ()
     content = MDTextFormField()
     category = forms.ChoiceField(choices=tagu)
     
->>>>>>> feature

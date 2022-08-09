@@ -1,0 +1,20 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>記事削除</title>
+    </head>
+    <body>
+        {% comment %} {% csrf_token %} #<formでデータ削除を試すためコメントアウト>
+        <P>{{ object.name }}を削除してよろしいでしょうか？</p>
+        <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id %}">削除する</button><br> {% endcomment %}
+        <form method="post">{% csrf_token %}
+            <p>削除しますと復旧ができません。よろしいですか？</p>
+            <button type="submit" >削除する</button>
+            <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">リストに戻る</button>
+        </form>
+    </body>
+</html>

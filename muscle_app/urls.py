@@ -20,15 +20,22 @@ urlpatterns = [
     path('mark_insert',views.mark_insertView,name="mark_insert"),
     #mark_viewは登録したマークダウンを見ることができる
     path('mark_view',views.mark_viewViews,name="mark_view"),
-<<<<<<< HEAD
-=======
     #mark_editはマークダウンでの編集画面の呼び出し
-    path('mark_edit',views.mark_editViews,name="mark_edit"),
+    path('mark_edit/<int:id>',views.mark_editViews,name="mark_edit"),
+    # path('mark_edit',views.mark_editViews,name="mark_edit"),
     #mark_listはタイトルとユーザー名を表示した一覧画面
     path('mark_list',views.mark_listViews,name="mark_list"),
     #mark_detailは記事の詳細画面を表示
     path('mark_detail/<int:id>',views.mark_detailViews,name="mark_detail"),
->>>>>>> feature
+    #7/15追加 my_articelは自分の記事の画面表示
+    path('my_article',views.my_article,name="my_article"),
+    #7/26変更　mark_deleteViewは記事の削除を行う
+    path('mark_delete/<int:id>',views.mark_deleteView,name='mark_delete'),
+    #7/20追加　mark_checkはeditの変更内容結果を表示する画面
+    path('mark_check/<int:id>',views.checkViews,name="mark_check"),
+
+    #7/26追加　session付きの変更内容確認画面？
+    #path('user_data_confirm/', views.user_data_confirm, name='user_data_confirm'),
 ]
 
 if settings.DEBUG:

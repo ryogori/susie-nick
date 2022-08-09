@@ -21,8 +21,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('muscle_app.urls')),
     path('mdeditor/',include('mdeditor.urls')),
+    path('', include('muscle_app.urls')),
+    
 ]
 
 if settings.DEBUG:
