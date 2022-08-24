@@ -30,11 +30,13 @@ urlpatterns = [
     path('mark_list',views.mark_listViews,name="mark_list"),
     #mark_detailは記事の詳細画面を表示
     path('mark_detail/<int:id>',views.mark_detailViews,name="mark_detail"),
+    # 新規登録
     path('sign_up', views.Sign_up.as_view(), name="sign_up"),
+    # ログイン
     path('login', views.Login, name="login"),
+    # ログアウト
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
-    # path('logout', logout, {'template_name': 'index.html'}, name='logout'),
-    # path('logout', l1ogout.as_view(), name="logout"),
+
 ]
 
 if settings.DEBUG:
