@@ -4,6 +4,10 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from django.contrib.auth import views as auth_views
+from django.contrib.auth import logout
+from .views import Login
+
 
 app_name= 'muscle_app'
 
@@ -28,6 +32,9 @@ urlpatterns = [
     path('mark_detail/<int:id>',views.mark_detailViews,name="mark_detail"),
     path('sign_up', views.Sign_up.as_view(), name="sign_up"),
     path('login', views.Login, name="login"),
+    path('logout', auth_views.LogoutView.as_view(), name='logout'),
+    # path('logout', logout, {'template_name': 'index.html'}, name='logout'),
+    # path('logout', l1ogout.as_view(), name="logout"),
 ]
 
 if settings.DEBUG:

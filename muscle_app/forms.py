@@ -5,7 +5,6 @@ from mdeditor.fields import MDTextFormField
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import forms as auth_forms
 
 
 class Sign_up_Form(UserCreationForm):

@@ -30,10 +30,17 @@
                             <input type="submit" name="submit" value="検索">
                         </form>
                         <div class="login">
-                            <!-- {}の最初と最後に%を付けると有効になる。 -->
+                            {% if user.is_authenticated %}
+                                <p>{{ user.get_username }}でログイン中</p>
+                                <a href="{% url 'muscle_app:logout' %}">ログアウトする</a>
+                                <button onclick=location.href="{% url 'muscle_app:logout' %}">ログアウトする</button>
+                            {% else %}
+                            <p>ログインしていません</p>
                             <button onclick=location.href="{% url 'muscle_app:login' %}">ログイン</button>
-                            <!-- <button onclick="">ログイン</button> -->
                             <button onclick=location.href="{% url 'muscle_app:sign_up' %}">新規登録</button>
+                            {% endif %}
+                            <!-- {}の最初と最後に%を付けると有効になる。 -->
+                            <!-- <button onclick="">ログイン</button> -->
                             <!-- <button onclick="">ログアウト</button> -->
                         </div>
                     </div>

@@ -165,7 +165,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # メール検証を必須とする
 
 AUTHENTICATION_BACKENDS = [
     'muscle_app.backends.EmailAuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
 ]
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+LOGOUT_REDIRECT_URL = '/'

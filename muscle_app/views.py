@@ -6,16 +6,18 @@ from wsgiref.handlers import format_date_time
 from django import views
 from django.shortcuts import render,get_object_or_404
 
-# from muscle_app.models import Article
 from .forms import ArticleForm
 from .models import Article
 from . import forms
+
 # アカウント操作関連
-from django.views.generic import CreateView, View
+from .models import Users_list
 from . forms import Sign_up_Form, LoginForm
-from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.views.generic import CreateView, View
 from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.views import LogoutView
 
 # Create your views here.
 def indexView(request):
@@ -39,13 +41,15 @@ def armView(request):
 class Sign_up(CreateView):
     def post(self, request, *args, **kwargs):
         form = Sign_up_Form(data=request.POST)
+        # form = Sign_up_Form(request.POST)
         if form.is_valid():
             form.save()
             user_id = "@" + form.cleaned_data.get('user_id')
             username = form.cleaned_data.get('username')
             email= form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-            user = authenticate(email=email, password=password)
+            # Users_list.objects.create(user_id=user_id, username=username, email=email, password=password)
+            user = authenticate(username=email, password=password)
             login(request, user)
             return redirect('/')
         return render(request, 'muscle_app/sign_up.html', {'form': form,})
@@ -61,7 +65,9 @@ class Login(View):
         form = LoginForm(data=request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('username')
-            user = User.objects.get(email=email)
+            password = form.cleaned_data.get('password')
+            # user = User.objects.get(email=email)
+            user = authenticate(request, username=email, password=password)
             login(request, user)
             return redirect('/')
         return render(request, 'muscle_app/login.html', {'form': form,})
@@ -71,6 +77,9 @@ class Login(View):
         return render(request, 'muscle_app/login.html', {'form': form,})
 
 Login = Login.as_view()
+
+class Logout(LogoutView):
+    template_name = 'logout.html'
 
 #markdownの画面を呼び出す（新規）
 def markView(request):
