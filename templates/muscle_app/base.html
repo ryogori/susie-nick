@@ -33,6 +33,7 @@
                             {% if user.is_authenticated %}
                                 <p>{{ user.get_username }}でログイン中</p>
                                 <a href="{% url 'muscle_app:logout' %}">ログアウトする</a>
+                                <button onclick=location.href="{% url 'muscle_app:mypage' %}">マイページ</button>
                                 <button onclick=location.href="{% url 'muscle_app:logout' %}">ログアウトする</button>
                             {% else %}
                             <p>ログインしていません</p>
@@ -55,6 +56,7 @@
                             <li><a href="{% url 'muscle_app:chest' %}">胸部</a></li>
                             <li><a href="{% url 'muscle_app:back' %}">背中</a></li>
                             <li><a href="{% url 'muscle_app:arm' %}">腕</a></li>
+                        
                         </ul>
                     </nav>
                 </div>

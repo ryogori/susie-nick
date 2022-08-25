@@ -81,6 +81,10 @@ Login = Login.as_view()
 class Logout(LogoutView):
     template_name = 'logout.html'
 
+def mypageView(request):
+    return render(request, "muscle_app/mypage.html")
+
+
 #markdownの画面を呼び出す（新規）
 def markView(request):
     form = ArticleForm()
