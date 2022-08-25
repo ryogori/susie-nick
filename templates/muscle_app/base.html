@@ -30,8 +30,18 @@
                             <input type="submit" name="submit" value="検索">
                         </form>
                         <div class="login">
-                            <button onclick="">ログイン</button>
-                            <button onclick="">新規登録</button>
+                            {% if user.is_authenticated %}
+                                <p>{{ user.get_username }}でログイン中</p>
+                                <a href="{% url 'muscle_app:logout' %}">ログアウトする</a>
+                                <button onclick=location.href="{% url 'muscle_app:mypage' %}">マイページ</button>
+                                <button onclick=location.href="{% url 'muscle_app:logout' %}">ログアウトする</button>
+                            {% else %}
+                            <p>ログインしていません</p>
+                            <button onclick=location.href="{% url 'muscle_app:login' %}">ログイン</button>
+                            <button onclick=location.href="{% url 'muscle_app:sign_up' %}">新規登録</button>
+                            {% endif %}
+                            <!-- {}の最初と最後に%を付けると有効になる。 -->
+                            <!-- <button onclick="">ログイン</button> -->
                             <!-- <button onclick="">ログアウト</button> -->
                         </div>
                     </div>
@@ -46,6 +56,7 @@
                             <li><a href="{% url 'muscle_app:chest' %}">胸部</a></li>
                             <li><a href="{% url 'muscle_app:back' %}">背中</a></li>
                             <li><a href="{% url 'muscle_app:arm' %}">腕</a></li>
+                        
                         </ul>
                     </nav>
                 </div>
