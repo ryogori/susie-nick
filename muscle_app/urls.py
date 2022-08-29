@@ -33,9 +33,6 @@ urlpatterns = [
     path('mark_delete/<int:id>',views.mark_deleteView,name='mark_delete'),
     #7/20追加　mark_checkはeditの変更内容結果を表示する画面
     path('mark_check/<int:id>',views.checkViews,name="mark_check"),
-
-    #7/26追加　session付きの変更内容確認画面？
-    #path('user_data_confirm/', views.user_data_confirm, name='user_data_confirm'),
 ]
 
 if settings.DEBUG:

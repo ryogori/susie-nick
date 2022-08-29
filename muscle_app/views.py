@@ -29,7 +29,6 @@ def armView(request):
     return render(request, "muscle_app/arm.html")
 
 # markdownの画面を呼び出す（新規）
-
 def markView(request):
     form = ArticleForm()
     mkdown = {'form':form,}
@@ -83,13 +82,12 @@ def mark_viewViews(request):
 #         }
 #     )
 #     return render(request,"muscle_app/mark_edit.html",{'update_form':update_form,'article':article.id,})
-
 #=============================================比較↓ こっちがうまく起動するのでこの処理を本番で使用する
 # 【アップデートビュー】nippoUpdateFormView
 def mark_editViews(request, id):
     #modelのデータを持ってくるs
     article = get_object_or_404(Article,id = id)
-    update_form = {"title": article.title, "body":article.body}
+    update_form = {"title": article.title, "body":article.body}#categoryの追加
     form = forms.Update_ArticleForm(request.POST or update_form)
     #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
     ctx = {"update_form": form}
@@ -103,6 +101,7 @@ def mark_editViews(request, id):
         article.title = title 
         article.body = content
         article.save()
+        #db_views = get_object_or_404(Article,id = id)...{'article':db_views})
     return render(request, "muscle_app/mark_edit.html", ctx)
 # #=============================================↑
 
@@ -125,9 +124,17 @@ def mark_editViews(request, id):
 #             obj.save()#既にプライマリーキーがあるものは更新する特性があるのに追加ということはしっかりとプリマリが指定されてない？
 
 def checkViews(request,id):
-    db_views = get_object_or_404(Article,id = id)
+    # db_views = get_object_or_404(Article,id = id)
+    # update_form = {"title": db_views.title, "body":db_views.body}
+    # form = forms.Update_ArticleForm(request.POST or update_form)
+    # #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
+    # ctx = {"update_form": form}
+    # ctx["object"] = db_views
+    # return render(request,"muscle_app/mark_check.html",{'article':db_views},ctx)
 
-    return render(request,"muscle_app/mark_check.html",{'article':db_views})
+    #8/29一旦詳細画面の処理を試してみる
+    db_views = get_object_or_404(Article,id = id)
+    return render(request,"muscle_app/mark_detail.html",{'article':db_views})
 
 
 #ログインしたユーザーの記事だけ表示処理

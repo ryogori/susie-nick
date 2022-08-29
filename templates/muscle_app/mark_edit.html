@@ -7,12 +7,17 @@
         <title>記事編集画面</title>
     </head>
     <body>
+        {% comment %}  {% endcomment %}
         <form method="post">
-        {% comment %} <form action="{% url 'muscle_app:mark_edit' %}" method="post" >一時的にコメントアウト7/26 {% endcomment %}
+        {% comment %} <form action="{% url 'muscle_app:mark_edit' article.id %}" method="post" > {% endcomment %}
+        {% comment %} <form action="{% url 'muscle_app:mark_insert' %}" method="post" ><!--成功確認画面に遷移するか確認8/25--> {% endcomment %}
             {%csrf_token%}
             {{update_form.media}}
             {{update_form.as_p}}
-            <button type = "hidden" value="post">更新する</button><!--7/29追加value="post" 8/07submitをhiddenに変更-->
+            {% comment %} {{ update_form.title}}これを使用すると保存されない
+            {{ update_form.content}} {% endcomment %}
+            <button type = "hidden" value="post">更新する</button><br><!--7/29追加value="post" 8/07submitをhiddenに変更-->
+            <button type="submit" onclick=location.href="{% url 'muscle_app:mark_insert'%}">更新２</button><br>
         </form>
         {% comment %} {% csrf_token %}
         {{update_form.media}}
@@ -21,6 +26,6 @@
         {% comment %} <button type="button" onclick=location.href="{% url 'muscle_app:mark_check' id=article%}">更新する</button><br> {% endcomment %}
         <button type="button" onclick=location.href="{% url 'muscle_app:home'%}">TOPへ戻る</button><br>
         <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">記事一覧へ戻る</button><br>
+        
     </body>
 </html>
-        

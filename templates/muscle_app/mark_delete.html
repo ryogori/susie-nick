@@ -12,6 +12,7 @@
         <P>{{ object.name }}を削除してよろしいでしょうか？</p>
         <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id %}">削除する</button><br> {% endcomment %}
         <form method="post">{% csrf_token %}
+            <p>「{{object.title}}」を削除しますか？</p>
             <p>削除しますと復旧ができません。よろしいですか？</p>
             <button type="submit" >削除する</button>
             <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">リストに戻る</button>
