@@ -1,12 +1,24 @@
+from audioop import add
+from email import contentmanager
+from multiprocessing import context
+from operator import is_
+from wsgiref.handlers import format_date_time
 from django import views
 #リダイレクト先
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 
-# from muscle_app.models import Article
 from .forms import ArticleForm
 from .models import Article
 from . import forms
+
+# アカウント操作関連
+from .models import Users_list
+from . forms import Sign_up_Form, LoginForm
+from django.views.generic import CreateView, View
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.views import LogoutView
 
 
 # Create your views here.
@@ -28,7 +40,57 @@ def backView(request):
 def armView(request):
     return render(request, "muscle_app/arm.html")
 
+
 # markdownの画面を呼び出す（新規）
+
+class Sign_up(CreateView):
+    def post(self, request, *args, **kwargs):
+        form = Sign_up_Form(data=request.POST)
+        # form = Sign_up_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            user_id = "@" + form.cleaned_data.get('user_id')
+            username = form.cleaned_data.get('username')
+            email= form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password1')
+            # Users_list.objects.create(user_id=user_id, username=username, email=email, password=password)
+            user = authenticate(username=email, password=password)
+            login(request, user)
+            return redirect('/')
+        return render(request, 'muscle_app/sign_up.html', {'form': form,})
+
+    def get(self, request, *args, **kwargs):
+        form = Sign_up_Form(request.POST)
+        return  render(request, 'muscle_app/sign_up.html', {'form': form,})
+    
+sign_up = Sign_up.as_view()
+
+class Login(View):
+    def post(self, request, *arg, **kwargs):
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            # user = User.objects.get(email=email)
+            user = authenticate(request, username=email, password=password)
+            login(request, user)
+            return redirect('/')
+        return render(request, 'muscle_app/login.html', {'form': form,})
+
+    def get(self, request, *args, **kwargs):
+        form = LoginForm(request.POST)
+        return render(request, 'muscle_app/login.html', {'form': form,})
+
+Login = Login.as_view()
+
+class Logout(LogoutView):
+    template_name = 'logout.html'
+
+def mypageView(request):
+    return render(request, "muscle_app/mypage.html")
+
+
+#markdownの画面を呼び出す（新規）
 def markView(request):
     form = ArticleForm()
     mkdown = {'form':form,}

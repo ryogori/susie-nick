@@ -4,6 +4,10 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from django.contrib.auth import views as auth_views
+from django.contrib.auth import logout
+from .views import Login
+
 
 app_name= 'muscle_app'
 
@@ -33,6 +37,19 @@ urlpatterns = [
     path('mark_delete/<int:id>',views.mark_deleteView,name='mark_delete'),
     #7/20追加　mark_checkはeditの変更内容結果を表示する画面
     path('mark_check/<int:id>',views.checkViews,name="mark_check"),
+
+    # 新規登録
+    path('sign_up', views.Sign_up.as_view(), name="sign_up"),
+    # ログイン
+    path('login', views.Login, name="login"),
+    # ログアウト
+    path('logout', auth_views.LogoutView.as_view(), name='logout'),
+    # マイページ
+    path('mypage', views.mypageView, name="mypage")
+
+    #7/26追加　session付きの変更内容確認画面？
+    #path('user_data_confirm/', views.user_data_confirm, name='user_data_confirm'),
+
 ]
 
 if settings.DEBUG:

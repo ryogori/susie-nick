@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'mdeditor',
 ]
 
+# ログインに使う情報をセット
+AUTH_USER_MODEL = 'muscle_app.Users_list'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -106,6 +109,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+## passwordのハッシュ化関連
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.BCryptPasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -147,4 +159,17 @@ MDEDITOR_CONFIGS = {
     }
 }
 
+# LOGIN_URL = 'muscle_app:login'
+# LOGIN_REDIRECT_URL = 'muscle_app:home'
+# LOGOUT_REDIRECT_URL = 'muscle_app:home'
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # メールアドレス（とパスワードで）認証する
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # メール検証を必須とする
+
+AUTHENTICATION_BACKENDS = [
+    'muscle_app.backends.EmailAuthenticationBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
+]
+
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+LOGOUT_REDIRECT_URL = '/'
