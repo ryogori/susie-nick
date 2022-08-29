@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-=======
 from audioop import add
 from email import contentmanager
 from multiprocessing import context
 from operator import is_
 from wsgiref.handlers import format_date_time
->>>>>>> users
 from django import views
 #リダイレクト先
 from django.urls import reverse_lazy
@@ -15,17 +12,14 @@ from .forms import ArticleForm
 from .models import Article
 from . import forms
 
-<<<<<<< HEAD
-=======
 # アカウント操作関連
 from .models import Users_list
 from . forms import Sign_up_Form, LoginForm
-from django.shortcuts import render, redirect
 from django.views.generic import CreateView, View
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LogoutView
->>>>>>> users
+
 
 # Create your views here.
 def indexView(request):
@@ -46,10 +40,7 @@ def backView(request):
 def armView(request):
     return render(request, "muscle_app/arm.html")
 
-<<<<<<< HEAD
-# markdownの画面を呼び出す（新規）
 
-=======
 class Sign_up(CreateView):
     def post(self, request, *args, **kwargs):
         form = Sign_up_Form(data=request.POST)
@@ -98,13 +89,11 @@ def mypageView(request):
 
 
 #markdownの画面を呼び出す（新規）
->>>>>>> users
 def markView(request):
     form = ArticleForm()
     mkdown = {'form':form,}
     return render(request, "muscle_app/markdown.html",mkdown)
 
-<<<<<<< HEAD
 #記事一覧
 def mark_listViews(request):
     db_views = Article.objects.all()
@@ -119,8 +108,6 @@ def mark_detailViews(request,id):
     db_views = get_object_or_404(Article,id = id)
     return render(request,"muscle_app/mark_detail.html",{'article':db_views})
 
-=======
->>>>>>> users
 #保存する時の処理（保存した結果は表示しない）
 def mark_insertView(request):
     form = forms.ArticleForm(request.POST or None)
@@ -132,11 +119,7 @@ def mark_insertView(request):
         Article.objects.create(title=title, body=body, user_name=user_name, category=category)
         # obj = Article(title=title, body=body)
         # obj.save()
-<<<<<<< HEAD
     return render(request, "muscle_app/mark_insert.html",{'form':form})#form使われてない？
-=======
-    return render(request, "muscle_app/mark_insert.html",{'form':form})
->>>>>>> users
 
 #ID指定の表示
 def mark_viewViews(request):
@@ -217,7 +200,6 @@ def my_article(request):
     user_name = Article.objects.get(pk=3)
     return render(request,"muscle_app/my_article.html",{'content_list':content,'user_name':user_name.user_name})
     
-<<<<<<< HEAD
 #7/26ブログ参考　mark_listの削除処理 
 def mark_deleteView(request, id):
     obj = get_object_or_404(Article, id=id)
@@ -225,5 +207,3 @@ def mark_deleteView(request, id):
     if request.POST:
         obj.delete()
     return render(request, "muscle_app/mark_delete.html", ctx)
-=======
->>>>>>> users
