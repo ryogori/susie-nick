@@ -20,6 +20,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LogoutView
 
+# test
+from django.contrib.auth.forms import UserCreationForm
+
+
 
 # Create your views here.
 def indexView(request):
@@ -39,7 +43,6 @@ def backView(request):
 
 def armView(request):
     return render(request, "muscle_app/arm.html")
-
 
 class Sign_up(CreateView):
     def post(self, request, *args, **kwargs):
@@ -83,6 +86,10 @@ Login = Login.as_view()
 
 class Logout(LogoutView):
     template_name = 'logout.html'
+
+def users_detail(request, user_id):
+    user = get_object_or_404(Users_list, pk = user_id)
+    return render(request, 'muscle_app/users_detail.html', {'user': user})
 
 def mypageView(request):
     return render(request, "muscle_app/mypage.html")

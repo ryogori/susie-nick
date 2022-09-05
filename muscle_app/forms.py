@@ -22,15 +22,31 @@ class Sign_up_Form(UserCreationForm):
        fields = ("user_id", "username", "email", "password1", "password2",)
 
 class LoginForm(AuthenticationForm):
-     def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
        #htmlの表示を変更可能にします
        self.fields['username'].widget.attrs['class'] = 'form-control'
        self.fields['password'].widget.attrs['class'] = 'form-control'
     
-     class Meta:
+    class Meta:
        model = Users_list
        fields = ("email", "password")
+
+# class UserUpdateForm(forms.ModelForm):
+#     # ユーザー情報更新フォーム
+
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         #htmlの表示を変更可能にします
+#         self.fields['user_id'].widget.attrs['class'] = 'form-control'
+#         self.fields['username'].widget.attrs['class'] = 'form-control'
+#         self.fields['email'].widget.attrs['class'] = 'form-control'
+#         self.fields['newpassword1'].widget.attrs['class'] = 'form-control'
+#         self.fields['newpassword2'].widget.attrs['class'] = 'form-control'
+
+#     class Meta:
+#         model = Users_list
+#         firlds = ("user_id", "username", "email", "newpassword1", "newpassword2",)
 
 tagu = (
     ("all","all"),

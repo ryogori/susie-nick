@@ -17,7 +17,8 @@
         {% comment %} <button type="button">編集する</button><br> {% endcomment %}
         <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面</button>
         <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
-    <form>
+    </form>
     {% endfor %}
+        <button onclick=location.href="{% url 'muscle_app:home' %}">戻る</button>
     </body>
 </html>

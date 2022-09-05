@@ -14,6 +14,8 @@
     {% block body_block %}
         <h1>マイページ！！！</h1>
         <button onclick=location.href="{% url 'muscle_app:mark_list' %}">記事一覧</button>
+        <button onclick=location.href="{% url 'muscle_app:users_detail' request.user.id %}">ユーザー情報</button>
+
     {% endblock %}
 </html>
 

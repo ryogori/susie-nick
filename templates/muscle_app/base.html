@@ -6,12 +6,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block extra_head %}
         <!-- この中にCSSなどを指定。 -->
+        {% block extra_head %}
         {% endblock %}
         <title>
-            {% block title_block %}
             <!-- この中は継承先で定義 -->
+            {% block title_block %}
             {% endblock %}
         </title>
     </head>
@@ -32,7 +32,6 @@
                         <div class="login">
                             {% if user.is_authenticated %}
                                 <p>{{ user.get_username }}でログイン中</p>
-                                <a href="{% url 'muscle_app:logout' %}">ログアウトする</a>
                                 <button onclick=location.href="{% url 'muscle_app:mypage' %}">マイページ</button>
                                 <button onclick=location.href="{% url 'muscle_app:logout' %}">ログアウトする</button>
                             {% else %}
@@ -50,7 +49,7 @@
                     <nav>
                         <ul>
                             <li><a href="{% url 'muscle_app:home' %}">ホーム</a></li>
-                            <li><a href="">記事一覧</a></li>
+                            <li><a href="{% url 'muscle_app:mark_list' %}">記事一覧</a></li>
                             <li><a href="{% url 'muscle_app:leg' %}">脚</a></li>
                             <li><a href="{% url 'muscle_app:abs' %}">腹部</a></li>
                             <li><a href="{% url 'muscle_app:chest' %}">胸部</a></li>
