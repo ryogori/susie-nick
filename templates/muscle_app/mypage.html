@@ -4,7 +4,7 @@
     {% load static %}
 
     {% block extra_head %}
-        <link rel=""stylesheet" href="{% static '' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/sideber.css' %}">
     {% endblock %}
     
     {% block title_block %}
@@ -15,7 +15,12 @@
         <h1>マイページ！！！</h1>
         <button onclick=location.href="{% url 'muscle_app:mark_list' %}">記事一覧</button>
         <button onclick=location.href="{% url 'muscle_app:users_detail' request.user.id %}">ユーザー情報</button>
-
+        
+        <div class="sidebar">
+        <a href="{% url 'muscle_app:user_edit' %}">ユーザー情報変更</a></br>
+        <a href="{% url 'muscle_app:pass_edit' %}">パスワード変更</a></br>
+        <a href="{% url 'muscle_app:icon_edit' %}">ユーザーアイコン変更</a></br>
+        </div>
     {% endblock %}
 </html>
 

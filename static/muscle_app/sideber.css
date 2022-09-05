@@ -1,0 +1,6 @@
+.sidebar {
+    width: 96px;
+    background-color: rgb(198, 255, 181);
+    box-sizing: border-box;
+    border: 8px solid rgb(139, 196, 234);
+  }

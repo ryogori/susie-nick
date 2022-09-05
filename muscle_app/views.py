@@ -25,6 +25,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 
+
+
 # Create your views here.
 def indexView(request):
     return render(request, "muscle_app/index.html")
@@ -93,6 +95,14 @@ def users_detail(request, user_id):
 
 def mypageView(request):
     return render(request, "muscle_app/mypage.html")
+
+#サイドバー用仮画面のURL
+def users_editView(request):
+    return render(request, "muscle_app/side_user.html")
+def pass_editView(request):
+    return render(request, "muscle_app/side_pass.html")
+def icon_editView(request):
+    return render(request, "muscle_app/side_icon.html")
 
 
 #markdownの画面を呼び出す（新規）

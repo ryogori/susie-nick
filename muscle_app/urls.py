@@ -46,6 +46,14 @@ urlpatterns = [
     path('mypage', views.mypageView, name="mypage"),
     # ユーザー情報詳細
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
+    
+    #仮のサイドバーurl一覧
+    #ユーザー名変更
+    path('user_edit', views.users_editView, name='user_edit'),
+    #パスワード変更
+    path('pass_edit', views.pass_editView, name='pass_edit'),
+    #アイコン変更
+    path('icon_edit', views.icon_editView, name='icon_edit'),
 
     #7/26追加　session付きの変更内容確認画面？
     #path('user_data_confirm/', views.user_data_confirm, name='user_data_confirm'),

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
+    
+    {% block extra_head %}
+        <link rel="stylesheet" href="{% static 'muscle_app/sideber.css' %}">
+    {% endblock %}
+
+    {% block title_block %}
+        user_edit
+    {% endblock %}
+
+    {% block body_block %}
+        <h1>ユーザー情報変更</h1>
+        <button type="button" onclick=location.href="{% url 'muscle_app:mypage'%}">変更する</button><br>
+    {% endblock %}
+</html>
