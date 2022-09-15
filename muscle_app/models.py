@@ -62,15 +62,7 @@ class Article(models.Model):
     create_data = models.DateTimeField(auto_now_add=True,help_text='作成日')
     update_data = models.DateTimeField(auto_now=True,help_text='更新日')
     category = models.CharField(max_length=7,default='all')#タグを想定、内容は(abs,arm,back,base,chest,allを想定、デフォはall)
+    # snsimage = models.ImageField(upload_to="")
 
     def __str__(self):
         return self.title
-
-#ブログでモデルのクラス比較用 7/29以降削除OK
-# class TimeStampModel(models.Model):
-
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-# class Meta:#  abstract = Trueにしておくと、マイグレーションしてもテーブルが作られることはない。
-#     abstract = True

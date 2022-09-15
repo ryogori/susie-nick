@@ -8,18 +8,21 @@ from django import views
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import ArticleForm
+from .forms import ArticleForm,UserCreateForm
 from .models import Article
 from . import forms
 
 # アカウント操作関連
 from .models import Users_list
 from . forms import Sign_up_Form, LoginForm
+from django.views import generic
 from django.views.generic import CreateView, View
-from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+# from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.views import LogoutView
 
+from django.views.decorators.http import require_POST
+User = get_user_model()
 
 # Create your views here.
 def indexView(request):
@@ -39,9 +42,6 @@ def backView(request):
 
 def armView(request):
     return render(request, "muscle_app/arm.html")
-
-
-# markdownの画面を呼び出す（新規）
 
 class Sign_up(CreateView):
     def post(self, request, *args, **kwargs):
@@ -121,11 +121,11 @@ def mark_insertView(request):
         Article.objects.create(title=title, body=body, user_name=user_name, category=category)
         # obj = Article(title=title, body=body)
         # obj.save()
-    return render(request, "muscle_app/mark_insert.html",{'form':form})#form使われてない？
+    return render(request, "muscle_app/mark_insert.html",{'form':form})
 
 #ID指定の表示
-def mark_viewViews(request):
-    db_views = get_object_or_404(Article,id = 13)
+def mark_viewViews(request,id):
+    db_views = get_object_or_404(Article,id = id)
     content = {
         'title' : db_views.title,
         'body' : db_views.body,
@@ -133,6 +133,7 @@ def mark_viewViews(request):
         'category':db_views.category,
     }
     return render(request,"muscle_app/mark_view.html",{'db_view':content,'article':db_views})
+
 
 #編集画面への処理
 # def mark_editViews(request,id):
@@ -147,9 +148,9 @@ def mark_viewViews(request):
 #=============================================比較↓ こっちがうまく起動するのでこの処理を本番で使用する
 # 【アップデートビュー】nippoUpdateFormView
 def mark_editViews(request, id):
-    #modelのデータを持ってくるs
+    #modelのデータを持ってくる
     article = get_object_or_404(Article,id = id)
-    update_form = {"title": article.title, "body":article.body}#categoryの追加
+    update_form = {"title": article.title, "content":article.body,"category":article.category}
     form = forms.Update_ArticleForm(request.POST or update_form)
     #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
     ctx = {"update_form": form}
@@ -158,45 +159,52 @@ def mark_editViews(request, id):
         #.cleaned_dataは.is_valid()がtrueだった場合に,正しかったデータが入る
         title = form.cleaned_data["title"]
         content = form.cleaned_data["content"]
-        # obj = Article(title=title, body=content)
+        category = form.cleaned_data["category"]
+        # obj = Article(title=title, content=content, category=category)
         # obj.save()
         article.title = title 
         article.body = content
+        article.category = category
         article.save()
         #db_views = get_object_or_404(Article,id = id)...{'article':db_views})
     return render(request, "muscle_app/mark_edit.html", ctx)
-# #=============================================↑
-
-# def mark_checkView(request):7/20まだ作成していない　確認画面予定
-#         if request.method == 'POST':
-
-#         form = forms.Update_ArticleForm(request.POST or None,)
-#         if form.is_valid():
-#             title = form.cleaned_data["title"]
-#             body = form.cleaned_data["content"]
-#             category= form.cleaned_data["category"]
-#             # obj = Article(title=title,body=body,category=category)
-#             # obj.save()
-#             obj = Article.objects.get(id=1)#7/19ここがうまく動いていないと見ている
-#             # obj = Article(title=title,body=body,category=category)
-#             #なぜかstr()を追加すると成功した
-#             obj.title = str(Article(title=title))
-#             obj.body = str(Article(body=body))
-#             obj.category = str(Article(category=category))
-#             obj.save()#既にプライマリーキーがあるものは更新する特性があるのに追加ということはしっかりとプリマリが指定されてない？
 
 def checkViews(request,id):
-    # db_views = get_object_or_404(Article,id = id)
-    # update_form = {"title": db_views.title, "body":db_views.body}
-    # form = forms.Update_ArticleForm(request.POST or update_form)
-    # #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
-    # ctx = {"update_form": form}
-    # ctx["object"] = db_views
-    # return render(request,"muscle_app/mark_check.html",{'article':db_views},ctx)
+    """入力データの確認画面。"""
+    # user_data_inputで入力したユーザー情報をセッションから取り出す。
+    session_form_data = request.session.get('form_data')
+    if session_form_data is None:
+        # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト。
+        return redirect('muscle_app:mark_edit')
 
-    #8/29一旦詳細画面の処理を試してみる
-    db_views = get_object_or_404(Article,id = id)
-    return render(request,"muscle_app/mark_detail.html",{'article':db_views})
+    context = {
+        'form': forms.Update_ArticleForm(session_form_data)
+    }
+    return render(request, 'muscle_app/mark_check.html', context)
+
+#======================================sessionユーザ変更保存関数↓
+# @require_POST
+def mark_saveView(request):
+    """記事変更を保存。"""
+    # user_data_inputで入力したユーザー情報をセッションから取り出す。
+    # ユーザー作成後は、セッションを空にしたいのでpopメソッドで取り出す。
+    session_form_data = request.session.pop('form_data', None)
+    if session_form_data is None:
+        # ここにはPOSTメソッドで、かつセッションに入力データがなかった場合だけ。
+        # セッション切れや、不正なアクセス対策。
+        return redirect('muscle_app:mark_edit')
+
+    form = forms.Update_ArticleForm(session_form_data)
+    if form.is_valid():
+        form.save()
+        return redirect('muscle_app:mark_list')
+
+    # is_validに通過したデータだけセッションに格納しているので、ここ以降の処理は基本的には通らない。
+    context = {
+        'form': form
+    }
+    return render(request, 'muscle_app/mark_edit', context)
+#==================================================↑
 
 
 #ログインしたユーザーの記事だけ表示処理
@@ -207,13 +215,16 @@ def my_article(request):
     }
     #下の処理はモデルからのDBの一行目のデータ取得。pk1のユーザー名を取得する
     #pkの数値は現在一番小さい値 1,2は削除した為参照できない
-    user_name = Article.objects.get(pk=3)
+    # user_name = Article.objects.get(pk=3)
+    form = LoginForm(data=request.POST)
+    user_name = form.cleaned_data.get('username')#ユーザ名で判別　現在固定
     return render(request,"muscle_app/my_article.html",{'content_list':content,'user_name':user_name.user_name})
     
-#7/26ブログ参考　mark_listの削除処理 
+#記事の削除処理 
 def mark_deleteView(request, id):
     obj = get_object_or_404(Article, id=id)
     ctx = {"object": obj}
     if request.POST:
         obj.delete()
+        return redirect("muscle_app:mark_insert")
     return render(request, "muscle_app/mark_delete.html", ctx)
