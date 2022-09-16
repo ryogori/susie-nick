@@ -159,7 +159,7 @@ MDEDITOR_CONFIGS = {
     }
 }
 
-# LOGIN_URL = 'muscle_app:login'
+# LOGIN_URL = 'muscle_app:login'#ログイン機能の追加しているが一旦コメントアウト
 # LOGIN_REDIRECT_URL = 'muscle_app:home'
 # LOGOUT_REDIRECT_URL = 'muscle_app:home'
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # メールアドレス（とパスワードで）認証する

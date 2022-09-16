@@ -20,7 +20,7 @@ from django.views.generic import CreateView, View
 # from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.views import LogoutView
-
+# from django.contrib.auth.decorators import login_required#ログイン機能の追加しているが一旦コメントアウト
 from django.views.decorators.http import require_POST
 User = get_user_model()
 
@@ -105,6 +105,7 @@ def mark_listViews(request):
     return render(request,"muscle_app/mark_list.html",{'content_list':content})
 
 #記事の詳細
+# @login_required#ログイン機能の追加しているが一旦コメントアウト
 def mark_detailViews(request,id):
     # print(id)
     db_views = get_object_or_404(Article,id = id)
@@ -214,11 +215,12 @@ def my_article(request):
         'db_list' : db_views
     }
     #下の処理はモデルからのDBの一行目のデータ取得。pk1のユーザー名を取得する
-    #pkの数値は現在一番小さい値 1,2は削除した為参照できない
     # user_name = Article.objects.get(pk=3)
-    form = LoginForm(data=request.POST)
-    user_name = form.cleaned_data.get('username')#ユーザ名で判別　現在固定
-    return render(request,"muscle_app/my_article.html",{'content_list':content,'user_name':user_name.user_name})
+    form = LoginForm(data=request.POST or None)
+    if form.is_valid():
+        user_name = form.cleaned_data['username']
+        # user_name = form.cleaned_data.get('email')#ユーザ名で判別　現在固定
+        return render(request,"muscle_app/my_article.html",{'content_list':content,'user_name':user_name})
     
 #記事の削除処理 
 def mark_deleteView(request, id):

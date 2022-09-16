@@ -16,7 +16,7 @@ class Sign_up_Form(UserCreationForm):#より短縮できたためコメントア
         # self.fields['email'].widget.attrs['class'] = 'form-control'
         # self.fields['password1'].widget.attrs['class'] = 'form-control'
         # self.fields['password2'].widget.attrs['class'] = 'form-control'
-        #説明:self .Metaに記載されているfields(...) .辞書型のキーとバリュー取得するvalues()をfieldに代入
+        # 説明:self .Metaに記載されているfields(...) .辞書型のキーとバリュー取得するvalues()をfieldに代入
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
        
@@ -25,15 +25,15 @@ class Sign_up_Form(UserCreationForm):#より短縮できたためコメントア
        fields = ("user_id", "username", "email", "password1", "password2",)
 
 class LoginForm(AuthenticationForm):
-     def __init__(self, *args, **kwargs):
-       super().__init__(*args, **kwargs)
-       #htmlの表示を変更可能にします
-       self.fields['username'].widget.attrs['class'] = 'form-control'
-       self.fields['password'].widget.attrs['class'] = 'form-control'
-    
-     class Meta:
-       model = Users_list
-       fields = ("email", "password")
+    username = forms.CharField()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        #htmlの表示を変更可能にします
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = Users_list
+        fields = ("email", "username","password")
 
 
 
