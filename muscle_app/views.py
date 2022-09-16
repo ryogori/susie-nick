@@ -1,3 +1,4 @@
+from unicodedata import category
 from django import views
 #リダイレクト先
 from django.urls import reverse_lazy
@@ -26,7 +27,8 @@ def backView(request):
     return render(request, "muscle_app/back.html")
 
 def armView(request):
-    return render(request, "muscle_app/arm.html")
+    arm = Article.objects.filter(category = 'arm')
+    return render(request, "muscle_app/arm.html",{'category_list':arm})
 
 # markdownの画面を呼び出す（新規）
 def markView(request):
@@ -59,7 +61,7 @@ def mark_insertView(request):
         Article.objects.create(title=title, body=body, user_name=user_name, category=category)
         # obj = Article(title=title, body=body)
         # obj.save()
-    return render(request, "muscle_app/mark_insert.html",{'form':form})#form使われてない？
+    return render(request, "muscle_app/mark_insert.html",{'form':form})
 
 #ID指定の表示
 def mark_viewViews(request):
@@ -87,21 +89,27 @@ def mark_viewViews(request):
 def mark_editViews(request, id):
     #modelのデータを持ってくるs
     article = get_object_or_404(Article,id = id)
-    update_form = {"title": article.title, "body":article.body}#categoryの追加
+    update_form = {"title": article.title, "content":article.body,}#categoryの追加
+    # print(update_form)　この時点では中身あるん
     form = forms.Update_ArticleForm(request.POST or update_form)
     #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
     ctx = {"update_form": form}
     ctx["object"] = article
     if form.is_valid():
         #.cleaned_dataは.is_valid()がtrueだった場合に,正しかったデータが入る
+        # user_name = form.cleaned_data["user_name"]
         title = form.cleaned_data["title"]
         content = form.cleaned_data["content"]
+        # category = form.changed_data["category"]
         # obj = Article(title=title, body=content)
         # obj.save()
+        # article.user_name = user_name
         article.title = title 
         article.body = content
+        # article.category = category
         article.save()
-        #db_views = get_object_or_404(Article,id = id)...{'article':db_views})
+        #db_views = get_object_or_404(Article,id = id)...{'article':db_views}) 
+       
     return render(request, "muscle_app/mark_edit.html", ctx)
 # #=============================================↑
 
