@@ -4,6 +4,10 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from django.contrib.auth import views as auth_views
+from django.contrib.auth import logout
+from .views import Login
+
 
 app_name= 'muscle_app'
 
@@ -19,7 +23,7 @@ urlpatterns = [
     #mark_insertは登録したことを通知
     path('mark_insert',views.mark_insertView,name="mark_insert"),
     #mark_viewは登録したマークダウンを見ることができる
-    path('mark_view',views.mark_viewViews,name="mark_view"),
+    path('mark_view/<int:id>',views.mark_viewViews,name="mark_view"),
     #mark_editはマークダウンでの編集画面の呼び出し
     path('mark_edit/<int:id>',views.mark_editViews,name="mark_edit"),
     # path('mark_edit',views.mark_editViews,name="mark_edit"),
@@ -33,6 +37,17 @@ urlpatterns = [
     path('mark_delete/<int:id>',views.mark_deleteView,name='mark_delete'),
     #7/20追加　mark_checkはeditの変更内容結果を表示する画面
     path('mark_check/<int:id>',views.checkViews,name="mark_check"),
+    #8/30追加 mark_saveは変更を保存を行う画面
+    path('mark_save/<int:id>',views.mark_saveView,name="mark_save"),
+    # 新規登録
+    path('sign_up', views.Sign_up.as_view(), name="sign_up"),
+    # ログイン
+    path('login', views.Login, name="login"),
+    # ログアウト
+    path('logout', auth_views.LogoutView.as_view(), name='logout'),
+    # マイページ
+    path('mypage', views.mypageView, name="mypage"),
+
 ]
 
 if settings.DEBUG:

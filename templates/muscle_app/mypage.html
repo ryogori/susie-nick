@@ -8,11 +8,12 @@
     {% endblock %}
     
     {% block title_block %}
-        leg
+        mypage
     {% endblock %}
 
     {% block body_block %}
-        <h1>脚</h1>
+        <h1>マイページ！！！</h1>
+        <button onclick=location.href="{% url 'muscle_app:mark_list' %}">記事一覧</button>
     {% endblock %}
 </html>
 

@@ -38,3 +38,21 @@
     </form>
 </body>
 </html>
+
+<!--session用のHTML-->
+{% comment %} {% extends "register/base.html" %}
+{% block content %}
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+        {{ field.value }}
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'muscle_app:mark_edit' %}" class="btn btn-primary btn-lg">戻る</a>
+    <hr>
+    <form action="{% url ':user_data_create' %}" method="POST">
+        <button type="submit" class="btn btn-primary btn-lg">送信</button>
+        {% csrf_token %}
+    </form>
+{% endblock %} {% endcomment %}
