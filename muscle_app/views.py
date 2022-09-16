@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-from unicodedata import category
-=======
 from audioop import add
 from email import contentmanager
 from multiprocessing import context
 from operator import is_
+from turtle import back
 from wsgiref.handlers import format_date_time
->>>>>>> a7a56cdcdde6ec1e54647908ea3fa9464bb1a8dd
 from django import views
 #リダイレクト先
 from django.urls import reverse_lazy
@@ -33,16 +30,20 @@ def indexView(request):
     return render(request, "muscle_app/index.html")
 
 def legView(request):
-    return render(request, "muscle_app/leg.html")
+    leg = Article.objects.filter(category = 'leg')
+    return render(request, "muscle_app/leg.html",{'category_list':leg})
 
 def absView(request):
-    return render(request, "muscle_app/abs.html")
+    abs = Article.objects.filter(category = 'abs')
+    return render(request, "muscle_app/abs.html",{'category_list':abs})
 
 def chestView(request):
-    return render(request, "muscle_app/chest.html")
+    chest = Article.objects.filter(category = 'chest')
+    return render(request, "muscle_app/chest.html",{'category_list':chest})
 
 def backView(request):
-    return render(request, "muscle_app/back.html")
+    back= Article.objects.filter(category = 'back')
+    return render(request, "muscle_app/back.html",{'category_list':back})
 
 def armView(request):
     arm = Article.objects.filter(category = 'arm')
@@ -155,12 +156,7 @@ def mark_viewViews(request,id):
 def mark_editViews(request, id):
     #modelのデータを持ってくる
     article = get_object_or_404(Article,id = id)
-<<<<<<< HEAD
-    update_form = {"title": article.title, "content":article.body,}#categoryの追加
-    # print(update_form)　この時点では中身あるん
-=======
     update_form = {"title": article.title, "content":article.body,"category":article.category}
->>>>>>> a7a56cdcdde6ec1e54647908ea3fa9464bb1a8dd
     form = forms.Update_ArticleForm(request.POST or update_form)
     #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
     ctx = {"update_form": form}
@@ -170,22 +166,13 @@ def mark_editViews(request, id):
         # user_name = form.cleaned_data["user_name"]
         title = form.cleaned_data["title"]
         content = form.cleaned_data["content"]
-<<<<<<< HEAD
-        # category = form.changed_data["category"]
-        # obj = Article(title=title, body=content)
-=======
         category = form.cleaned_data["category"]
         # obj = Article(title=title, content=content, category=category)
->>>>>>> a7a56cdcdde6ec1e54647908ea3fa9464bb1a8dd
         # obj.save()
         # article.user_name = user_name
         article.title = title 
         article.body = content
-<<<<<<< HEAD
-        # article.category = category
-=======
         article.category = category
->>>>>>> a7a56cdcdde6ec1e54647908ea3fa9464bb1a8dd
         article.save()
         #db_views = get_object_or_404(Article,id = id)...{'article':db_views}) 
        
