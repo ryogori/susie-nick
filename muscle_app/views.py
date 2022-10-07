@@ -15,13 +15,13 @@ from . import forms
 
 # アカウント操作関連
 from .models import Users_list
-from . forms import Sign_up_Form, LoginForm
+from . forms import Sign_up_Form, LoginForm, UserChangeForm
 from django.views import generic
 from django.views.generic import CreateView, View
 # from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.views import LogoutView
-# from django.contrib.auth.decorators import login_required#ログイン機能の追加しているが一旦コメントアウト
+
 from django.views.decorators.http import require_POST
 User = get_user_model()
 
@@ -46,6 +46,7 @@ def backView(request):
     return render(request, "muscle_app/back.html",{'category_list':back})
 
 def armView(request):
+    # return render(request, "muscle_app/arm.html")
     arm = Article.objects.filter(category = 'arm')
     return render(request, "muscle_app/arm.html",{'category_list':arm})
 
@@ -94,6 +95,34 @@ class Logout(LogoutView):
 
 def mypageView(request):
     return render(request, "muscle_app/mypage.html")
+
+def users_detail(request, user_id):
+    user = get_object_or_404(Users_list, pk = user_id)
+    return render(request, 'muscle_app/users_detail.html', {'user': user})
+
+# 実験
+class UserChangeView(LoginRequiredMixin, FormView,):
+    # user = self.request.user.user_id
+    template_name = 'muscle_app/accounts.html'
+    form_class = UserChangeForm
+    success_url = reverse_lazy('muscle_app:users_detail')
+    
+    def form_valid(self, form):
+        #formのupdateメソッドにログインユーザーを渡して更新
+        form.update(user=self.request.user)
+        return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        # 更新前のユーザー情報をkwargsとして渡す
+        kwargs.update({
+            'user_id' : self.request.user.user_id,
+            'username' : self.request.user.username,
+        })
+        return kwargs
+
+# class accounts
+#     def post(self, request, *arg, **kwargs):
 
 
 #markdownの画面を呼び出す（新規）

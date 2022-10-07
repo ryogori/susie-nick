@@ -8,7 +8,6 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth import logout
 from .views import Login
 
-
 app_name= 'muscle_app'
 
 urlpatterns = [
@@ -47,6 +46,10 @@ urlpatterns = [
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
     # マイページ
     path('mypage', views.mypageView, name="mypage"),
+    # ユーザー情報詳細
+    path('users/<int:user_id>/', views.users_detail, name='users_detail'),
+    # ユーザー情報の変更
+    path('users/<int:user_id>/accounts', views.UserChangeView.as_view(), name='accounts'),
 
 ]
 

@@ -1,0 +1,17 @@
+
+<p>username:</p>
+<p>{{ user.username }}</p>
+<br>
+<p>user_id:</p>
+<p>{{ user.user_id }}</p>
+<br>
+<p>email:</p>
+<p>{{ user.email }}</p>
+<br>
+<p>password:</p>
+<h1>ないしょ！！！！！！！</h1>
+<br>
+<button onclick=location.href="{% url 'muscle_app:accounts' request.user.id %}">ユーザー情報変更</button>
+accounts
+<button onclick=location.href="">パスワードの変更</button>
+password_change
