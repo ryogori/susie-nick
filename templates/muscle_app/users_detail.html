@@ -11,4 +11,7 @@
 <p>password:</p>
 <h1>ないしょ！！！！！！！</h1>
 <br>
-<button onclick=location.href="{% url 'muscle_app:mypage' %}">ユーザー情報変更</button>
+<button onclick=location.href="{% url 'muscle_app:accounts' request.user.id %}">ユーザー情報変更</button>
+accounts
+<button onclick=location.href="">パスワードの変更</button>
+password_change

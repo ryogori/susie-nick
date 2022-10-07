@@ -6,8 +6,14 @@ from mdeditor.fields import MDTextFormField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 
+from django.forms import ModelForm
+
 
 class Sign_up_Form(UserCreationForm):
+    class Meta:
+       model = Users_list
+       fields = ("user_id", "username", "email", "password1", "password2",)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         #htmlの表示を変更可能にします
@@ -17,20 +23,35 @@ class Sign_up_Form(UserCreationForm):
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
 
+class LoginForm(AuthenticationForm):
     class Meta:
        model = Users_list
-       fields = ("user_id", "username", "email", "password1", "password2",)
+       fields = ("email", "password")
 
-class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
        #htmlの表示を変更可能にします
        self.fields['username'].widget.attrs['class'] = 'form-control'
        self.fields['password'].widget.attrs['class'] = 'form-control'
     
+class UserChangeForm(ModelForm):
     class Meta:
-       model = Users_list
-       fields = ("email", "password")
+        model = Users_list
+        fields = ["user_id", "username",]
+
+    def __init__(self, user_id=None, username=None, *args, **kwargs):
+        kwargs.setdefault('label_suffix', '')
+        super().__init__(*args, **kwargs)
+        # ユーザーの更新前情報をフォームに挿入
+        if user_id:
+            self.fields['user_id'].widget.attrs['value'] = user_id
+        if username:
+            self.fields['username'].widget.attrs['value'] = username
+
+    def update(self, user):
+        user.user_id = self.cleaned_data['user_id']
+        user.username = self.cleaned_data['username']
+        user.save()
 
 # class UserUpdateForm(forms.ModelForm):
 #     # ユーザー情報更新フォーム

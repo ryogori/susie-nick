@@ -46,6 +46,8 @@ urlpatterns = [
     path('mypage', views.mypageView, name="mypage"),
     # ユーザー情報詳細
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
+    # ユーザー情報の変更
+    path('users/<int:user_id>/accounts', views.UserChangeView.as_view(), name='accounts'),
 
     #7/26追加　session付きの変更内容確認画面？
     #path('user_data_confirm/', views.user_data_confirm, name='user_data_confirm'),
