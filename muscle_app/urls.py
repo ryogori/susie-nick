@@ -22,7 +22,7 @@ urlpatterns = [
     #mark_insertは登録したことを通知
     path('mark_insert',views.mark_insertView,name="mark_insert"),
     #mark_viewは登録したマークダウンを見ることができる
-    path('mark_view',views.mark_viewViews,name="mark_view"),
+    path('mark_view/<int:id>',views.mark_viewViews,name="mark_view"),
     #mark_editはマークダウンでの編集画面の呼び出し
     path('mark_edit/<int:id>',views.mark_editViews,name="mark_edit"),
     # path('mark_edit',views.mark_editViews,name="mark_edit"),
@@ -36,6 +36,8 @@ urlpatterns = [
     path('mark_delete/<int:id>',views.mark_deleteView,name='mark_delete'),
     #7/20追加　mark_checkはeditの変更内容結果を表示する画面
     path('mark_check/<int:id>',views.checkViews,name="mark_check"),
+    #8/30追加 mark_saveは変更を保存を行う画面
+    path('mark_save/<int:id>',views.mark_saveView,name="mark_save"),
     # 新規登録
     path('sign_up', views.Sign_up.as_view(), name="sign_up"),
     # ログイン
@@ -49,8 +51,6 @@ urlpatterns = [
     # ユーザー情報の変更
     path('users/<int:user_id>/accounts', views.UserChangeView.as_view(), name='accounts'),
 
-    #7/26追加　session付きの変更内容確認画面？
-    #path('user_data_confirm/', views.user_data_confirm, name='user_data_confirm'),
 ]
 
 if settings.DEBUG:

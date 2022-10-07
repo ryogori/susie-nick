@@ -1,5 +1,3 @@
-{% load static %}
-{% comment %} {% load "markdown_extras.py" %} {% endcomment %}
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -7,20 +5,17 @@
         <title>記事編集画面</title>
     </head>
     <body>
-        <form method="post">
-        {% comment %} <form action="{% url 'muscle_app:mark_edit' %}" method="post" >一時的にコメントアウト7/26 {% endcomment %}
+        <form action="" method="POST">
             {%csrf_token%}
             {{update_form.media}}
             {{update_form.as_p}}
-            <button type = "hidden" value="post">更新する</button><!--7/29追加value="post" 8/07submitをhiddenに変更-->
+            {% csrf_token %}
+            {% comment %} <button type="submit" class="btn btn-primary btn-lg">送信</button> {% endcomment %}
+            <!--ポップアップ表示をして見栄えを良くするために下の処理を行う-->
+            <button class="btn" type="submit" onclick='return confirm("この内容で保存しますか？");'>保存</button>
         </form>
-        {% comment %} {% csrf_token %}
-        {{update_form.media}}
-        {{update_form.as_p}} {% endcomment %}
         <input type="hidden" value="{{article}}" name='id'> 
-        {% comment %} <button type="button" onclick=location.href="{% url 'muscle_app:mark_check' id=article%}">更新する</button><br> {% endcomment %}
         <button type="button" onclick=location.href="{% url 'muscle_app:home'%}">TOPへ戻る</button><br>
         <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">記事一覧へ戻る</button><br>
     </body>
 </html>
-        
