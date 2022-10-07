@@ -2,6 +2,7 @@ from audioop import add
 from email import contentmanager
 from multiprocessing import context
 from operator import is_
+from turtle import back
 from wsgiref.handlers import format_date_time
 from django import views
 #リダイレクト先
@@ -29,19 +30,24 @@ def indexView(request):
     return render(request, "muscle_app/index.html")
 
 def legView(request):
-    return render(request, "muscle_app/leg.html")
+    leg = Article.objects.filter(category = 'leg')
+    return render(request, "muscle_app/leg.html",{'category_list':leg})
 
 def absView(request):
-    return render(request, "muscle_app/abs.html")
+    abs = Article.objects.filter(category = 'abs')
+    return render(request, "muscle_app/abs.html",{'category_list':abs})
 
 def chestView(request):
-    return render(request, "muscle_app/chest.html")
+    chest = Article.objects.filter(category = 'chest')
+    return render(request, "muscle_app/chest.html",{'category_list':chest})
 
 def backView(request):
-    return render(request, "muscle_app/back.html")
+    back= Article.objects.filter(category = 'back')
+    return render(request, "muscle_app/back.html",{'category_list':back})
 
 def armView(request):
-    return render(request, "muscle_app/arm.html")
+    arm = Article.objects.filter(category = 'arm')
+    return render(request, "muscle_app/arm.html",{'category_list':arm})
 
 class Sign_up(CreateView):
     def post(self, request, *args, **kwargs):
@@ -158,16 +164,19 @@ def mark_editViews(request, id):
     ctx["object"] = article
     if form.is_valid():
         #.cleaned_dataは.is_valid()がtrueだった場合に,正しかったデータが入る
+        # user_name = form.cleaned_data["user_name"]
         title = form.cleaned_data["title"]
         content = form.cleaned_data["content"]
         category = form.cleaned_data["category"]
         # obj = Article(title=title, content=content, category=category)
         # obj.save()
+        # article.user_name = user_name
         article.title = title 
         article.body = content
         article.category = category
         article.save()
-        #db_views = get_object_or_404(Article,id = id)...{'article':db_views})
+        #db_views = get_object_or_404(Article,id = id)...{'article':db_views}) 
+       
     return render(request, "muscle_app/mark_edit.html", ctx)
 
 def checkViews(request,id):
@@ -215,12 +224,15 @@ def my_article(request):
         'db_list' : db_views
     }
     #下の処理はモデルからのDBの一行目のデータ取得。pk1のユーザー名を取得する
-    # user_name = Article.objects.get(pk=3)
+    
+    # user_name = Article.objects.get("username")
     form = LoginForm(data=request.POST or None)
     if form.is_valid():
         user_name = form.cleaned_data['username']
         # user_name = form.cleaned_data.get('email')#ユーザ名で判別　現在固定
         return render(request,"muscle_app/my_article.html",{'content_list':content,'user_name':user_name})
+
+    
     
 #記事の削除処理 
 def mark_deleteView(request, id):
