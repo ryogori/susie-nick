@@ -1,27 +1,29 @@
-{%load static%}
+
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
-    </head>
-    <body>
-        {% comment %} 現在markで作成したユーザー名を表示している {% endcomment %}
-        {% comment %} 自分の作業作成された記事の表示かつ自分のもの限定 {% endcomment %}
-     <h1>{{user_name}}の記事一覧</h1>   
-    {%csrf_token%}
-    {% for article in content_list.db_list%}
-        {% comment %} 判定式は記事の最初の行のユーザー名か判別している {% endcomment %}
-        {%if article.user_name == user_name%}
-    <form  method="get">
+<html lang="ja">
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
+    
+    {% block extra_head %}
+        <link rel=""stylesheet" href="{% static '' %}">
+    {% endblock %}
+
+    {% block title_block %}
+        my_article
+    {% endblock %}
+
+    {% block body_block %}
+        <h1>マイページ記事一覧</h1>
+        {% for article in my_article%}
+        <form  method="get">
             {{article.title}} 
             {{article.user_name}}
             {{article.category}}
             <input type="hidden" value="{{article.id}}"> 
             {% comment %} <button type="button">編集する</button><br> {% endcomment %}
-            <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面へ</button><br>
-            {% comment %} <button type="button" onclick=location.href="{% url '' id=article.id %}">削除する</button><br> {% endcomment %}
-        {% endif %}
+            <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面</button>
+            <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
         <form>
-    {% endfor %}
-    </body>
+        {% endfor %}
+    {% endblock %}
 </html>

@@ -21,6 +21,8 @@ from django.views.generic import CreateView, View
 # from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.views import LogoutView
+from django.views.generic import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views.decorators.http import require_POST
 User = get_user_model()
@@ -121,9 +123,6 @@ class UserChangeView(LoginRequiredMixin, FormView,):
         })
         return kwargs
 
-# class accounts
-#     def post(self, request, *arg, **kwargs):
-
 
 #markdownの画面を呼び出す（新規）
 def markView(request):
@@ -170,19 +169,6 @@ def mark_viewViews(request,id):
     }
     return render(request,"muscle_app/mark_view.html",{'db_view':content,'article':db_views})
 
-
-#編集画面への処理
-# def mark_editViews(request,id):
-#     article = get_object_or_404(Article,id = id)
-#     update_form = forms.ArticleForm(#forms.Update_ArticleFormをforms.ArticleFormに変更7/26
-#         initial = {
-#            'title':article.title,
-#            'content':article.body,
-#         }
-#     )
-#     return render(request,"muscle_app/mark_edit.html",{'update_form':update_form,'article':article.id,})
-#=============================================比較↓ こっちがうまく起動するのでこの処理を本番で使用する
-# 【アップデートビュー】nippoUpdateFormView
 def mark_editViews(request, id):
     #modelのデータを持ってくる
     article = get_object_or_404(Article,id = id)
@@ -245,23 +231,12 @@ def mark_saveView(request):
     return render(request, 'muscle_app/mark_edit', context)
 #==================================================↑
 
-
 #ログインしたユーザーの記事だけ表示処理
 def my_article(request):
-    db_views = Article.objects.all()
-    content = {
-        'db_list' : db_views
-    }
-    #下の処理はモデルからのDBの一行目のデータ取得。pk1のユーザー名を取得する
-    
-    # user_name = Article.objects.get("username")
-    form = LoginForm(data=request.POST or None)
-    if form.is_valid():
-        user_name = form.cleaned_data['username']
-        # user_name = form.cleaned_data.get('email')#ユーザ名で判別　現在固定
-        return render(request,"muscle_app/my_article.html",{'content_list':content,'user_name':user_name})
+    #request.user.usernameで現在ログインしているユーザー名の取得を行う
+    my_name = Article.objects.filter(user_name = request.user.username)
+    return render(request, "muscle_app/my_article.html",{'my_article':my_name})
 
-    
     
 #記事の削除処理 
 def mark_deleteView(request, id):
