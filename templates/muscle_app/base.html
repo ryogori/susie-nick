@@ -10,6 +10,7 @@
         {% block extra_head %}
         {% endblock %}
         <title>
+            <!-- この中は継承先で定義 -->
             {% block title_block %}
             {% endblock %}
         </title>
@@ -17,47 +18,53 @@
     <body>
         <div class="wrapper">
             <header>
+        
                 <div class="top_wrapper">
                     <div class="top_left_wrapper">
                         <div class="logo">
-                            <h1>スージー＆ニック</h1>
+                            <!-- <h1>スージー＆ニック</h1> -->
+                            <a class="logo" href="{% url 'muscle_app:index' %}"><img src="static/img/susie_nick.png" alt="ロゴ画像"></a>
                         </div>
                     </div>
-                    <div class="top_right_wrapper">
+                    <div class="serch">
                         <form action="" method="get">
                             <input type="search" name="search" placeholder="検索キーワードを入力してください">
                             <input type="submit" name="submit" value="検索">
                         </form>
-                        <div class="login">
-                            {% if user.is_authenticated %}
-                                <p>{{ user.get_username }}でログイン中</p>
-                                <button onclick=location.href="{% url 'muscle_app:mypage' %}">マイページ</button>
-                                <button onclick=location.href="{% url 'muscle_app:logout' %}">ログアウトする</button>
-                            {% else %}
-                            <p>ログインしていません</p>
-                            <button onclick=location.href="{% url 'muscle_app:login' %}">ログイン</button>
-                            <button onclick=location.href="{% url 'muscle_app:sign_up' %}">新規登録</button>
-                            {% endif %}
-                            <!-- {}の最初と最後に%を付けると有効になる。 -->
-                            <!-- <button onclick="">ログイン</button> -->
-                            <!-- <button onclick="">ログアウト</button> -->
-                        </div>
+                    </div>
+
+                    <div class="login">
+                        {% if user.is_authenticated %}
+                            <p>{{ user.get_username }}でログイン中</p>
+                            <button onclick=location.href="{% url 'muscle_app:mypage' %}">マイページ</button>
+                            <button onclick=location.href="{% url 'muscle_app:logout' %}">ログアウトする</button>
+                        {% else %}
+                        <p>ログインしていません</p>
+                        <button onclick=location.href="{% url 'muscle_app:login' %}">ログイン</button>
+                        <button onclick=location.href="{% url 'muscle_app:sign_up' %}">新規登録</button>
+                        {% endif %}
+                        <!-- {}の最初と最後に%を付けると有効になる。 -->
+                        <!-- <button onclick="">ログイン</button> -->
+                        <!-- <button onclick="">ログアウト</button> -->
                     </div>
                 </div>
-                <div class="menu_bar">
-                    <nav>
-                        <ul>
-                            <li><a href="{% url 'muscle_app:home' %}">ホーム</a></li>
-                            <li><a href="{% url 'muscle_app:mark_list' %}">記事一覧</a></li>
-                            <li><a href="{% url 'muscle_app:leg' %}">脚</a></li>
-                            <li><a href="{% url 'muscle_app:abs' %}">腹部</a></li>
-                            <li><a href="{% url 'muscle_app:chest' %}">胸部</a></li>
-                            <li><a href="{% url 'muscle_app:back' %}">背中</a></li>
-                            <li><a href="{% url 'muscle_app:arm' %}">腕</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
+        
+                <div id="globalnavi">
+                  <ul class="dropmenu">
+                    <li><a href="{% url 'muscle_app:index' %}"><h2>Top</h2></a></li>
+                    <li class="men"><a href=""><h2>Training</h2></a>
+                      <ul>
+                        <li><a href="{% url 'muscle_app:mark_list' %}">All</a></li>
+                        <li><a href="{% url 'muscle_app:leg' %}">Leg</a></li>
+                        <li><a href="{% url 'muscle_app:abs' %}">Abs</a></li>
+                        <li><a href="{% url 'muscle_app:chest' %}">Chest</a></li>
+                        <li><a href="{% url 'muscle_app:back' %}">Back</a></li>
+                        <li><a href="{% url 'muscle_app:arm' %}">Arm</a></li>
+                      </ul>
+                    </li>
+        
+                
+              </header>
             {% block body_block %}
             <!-- この中は継承先で定義 -->
             {% endblock %}

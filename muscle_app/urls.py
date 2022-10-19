@@ -11,7 +11,7 @@ from .views import Login
 app_name= 'muscle_app'
 
 urlpatterns = [
-    path('', views.indexView, name='home'),
+    path('', views.indexView, name='index'),
     path('leg', views.legView, name="leg"),
     path('abs', views.absView, name="abs"),
     path('chest', views.chestView, name="chest"),
@@ -51,7 +51,7 @@ urlpatterns = [
     # ユーザー情報の変更
     path('users/<int:user_id>/accounts', views.UserChangeView.as_view(), name='accounts'),
 
-]
+] 
 
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)

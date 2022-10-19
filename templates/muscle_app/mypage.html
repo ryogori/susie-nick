@@ -4,7 +4,8 @@
     {% load static %}
 
     {% block extra_head %}
-        <link rel=""stylesheet" href="{% static '' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/sideber.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
     {% endblock %}
     
     {% block title_block %}
@@ -12,10 +13,24 @@
     {% endblock %}
 
     {% block body_block %}
-        <h1>マイページ！！！</h1>
-        <button onclick=location.href="{% url 'muscle_app:mark_list' %}">記事一覧</button>
-        <button onclick=location.href="{% url 'muscle_app:users_detail' request.user.id %}">ユーザー情報</button>
+        <div class="all">
+            <div class="sidebar">
+                <img src="mediaa/susi-nick.png" alt="ロゴ画像">
+                <a href="{% url 'muscle_app:mark_list' %}"><h3>記事一覧</h3></a><br>
+                <a href="{% url 'muscle_app:users_detail' request.user.id %}"><h3>ユーザー情報</h3></a><br>
+                <a href="{% url 'muscle_app:user_edit' %}"><h3>ユーザー情報変更</h3></a><br>
+                <a href="{% url 'muscle_app:pass_edit' %}"><h3>パスワード変更</h3></a><br>
+                <a href="{% url 'muscle_app:icon_edit' %}"><h3>ユーザーアイコン変更</h3></a><br>
+                <a href="{% url 'muscle_app:logout' %}"><h3>ログアウト</h3></a><br>
+            </div>
 
+            <div>
+                <h1>マイページ</h1>
+            </div>
+            <div>
+                
+            </div>
+        </div>
     {% endblock %}
 </html>
 
