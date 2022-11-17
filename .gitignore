@@ -6,6 +6,7 @@
 # muscle_app/migrations/
 muscle_app/migrations/
 uploads/
+secrets/
 
 # local_settings.py
 media

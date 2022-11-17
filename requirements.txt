@@ -5,3 +5,5 @@ Markdown
 pillow
 bcrypt
 django[argon2]
+django-environ==0.4.5
+django-widget-tweaks
