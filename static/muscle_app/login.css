@@ -1,0 +1,54 @@
+label{
+    display: block;
+}
+
+.login_post h2 {
+    margin:0 0 50px 0;
+    padding:10px;
+    text-align:center;
+    font-size:30px;
+    border-bottom:solid 1px #c3c3c3;
+}
+
+.login_post{
+    background: #fff;
+    padding: 4em 4em 2em;
+    max-width: 400px;
+    margin: 50px auto 0;
+    box-shadow: 0 0 0.5em #b0b0b0;
+    border-radius: 2px;
+}
+
+.login-form{
+    border:0;
+    padding:10px;
+    font-size:1.3em;
+    color:#aaa;
+    border:solid 1px #ccc;
+    margin:0 0 20px;
+    width:300px;
+}
+
+.post{
+    text-align: center;
+}
+
+.loginbutton{
+        background: #F35A16;
+        box-shadow: 0 3px 0 0;
+        border-radius: 2px;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 30px;
+        line-height: 1.6em;
+        margin: 2em 0 0;
+        padding: 0.1em 2em;
+        outline: none;
+        /* text-shadow: 0 1px #; */
+}
+
+.post a{
+    display: block;
+}

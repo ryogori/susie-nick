@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'muscle_app',
     'mdeditor',
+    'widget_tweaks',
 ]
 
 # ログインに使う情報をセット
@@ -122,7 +123,7 @@ PASSWORD_HASHERS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'jp'
 
 TIME_ZONE = 'Asia/Tokyo'
 

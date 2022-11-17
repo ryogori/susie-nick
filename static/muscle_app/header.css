@@ -5,10 +5,8 @@
         box-shadow: 0 10px 10px -8px #CFCFCF; 
         background-color: #fff;
         margin-top: 0;
-        display: flex;
     }
 
-    
     a img {
         width: 153px;
         height: 150px;
@@ -19,72 +17,140 @@
     a img:hover{
         opacity: 1;
     }
+
+    .top_wrapper{
+      display: flex;
+      justify-content: space-between;
+    }
     
     .login{
       color: #FFF;
-      width: 250px;
-      margin-left: 20px;
-      position: absolute;
-      top: -10px;
-      right: 30px;
       text-decoration: none;
-  }
-    
-    .flex{
-        margin-bottom: 3px;
-        position: relative;
-        bottom: 20px;
-        display: flex;
-        justify-content: center;
     }
-    
-    .flex_item{
-        color: #000;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-bottom: 2px solid rgb(184, 184, 184);
-        /*border: solid;*/
-    }
-    
-    .flex_item:hover{
-        border-bottom: 2px solid #CE4242;
-    }
-    
-    .content {
-        width: 80%;
-        margin-left: 10%;
-    }
-    
-    .serch button{
-        border: none;
-        outline: none;
-        background: transparent;
-    }
-    
+
     .serch{
-        position: absolute;
-        top: 20px;
-        right: 300px;
-        display: flex;
+      display: flex;
+      align-items: center;
     }
     
-    .serch form input{
-        padding: 5px 50px 5px 10px;
-        border-radius: 30px;
-        border: none;
-        background-color: #CFCFCF;
+    #form1{
+      position:relative;
+      bottom: 15%;
     }
-    
-    .serch form button{
-        position: relative;
-        right: 19%;
+
+    #sbox1{	
+      border: none;	
+      height:50px;
+      padding:0 50px;
+      position:absolute; 
+      left:0;
+      top:0; 
+      max-width:300px;
+      border-radius:2px;
+      background:#eee;
     }
-    
-    .serch form button img{
-        vertical-align: middle;
-        width: 20px;
-        height: 16px;
+
+    #sbtn1{
+      width:70px;
+      height:50px;
+      position:absolute; 
+      left:270px; 
+      top:0;
+      border-radius:2px;
+      background:#7fbfff;
+      color:#fff;
+      font-weight:bold;
+      font-size:16px;
+      border:none;
     }
+
+    #sbtn1:hover{
+      opacity: 80%;
+    }
+
+    .login{
+      display: flex;
+      align-items: center;
+    } 
+
+    *,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-flat {
+  overflow: hidden;
+
+  padding: 1.4rem 5rem;
+
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
+
+a.btn-flat span {
+  position: relative;
+}
+
+a.btn-flat:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100px;
+  height: 100px;
+
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-80%) translateY(-25px);
+  transform: translateX(-80%) translateY(-25px);
+
+  border-radius: 50%;
+  background: #eb6100;
+}
+
+a.btn-flat:hover:before {
+  width: 400px;
+  height: 400px;
+
+  -webkit-transform: translateX(-1%) translateY(-175px);
+
+  transform: translateX(-1%) translateY(-175px);
+}
+
+
 
     body{
         margin: 0px;

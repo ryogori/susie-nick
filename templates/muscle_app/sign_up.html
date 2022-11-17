@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <body>
+
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
+    {% load widget_tweaks %}
+
+    {% block extra_head %}
+        <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/sign_up.css' %}">
+    {% endblock %}
+
+    {% block body_block %}
+  <div class="progressbar">
+      <div class="item active">STEP.1<br>入力</div>
+      <div class="item">STEP.2<br>確認</div>
+      <div class="item">STEP.3<br>完了</div>
+  </div>
+  <div class="content">
+    <h2>新規登録</h2>
     <form method="POST" action="{% url 'muscle_app:sign_up' %}">
       {% csrf_token %}
       <label>ユーザーID</label>
-      {{ form.user_id }}
-      {{ form.user_id.errors }}
+      {{ form.user_id|add_class:"form-id" }}
+      <br>
       <label>ユーザー名</label>
       {{ form.username }}
-      {{ form.username.errors }}
+      <br>
       <label>メールアドレス</label>
       {{ form.email }}
-      {{ form.email.errors }}
+      <br>
       <label>パスワード</label>
       {{ form.password1 }}
-      {{ form.password1.errors }}
+      <br>
       <label>パスワード(確認)</label>
       {{ form.password2 }}
-      {{ form.password2.errors }}
-      <button type = "submit">登録</button>
+      <br>
+      <div class="post">
+        <button class = "send" type = "submit">登録</button>
+      </div>
     </form>
-  </body>
+  </div>
+  {% endblock %}
 </html>
