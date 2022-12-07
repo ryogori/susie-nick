@@ -85,11 +85,14 @@ tagu = (
     ("leg","脚"),
 )
 
-class ArticleForm(forms.Form):
+class ArticleForm(forms.ModelForm):
+
     user_name = forms.CharField()
     title = forms.CharField ()
     content = MDTextFormField()
     category = forms.ChoiceField(choices=tagu)
+    snsimage = forms.FileField(required=False)
+
     #session用？の為に追加
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -97,7 +100,8 @@ class ArticleForm(forms.Form):
             field.widget.attrs['class'] = 'form-control'
     class Meta:
         model = Article
-        fields = ("user_name","title","content","category",)
+        fields = ("user_name","title","content","category","snsimage")
+
 
 class Update_ArticleForm(forms.Form):
     title = forms.CharField ()
@@ -108,16 +112,4 @@ class Update_ArticleForm(forms.Form):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
-#=============↓動作確認用form
-class UserCreateForm(UserCreationForm):
-    """ユーザー登録用フォーム"""
 
-    class Meta:
-        model = User
-        fields = (User.USERNAME_FIELD,)  # ユーザー名として扱っているフィールドだけ、作成時に入力する
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
-#=============↑

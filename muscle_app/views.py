@@ -9,9 +9,9 @@ from django import views
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import ArticleForm,UserCreateForm
+from .forms import ArticleForm,Update_ArticleForm
 from .models import Article
-from . import forms
+from . import forms#使わなくても良い説
 
 # アカウント操作関連
 from .models import Users_list
@@ -124,11 +124,21 @@ class UserChangeView(LoginRequiredMixin, FormView,):
         return kwargs
 
 
-#markdownの画面を呼び出す（新規）
+#markdownの画面を呼び出す（新規作成）
 def markView(request):
-    form = ArticleForm()
-    mkdown = {'form':form,}
-    return render(request, "muscle_app/markdown.html",mkdown)
+    user = None
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+
+        else:
+            print("is_valid失敗")
+    else:
+        form = ArticleForm()
+    return render(request, "muscle_app/markdown.html", context={
+        'form': form, 'user': user
+    })
 
 #記事一覧
 def mark_listViews(request):
@@ -147,7 +157,7 @@ def mark_detailViews(request,id):
 
 #保存する時の処理（保存した結果は表示しない）
 def mark_insertView(request):
-    form = forms.ArticleForm(request.POST or None)
+    form = ArticleForm(request.POST or None)
     if form.is_valid():
         title = form.cleaned_data["title"]
         body = form.cleaned_data["content"]
@@ -169,11 +179,12 @@ def mark_viewViews(request,id):
     }
     return render(request,"muscle_app/mark_view.html",{'db_view':content,'article':db_views})
 
+#編集画面処理
 def mark_editViews(request, id):
     #modelのデータを持ってくる
     article = get_object_or_404(Article,id = id)
     update_form = {"title": article.title, "content":article.body,"category":article.category}
-    form = forms.Update_ArticleForm(request.POST or update_form)
+    form = Update_ArticleForm(request.POST or update_form)
     #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
     ctx = {"update_form": form}
     ctx["object"] = article
@@ -203,33 +214,9 @@ def checkViews(request,id):
         return redirect('muscle_app:mark_edit')
 
     context = {
-        'form': forms.Update_ArticleForm(session_form_data)
+        'form': Update_ArticleForm(session_form_data)
     }
     return render(request, 'muscle_app/mark_check.html', context)
-
-#======================================sessionユーザ変更保存関数↓
-# @require_POST
-def mark_saveView(request):
-    """記事変更を保存。"""
-    # user_data_inputで入力したユーザー情報をセッションから取り出す。
-    # ユーザー作成後は、セッションを空にしたいのでpopメソッドで取り出す。
-    session_form_data = request.session.pop('form_data', None)
-    if session_form_data is None:
-        # ここにはPOSTメソッドで、かつセッションに入力データがなかった場合だけ。
-        # セッション切れや、不正なアクセス対策。
-        return redirect('muscle_app:mark_edit')
-
-    form = forms.Update_ArticleForm(session_form_data)
-    if form.is_valid():
-        form.save()
-        return redirect('muscle_app:mark_list')
-
-    # is_validに通過したデータだけセッションに格納しているので、ここ以降の処理は基本的には通らない。
-    context = {
-        'form': form
-    }
-    return render(request, 'muscle_app/mark_edit', context)
-#==================================================↑
 
 #ログインしたユーザーの記事だけ表示処理
 def my_article(request):

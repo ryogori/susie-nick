@@ -151,7 +151,7 @@ STATICFILES_DIRS = [ BASE_DIR / "static"]
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 MEDIA_ROOT = os.path.join( BASE_DIR, 'uploads')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/upload/'
 
 MDEDITOR_CONFIGS = {
     'default': {

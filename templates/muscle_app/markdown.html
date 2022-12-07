@@ -1,16 +1,25 @@
 {%load static%}
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
+<html>
+  <head>
+    <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
 
-    </head>
-    <body>
-        <form action="{% url 'muscle_app:mark_insert' %}" method="post" >
-            {%csrf_token%}
-            {{form.media}}
-            {{form.as_p}}
-            <p> <input type = "submit" value = "送信する"> </p>
-        </form>
-    </body>
+  </head>
+<body>
+    {% comment %} <form action="{% url 'muscle_app:mark_insert' %}" method="post" > {% endcomment %}
+    <form  method="POST" enctype="multipart/form-data">
+      {%csrf_token%}
+      {{form.media}}
+      {{form.as_p}}
+      <input type="submit" value="送信する">
+    </form>
+    {% if user %}
+    <h2>保存内容</h2>
+    <p>User name: {{ user.user_name }}</p>
+    <p>Title: {{user.title}}</p>
+    <p>content: {{user.content}}</p>
+    <p>Category: {{user.category}}</p>
+    <img src="{{ user.snsimage.url }}">
+    {% endif %}
+</body>
 </html>

@@ -30,14 +30,10 @@ urlpatterns = [
     path('mark_list',views.mark_listViews,name="mark_list"),
     #mark_detailは記事の詳細画面を表示
     path('mark_detail/<int:id>',views.mark_detailViews,name="mark_detail"),
-    #7/15追加 my_articelは自分の記事の画面表示
+    #my_articelは自分の記事の画面表示
     path('my_article',views.my_article,name="my_article"),
-    #7/26変更　mark_deleteViewは記事の削除を行う
+    #mark_deleteViewは記事の削除を行う
     path('mark_delete/<int:id>',views.mark_deleteView,name='mark_delete'),
-    #7/20追加　mark_checkはeditの変更内容結果を表示する画面
-    path('mark_check/<int:id>',views.checkViews,name="mark_check"),
-    #8/30追加 mark_saveは変更を保存を行う画面
-    path('mark_save/<int:id>',views.mark_saveView,name="mark_save"),
     # 新規登録
     path('sign_up', views.Sign_up.as_view(), name="sign_up"),
     # ログイン

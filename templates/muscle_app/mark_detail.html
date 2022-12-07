@@ -9,12 +9,17 @@
     <title>記事詳細</title>
 </head>
 <body>
+
+<form  method="POST" enctype="multipart/form-data">
     {%csrf_token%}
     {{article.user_name}}
     {{article.title}} 
-    {{article.body}}
+    {{article.content}}
+    {% if article.snsimage %}
+    <img src="{{ article.snsimage.url }}" width=500 />
+    {% endif %}
     <input type="hidden" value="{{article.id}}" name='id'> 
     <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id%}">編集する</button><br>
-
+</form>
 </body>
 </html>

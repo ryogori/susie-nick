@@ -62,7 +62,6 @@ class Article(models.Model):
     create_data = models.DateTimeField(auto_now_add=True,help_text='作成日')
     update_data = models.DateTimeField(auto_now=True,help_text='更新日')
     category = models.CharField(max_length=7,default='all')#タグを想定、内容は(abs,arm,back,base,chest,allを想定、デフォはall)
-    # snsimage = models.ImageField(upload_to="")
-
+    snsimage = models.ImageField(upload_to="",null=True, blank=True)
     def __str__(self):
         return self.title
