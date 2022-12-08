@@ -24,19 +24,20 @@
                         </div>
                     </div>
                     <div class="top_right_wrapper">
-                        <form action="" method="get">
-                            <input type="search" name="search" placeholder="検索キーワードを入力してください">
+                        <form action="{% url 'muscle_app:mark_find' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="search" name="word" placeholder="検索キーワードを入力してください">
                             <input type="submit" name="submit" value="検索">
                         </form>
                         <div class="login">
                             {% if user.is_authenticated %}
-                                <p>{{ user.get_username }}でログイン中</p>
+                                <p>@{{ user.user_id }}でログイン中</p>
                                 <button onclick=location.href="{% url 'muscle_app:mypage' %}">マイページ</button>
                                 <button onclick=location.href="{% url 'muscle_app:logout' %}">ログアウトする</button>
                             {% else %}
-                            <p>ログインしていません</p>
-                            <button onclick=location.href="{% url 'muscle_app:login' %}">ログイン</button>
-                            <button onclick=location.href="{% url 'muscle_app:sign_up' %}">新規登録</button>
+                                <p>ログインしていません</p>
+                                <button onclick=location.href="{% url 'muscle_app:login' %}">ログイン</button>
+                                <button onclick=location.href="{% url 'muscle_app:sign_up' %}">新規登録</button>
                             {% endif %}
                             <!-- {}の最初と最後に%を付けると有効になる。 -->
                             <!-- <button onclick="">ログイン</button> -->
@@ -49,11 +50,11 @@
                         <ul>
                             <li><a href="{% url 'muscle_app:home' %}">ホーム</a></li>
                             <li><a href="{% url 'muscle_app:mark_list' %}">記事一覧</a></li>
-                            <li><a href="{% url 'muscle_app:leg' %}">脚</a></li>
-                            <li><a href="{% url 'muscle_app:abs' %}">腹部</a></li>
-                            <li><a href="{% url 'muscle_app:chest' %}">胸部</a></li>
-                            <li><a href="{% url 'muscle_app:back' %}">背中</a></li>
-                            <li><a href="{% url 'muscle_app:arm' %}">腕</a></li>
+                            <li><a href="{% url 'muscle_app:parts' 'leg' %}">脚</a></li>
+                            <li><a href="{% url 'muscle_app:parts' 'abs' %}">腹部</a></li>
+                            <li><a href="{% url 'muscle_app:parts' 'chest' %}">胸部</a></li>
+                            <li><a href="{% url 'muscle_app:parts' 'back' %}">背中</a></li>
+                            <li><a href="{% url 'muscle_app:parts' 'arm' %}">腕</a></li>
                         </ul>
                     </nav>
                 </div>

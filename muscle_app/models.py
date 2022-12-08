@@ -35,10 +35,11 @@ class MyUserManager(BaseUserManager):
 
 # ユーザーアカウントのモデルクラス
 class Users_list(AbstractBaseUser, PermissionsMixin):
-    user_id = models.CharField(max_length=20, unique=True, validators=[RegexValidator(r'^[A-Za-z0-9_]*$', message='ユーザーIDには小文字英字、大文字英字、数字、アンダースコア(_)のみ入力可能です。')])
-    username = models.CharField(max_length=16,)
-    email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator],)
-    password = models.CharField(max_length=150, validators=[MinLengthValidator(8), RegexValidator(r'^(?=.*[A-Z])(?=.*[1-9])(?=.*[&=-@#{}!\^\$\(\)\[\]\?\*])[a-zA-Z0-9&=-@#{}!\^\$\(\)\[\]\?\*]{8,16}$', message='パスワードには大文字英字、数字、記号(-@^#$(){}[]!?*&=)をそれぞれ1回以上使用し、8文字以上、16文字以内にしてください。')],)
+    user_id = models.CharField(max_length=20, primary_key=True, validators=[RegexValidator(r'^[A-Za-z0-9_]*$', message='ユーザーIDには小文字英字、大文字英字、数字、アンダースコア(_)のみ入力可能です。')])
+    username = models.CharField(max_length=16)
+    email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator])
+    # password = models.CharField(max_length=128, validators=[MinLengthValidator(8), RegexValidator(r'^(?=.*[A-Z])(?=.*[1-9])(?=.*[&=-@#{}!\^\$\(\)\[\]\?\*])[a-zA-Z0-9&=-@#{}!\^\$\(\)\[\]\?\*]{8,16}$', message='パスワードには大文字英字、数字、記号(-@^#$(){}[]!?*&=)をそれぞれ1回以上使用し、8文字以上にしてください。')])
+    password = models.CharField(max_length=128, validators=[MinLengthValidator(8)])
     gender = models.CharField(max_length=3, validators=[MinLengthValidator(2)])
     
     objects = MyUserManager()
@@ -46,9 +47,9 @@ class Users_list(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
 
     # 一意のフィールドを指定
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'user_id'
 
-    REQUIRED_FIELDS = ['user_id', 'username']
+    REQUIRED_FIELDS = ['email', 'username']
 
     def __str__(self):
         return self.email
@@ -56,12 +57,12 @@ class Users_list(AbstractBaseUser, PermissionsMixin):
 
 # 必要な機能　ID(デフォルトのプライマリキー)　ユーザー名 タイトル　本文　作成日　更新日　記事のカテゴライズ
 class Article(models.Model):
-    user_name = models.CharField(max_length=16,default='user')
+    author = models.ForeignKey(Users_list, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    body = MDTextField(verbose_name = '記事',  default='ここに記事を記入')
-    create_data = models.DateTimeField(auto_now_add=True,help_text='作成日')
-    update_data = models.DateTimeField(auto_now=True,help_text='更新日')
-    category = models.CharField(max_length=7,default='all')#タグを想定、内容は(abs,arm,back,base,chest,allを想定、デフォはall)
+    body = MDTextField(verbose_name = '記事', default='ここに記事を記入')
+    create_data = models.DateTimeField(auto_now_add=True, help_text='作成日')
+    update_data = models.DateTimeField(auto_now=True, help_text='更新日')
+    category = models.CharField(max_length=7, default='all')    # タグを想定、内容は(abs,arm,back,base,chest,allを想定、デフォはall)
     # snsimage = models.ImageField(upload_to="")
 
     def __str__(self):

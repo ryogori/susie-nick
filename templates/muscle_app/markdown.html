@@ -7,10 +7,14 @@
     </head>
     <body>
         <form action="{% url 'muscle_app:mark_insert' %}" method="post" >
-            {%csrf_token%}
-            {{form.media}}
-            {{form.as_p}}
-            <p> <input type = "submit" value = "送信する"> </p>
+            {% csrf_token %}
+            <!-- <input type="hidden" name="user_name" value="{{ user.username }}"> -->
+            {{ form.media }}
+            <p>タイトル:{{ form.title }}</p>
+            {{ form.content }}
+            <p>カテゴリ{{ form.category }}</p>
+            <button type = "submit">送信する</button>
+            <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
         </form>
     </body>
 </html>

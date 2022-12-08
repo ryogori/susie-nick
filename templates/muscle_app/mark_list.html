@@ -5,19 +5,24 @@
         <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
     </head>
     <body>
-    <h1>記事一覧画面</h1>   
+    <h1>記事一覧画面</h1>
+    <h1>{{ error }}</h1>
     <button onclick=location.href="{% url 'muscle_app:mark' %}">新規作成</button>
-    {%csrf_token%}
+    {% csrf_token %}
     {% for article in content_list.db_list%}
     <form  method="get">
-        {{article.title}} 
-        {{article.user_name}}
-        {{article.category}}
+        <a href="{% url 'muscle_app:mark_html' id=article.id %}">
+        <span>@{{ article.author_id }}</span>
+        {{ article.author.user_id }}
+        {{ article.title }} 
+        {{ article.category }}
+        </a>
         <input type="hidden" value="{{article.id}}"> 
-        {% comment %} <button type="button">編集する</button><br> {% endcomment %}
-        <button type="button" onclick=location.href="{% url 'muscle_app:mark_view' id=article.id %}">HTML画面</button>
-        <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面</button>
-        <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
+        <!-- {% comment %} <button type="button">編集する</button><br> {% endcomment %} -->
+        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_html' id=article.id %}"></button>HTML画面</button> -->
+        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id%}">編集する</button><br> -->
+        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面</button> -->
+        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br> -->
     </form>
     {% endfor %}
         <button onclick=location.href="{% url 'muscle_app:home' %}">戻る</button>

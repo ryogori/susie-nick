@@ -12,22 +12,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from .local_settings import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wrzd0z(ry5*t1sqb2tty#+_g1lakwgv!zs90!35db6i^@s-o08'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -79,16 +70,7 @@ WSGI_APPLICATION = 'muscle_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'muscle-db',
-        'USER': 'user',
-        'PASSWORD': 'password',
-        'HOST': 'db',
-        'PORT': '3306'
-    }
-}
+
 
 
 # Password validation
@@ -107,6 +89,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'utils.validations.CustomPasswordValidator'
+    },
 ]
 
 ## passwordのハッシュ化関連
@@ -122,7 +107,7 @@ PASSWORD_HASHERS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
 TIME_ZONE = 'Asia/Tokyo'
 
@@ -159,13 +144,14 @@ MDEDITOR_CONFIGS = {
     }
 }
 
-# LOGIN_URL = 'muscle_app:login'
+LOGIN_URL = 'muscle_app:login'
 # LOGIN_REDIRECT_URL = 'muscle_app:home'
 # LOGOUT_REDIRECT_URL = 'muscle_app:home'
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # メールアドレス（とパスワードで）認証する
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # メール検証を必須とする
 
 AUTHENTICATION_BACKENDS = [
+    'muscle_app.backends.UseridAuthenticationBackend',
     'muscle_app.backends.EmailAuthenticationBackend',
     # 'django.contrib.auth.backends.ModelBackend',
 ]

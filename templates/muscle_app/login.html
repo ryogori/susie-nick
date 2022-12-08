@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
   <body>
-    {% if form.errors  %}
-    <p>ユーザーID, パスワードが一致しません．</p>
-    {% endif %}
     <form method="POST" action="{% url 'muscle_app:login' %}">
       {% csrf_token %}
       <label>メールアドレス</label>
       {{ form.username }}
-      {{ form.username.errors }}
       <label>パスワード</label>
       {{ form.password }}
-      {{ form.password.errors }}
       <button type = "submit">ログイン</button>
     </form>
+    {% if form.non_field_errors %}
+      <ul class="alert alert-danger list-unstyled">
+      <li style="list-style-type: none;">
+      <ul class="alert alert-danger list-unstyled">
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+        </ul>
+        </li>
+        </ul>
+      {% endfor %}
+    {% endif %}    
   </body>
 </html>

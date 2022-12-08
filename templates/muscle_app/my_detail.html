@@ -9,12 +9,13 @@
 </head>
 <body>
     <form action="{% url 'muscle_app:mark_edit' %}" method="post" >
-    {%csrf_token%}
-    {{article.user_name}}
-    {{article.title}} 
-    {{article.body}}
-    <input type="hidden" value="{{article.id}}" name='id'> 
-    <p> <input type = "submit" value = "編集画面へ移動する"> </p>
+    {% csrf_token %}
+    {{ article.username }}
+    {{ article.title }} 
+    {{ article.body }}
+    <input type="hidden" value="{{ article.id }}" name='id'> 
+    <p><input type = "submit" value = "編集画面へ移動する"></p>
     </form>
+    <button type="button" onclick=location.href="{% url 'muscle_app:mypage' %}">戻る</button>
 </body>
 </html>

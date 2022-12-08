@@ -1,17 +1,16 @@
 
-<p>username:</p>
+<p>ユーザーID:</p>
+<p>@{{ user.user_id }}</p>
+<br>
+<p>ユーザーネーム:</p>
 <p>{{ user.username }}</p>
 <br>
-<p>user_id:</p>
-<p>{{ user.user_id }}</p>
-<br>
-<p>email:</p>
+<p>メールアドレス:</p>
 <p>{{ user.email }}</p>
 <br>
-<p>password:</p>
+<p>パスワード:</p>
 <h1>ないしょ！！！！！！！</h1>
 <br>
-<button onclick=location.href="{% url 'muscle_app:accounts' request.user.id %}">ユーザー情報変更</button>
-accounts
-<button onclick=location.href="">パスワードの変更</button>
-password_change
+<button onclick=location.href="">ユーザー情報変更はこちらから</button>
+👈現在閉鎖中！<br>
+<button onclick=location.href="{% url 'muscle_app:password_change' %}">パスワードの変更はこちらから</button>

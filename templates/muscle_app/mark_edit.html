@@ -5,16 +5,21 @@
         <title>記事編集画面</title>
     </head>
     <body>
+        <h1>記事編集画面</h1>
+        <h2>{{ error }}</h2>
         <form action="" method="POST">
-            {%csrf_token%}
-            {{update_form.media}}
-            {{update_form.as_p}}
+            {% csrf_token %}
+            {{ update_form.media }}
+            <p>タイトル：{{ update_form.title }}</p>
+            {{ update_form.title.errors }}
+            <p>コンテンツ：{{ update_form.content.errors }}{{ update_form.content }}</p>
+            <p>カテゴリ：{{ update_form.category }}</p>
             {% csrf_token %}
             {% comment %} <button type="submit" class="btn btn-primary btn-lg">送信</button> {% endcomment %}
             <!--ポップアップ表示をして見栄えを良くするために下の処理を行う-->
             <button class="btn" type="submit" onclick='return confirm("この内容で保存しますか？");'>保存</button>
         </form>
-        <input type="hidden" value="{{article}}" name='id'> 
+        <input type="hidden" value="{{ article }}" name='id'> 
         <button type="button" onclick=location.href="{% url 'muscle_app:home'%}">TOPへ戻る</button><br>
         <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">記事一覧へ戻る</button><br>
     </body>

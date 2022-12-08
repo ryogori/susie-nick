@@ -1,19 +1,15 @@
 from django import forms
 from .models import Article, Users_list
-from django.forms import ModelForm
 from mdeditor.fields import MDTextFormField
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import get_user_model
-User = get_user_model()#Userモデルの柔軟な取得方法
-
-from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 
 
+# ユーザー関連
+# 新規登録のフォーム
 class Sign_up_Form(UserCreationForm):
     class Meta:
        model = Users_list
-       fields = ("user_id", "username", "email", "password1", "password2",)
+       fields = ("user_id", "username", "email", "password1", "password2")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,23 +20,32 @@ class Sign_up_Form(UserCreationForm):
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
 
+# ログイン画面のフォーム
 class LoginForm(AuthenticationForm):
     class Meta:
        model = Users_list
        fields = ("email", "password")
 
     def __init__(self, *args, **kwargs):
-       super().__init__(*args, **kwargs)
-       #htmlの表示を変更可能にします
-       self.fields['username'].widget.attrs['class'] = 'form-control'
-       self.fields['password'].widget.attrs['class'] = 'form-control'
+        super().__init__(*args, **kwargs)
+        #htmlの表示を変更可能にします
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
     
-class UserChangeForm(ModelForm):
+# ユーザー情報の変更画面のフォーム
+# class UserChangeForm(forms.ModelForm):
+#     class Meta:
+#         model = Users_list
+#         fields = ("user_id", "username", "email")
+
+
+
+class UserChangeForm(forms.ModelForm):
     class Meta:
         model = Users_list
-        fields = ["user_id", "username",]
+        fields = ("user_id", "username", "email")
 
-    def __init__(self, user_id=None, username=None, *args, **kwargs):
+    def __init__(self, user_id=None, username=None, email=None, *args, **kwargs):
         kwargs.setdefault('label_suffix', '')
         super().__init__(*args, **kwargs)
         # ユーザーの更新前情報をフォームに挿入
@@ -48,31 +53,25 @@ class UserChangeForm(ModelForm):
             self.fields['user_id'].widget.attrs['value'] = user_id
         if username:
             self.fields['username'].widget.attrs['value'] = username
+        if email:
+            self.fields['email'].widget.attrs['value'] = email
+            
+    # def update(self, user):
+    #     user.user_id = self.cleaned_data['user_id']
+    #     user.username = self.cleaned_data['username']
+    #     user.email = self.cleaned_data['email']
+    #     user.save()
 
-    def update(self, user):
-        user.user_id = self.cleaned_data['user_id']
-        user.username = self.cleaned_data['username']
-        user.save()
+# パスワード変更画面のフォーム
+class PasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
-# class UserUpdateForm(forms.ModelForm):
-#     # ユーザー情報更新フォーム
-
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         #htmlの表示を変更可能にします
-#         self.fields['user_id'].widget.attrs['class'] = 'form-control'
-#         self.fields['username'].widget.attrs['class'] = 'form-control'
-#         self.fields['email'].widget.attrs['class'] = 'form-control'
-#         self.fields['newpassword1'].widget.attrs['class'] = 'form-control'
-#         self.fields['newpassword2'].widget.attrs['class'] = 'form-control'
-
-#     class Meta:
-#         model = Users_list
-#         firlds = ("user_id", "username", "email", "newpassword1", "newpassword2",)
-
-
-
-tagu = (
+# 記事関連
+# 記事につけるカテゴリのリスト
+tag = (
     ("all","all"),
     ("chest","胸"),
     ("back","背中"),
@@ -81,11 +80,12 @@ tagu = (
     ("leg","脚"),
 )
 
+# 記事の新規登録画面のフォーム
 class ArticleForm(forms.Form):
-    user_name = forms.CharField()
+    # username = forms.CharField()
     title = forms.CharField ()
     content = MDTextFormField()
-    category = forms.ChoiceField(choices=tagu)
+    category = forms.ChoiceField(choices=tag)
     #session用？の為に追加
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -93,27 +93,15 @@ class ArticleForm(forms.Form):
             field.widget.attrs['class'] = 'form-control'
     class Meta:
         model = Article
-        fields = ("user_name","title","content","category",)
+        fields = ("user_id", "username", "title", "content", "category")
 
+# 記事の更新画面のフォーム
 class Update_ArticleForm(forms.Form):
     title = forms.CharField ()
     content = MDTextFormField()
-    category = forms.ChoiceField(choices=tagu)
+    category = forms.ChoiceField(choices=tag)
     #session用？の為に追加
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
-#=============↓動作確認用form
-class UserCreateForm(UserCreationForm):
-    """ユーザー登録用フォーム"""
-
-    class Meta:
-        model = User
-        fields = (User.USERNAME_FIELD,)  # ユーザー名として扱っているフィールドだけ、作成時に入力する
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
-#=============↑

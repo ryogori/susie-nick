@@ -14,3 +14,4 @@ Dockerfile
 install.sh
 my.cnf
 requirements.txt
+local_settings.py

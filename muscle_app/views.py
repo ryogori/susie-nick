@@ -1,273 +1,233 @@
+from .models import Users_list, Article
+from . forms import *
+from .Exceptions import ValueNoneError
+
+from django.urls import reverse_lazy
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View, CreateView, UpdateView
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.utils import DataError
+
 from audioop import add
 from email import contentmanager
 from multiprocessing import context
 from operator import is_
 from turtle import back
 from wsgiref.handlers import format_date_time
-from django import views
-#リダイレクト先
-from django.urls import reverse_lazy
-from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import ArticleForm,UserCreateForm
-from .models import Article
-from . import forms
-
-# アカウント操作関連
-from .models import Users_list
-from . forms import Sign_up_Form, LoginForm, UserChangeForm
-from django.views import generic
-from django.views.generic import CreateView, View
-# from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, get_user_model
-from django.contrib.auth.views import LogoutView
-
-# test
-# from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from django.views.decorators.http import require_POST
-User = get_user_model()
 
 # Create your views here.
-def indexView(request):
+def index_view(request):
     return render(request, "muscle_app/index.html")
 
-def legView(request):
-    leg = Article.objects.filter(category = 'leg')
-    return render(request, "muscle_app/leg.html",{'category_list':leg})
-
-def absView(request):
-    abs = Article.objects.filter(category = 'abs')
-    return render(request, "muscle_app/abs.html",{'category_list':abs})
-
-def chestView(request):
-    chest = Article.objects.filter(category = 'chest')
-    return render(request, "muscle_app/chest.html",{'category_list':chest})
-
-def backView(request):
-    back= Article.objects.filter(category = 'back')
-    return render(request, "muscle_app/back.html",{'category_list':back})
-
-def armView(request):
-    # return render(request, "muscle_app/arm.html")
-    arm = Article.objects.filter(category = 'arm')
-    return render(request, "muscle_app/arm.html",{'category_list':arm})
-
-class Sign_up(CreateView):
+# ユーザーの新規登録処理
+class SignUp(CreateView):
     def post(self, request, *args, **kwargs):
-        form = Sign_up_Form(data=request.POST)
-        # form = Sign_up_Form(request.POST)
+        form = Sign_up_Form(request.POST)
         if form.is_valid():
-            form.save()
-            user_id = "@" + form.cleaned_data.get('user_id')
-            username = form.cleaned_data.get('username')
-            email= form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password1')
-            # Users_list.objects.create(user_id=user_id, username=username, email=email, password=password)
-            user = authenticate(username=email, password=password)
-            login(request, user)
+            user_id = form.cleaned_data.get("user_id")
+            username = form.cleaned_data.get("username")
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password1")
+            user = Users_list.objects.create(user_id=user_id, username=username, email=email)
+            user.set_password(password)
+            user.save()
+            login(request, user, backend="muscle_app.backends.EmailAuthenticationBackend")
             return redirect('/')
-        return render(request, 'muscle_app/sign_up.html', {'form': form,})
+        return render(request, 'muscle_app/sign_up.html', {'form': form})
 
     def get(self, request, *args, **kwargs):
-        form = Sign_up_Form(request.POST)
-        return  render(request, 'muscle_app/sign_up.html', {'form': form,})
-    
-sign_up = Sign_up.as_view()
+        form = Sign_up_Form(request.POST or None)
+        form.initialized = False
+        return  render(request, 'muscle_app/sign_up.html', {'form': form})
 
+# ログイン処理
 class Login(View):
-    def post(self, request, *arg, **kwargs):
-        form = LoginForm(data=request.POST)
+    def post(self, request, *args, **kwargs):
+        username = request.POST["username"]
+        if username.find("@") == 0:
+            username = username[1:]
+        form = LoginForm(data={"username": username, "password": request.POST["password"]})
         if form.is_valid():
-            email = form.cleaned_data.get('username')
+            username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            # user = User.objects.get(email=email)
-            user = authenticate(request, username=email, password=password)
-            login(request, user)
+            user = authenticate(request, username=username, password=password)
+            if username.find("@") == -1:
+                login(request, user, "muscle_app.backends.UseridAuthenticationBackend")
+                # print("ユーザーIDでログインしたよ。")
+            else:
+                login(request, user, "muscle_app.backends.EmailAuthenticationBackend")
+                # print("Emailでログインしたよ。")
             return redirect('/')
-        return render(request, 'muscle_app/login.html', {'form': form,})
+
+        form = LoginForm(data=request.POST)
+        return render(request, 'muscle_app/login.html', {'form': form})
 
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
-        return render(request, 'muscle_app/login.html', {'form': form,})
+        return render(request, 'muscle_app/login.html', {'form': form})
 
-Login = Login.as_view()
-
+# ログアウト処理
 class Logout(LogoutView):
     template_name = 'logout.html'
 
-def mypageView(request):
+# マイページの表示
+@login_required
+def mypage_view(request):
     return render(request, "muscle_app/mypage.html")
 
-def users_detail(request, user_id):
-    user = get_object_or_404(Users_list, pk = user_id)
+# ユーザー情報を表示
+@login_required
+def user_detail(request, user_id):
+    # get_object_or_404の引数は、(データベース名, カラム名=変数名)で書く。pkはプライマリーキーのこと。
+    user = get_object_or_404(Users_list, user_id=user_id)
     return render(request, 'muscle_app/users_detail.html', {'user': user})
 
-# 実験
-class UserChangeView(LoginRequiredMixin, FormView,):
-    # user = self.request.user.user_id
-    template_name = 'muscle_app/accounts.html'
-    form_class = UserChangeForm
-    success_url = reverse_lazy('muscle_app:users_detail')
-    
-    def form_valid(self, form):
-        #formのupdateメソッドにログインユーザーを渡して更新
-        form.update(user=self.request.user)
-        return super().form_valid(form)
+# パスワード変更処理
+class PasswordChange(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('muscle_app:password_done')
+    template_name = 'muscle_app/password_change.html'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        # 更新前のユーザー情報をkwargsとして渡す
-        kwargs.update({
-            'user_id' : self.request.user.user_id,
-            'username' : self.request.user.username,
-        })
-        return kwargs
-
-# class accounts
-#     def post(self, request, *arg, **kwargs):
-
+# パスワード変更完了画面を表示
+class PasswordChangeDone(PasswordChangeDoneView):
+    template_name = 'muscle_app/password_change_done.html'
 
 #markdownの画面を呼び出す（新規）
-def markView(request):
+def mark_view(request):
     form = ArticleForm()
-    mkdown = {'form':form,}
-    return render(request, "muscle_app/markdown.html",mkdown)
-
-#記事一覧
-def mark_listViews(request):
-    db_views = Article.objects.all()
-    content = {
-        'db_list' : db_views
-    }
-    return render(request,"muscle_app/mark_list.html",{'content_list':content})
-
-#記事の詳細
-def mark_detailViews(request,id):
-    # print(id)
-    db_views = get_object_or_404(Article,id = id)
-    return render(request,"muscle_app/mark_detail.html",{'article':db_views})
+    mkdown = {'form':form}
+    return render(request, "muscle_app/markdown.html", mkdown)
 
 #保存する時の処理（保存した結果は表示しない）
-def mark_insertView(request):
-    form = forms.ArticleForm(request.POST or None)
+@login_required
+def mark_insert_view(request):
+    form = ArticleForm(request.POST or None)
+    user = get_object_or_404(Users_list, user_id=request.user.user_id)
     if form.is_valid():
         title = form.cleaned_data["title"]
         body = form.cleaned_data["content"]
-        user_name = form.cleaned_data["user_name"]
         category= form.cleaned_data["category"]
-        Article.objects.create(title=title, body=body, user_name=user_name, category=category)
-        # obj = Article(title=title, body=body)
-        # obj.save()
-    return render(request, "muscle_app/mark_insert.html",{'form':form})
+        Article.objects.create(author=user, title=title, body=body, category=category)
+    return render(request, "muscle_app/mark_insert.html", {'form':form})
 
-#ID指定の表示
-def mark_viewViews(request,id):
-    db_views = get_object_or_404(Article,id = id)
+#記事一覧
+def mark_list_views(request):
+    obj = Article.objects.all()
     content = {
-        'title' : db_views.title,
-        'body' : db_views.body,
-        'user_name':db_views.user_name,
-        'category':db_views.category,
+        'db_list' : obj
     }
-    return render(request,"muscle_app/mark_view.html",{'db_view':content,'article':db_views})
+    return render(request, "muscle_app/mark_list.html", {'content_list':content})
+
+# タグごとに記事を絞り込んで表示
+def parts_view(request, category):
+    partsname = {"leg": "脚", "abs": "腹部", "chest": "胸部", "back": "背中", "arm": "腕"}
+    parts = Article.objects.filter(category=category)
+    return render(request, "muscle_app/parts.html", {'category_list': parts, 'category': partsname[category]})
+
+# 検索ボックスに入力されたキーワードをもとに記事を検索
+def mark_find_views(request):
+    word = request.POST['word']
+    if word.find("@") == 0:
+        obj = Article.objects.filter(author_id__user_id__icontains=word[1:])
+    else:
+        obj = Article.objects.filter(title__icontains=word)
+    content = {
+        'db_list' : obj
+    }
+    return render(request, "muscle_app/mark_list.html", {'content_list':content})
+    
+#記事の詳細
+def mark_detail_view(request, id):
+    # print(id)
+    obj = get_object_or_404(Article, id=id)
+    return render(request, "muscle_app/mark_detail.html", {'article':obj})
 
 
-#編集画面への処理
-# def mark_editViews(request,id):
-#     article = get_object_or_404(Article,id = id)
-#     update_form = forms.ArticleForm(#forms.Update_ArticleFormをforms.ArticleFormに変更7/26
-#         initial = {
-#            'title':article.title,
-#            'content':article.body,
-#         }
-#     )
-#     return render(request,"muscle_app/mark_edit.html",{'update_form':update_form,'article':article.id,})
-#=============================================比較↓ こっちがうまく起動するのでこの処理を本番で使用する
-# 【アップデートビュー】nippoUpdateFormView
-def mark_editViews(request, id):
+# デザインについてゴリラと要相談
+# HTML表示の際に、どのようなデザインにするか。また、user_idや、usernameなどを表示するかなど。
+# ID指定の表示
+def mark_html_view(request, id):
+    obj = get_object_or_404(Article, id=id)
+    content = {
+        'author': obj.author_id,
+        'title' : obj.title,
+        'body' : obj.body,
+        'category': obj.category,
+    }
+    return render(request, "muscle_app/mark_view.html", {'db_view':content,'article':obj})
+
+# 記事の編集
+def mark_edit_views(request, id):
     #modelのデータを持ってくる
-    article = get_object_or_404(Article,id = id)
+    article = get_object_or_404(Article, id=id)
     update_form = {"title": article.title, "content":article.body,"category":article.category}
-    form = forms.Update_ArticleForm(request.POST or update_form)
-    #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
-    ctx = {"update_form": form}
-    ctx["object"] = article
-    if form.is_valid():
-        #.cleaned_dataは.is_valid()がtrueだった場合に,正しかったデータが入る
-        # user_name = form.cleaned_data["user_name"]
-        title = form.cleaned_data["title"]
-        content = form.cleaned_data["content"]
-        category = form.cleaned_data["category"]
-        # obj = Article(title=title, content=content, category=category)
-        # obj.save()
-        # article.user_name = user_name
-        article.title = title 
-        article.body = content
-        article.category = category
-        article.save()
-        #db_views = get_object_or_404(Article,id = id)...{'article':db_views}) 
+    form = Update_ArticleForm(request.POST or update_form)
+    if request.POST:
+        try:
+            if form.is_valid():
+                #.cleaned_dataは.is_valid()がtrueだった場合に,正しかったデータが入る
+                article.title = form.cleaned_data["title"]
+                article.body = form.cleaned_data["content"]
+                article.category = form.cleaned_data["category"]
+                article.save()
+                obj = Article.objects.all()
+                content = {
+                    'db_list' : obj
+                }
+                return render(request, "muscle_app/mark_list.html", {'content_list':content})
+
+            else:
+                if request.POST["title"].isspace or request.POST["content"].isspace:
+                    raise ValueNoneError("タイトル、またはコンテンツが入力されていません。")
+                else :
+                    redirect('muscle_app:mark_list')
+
+        except DataError:
+            ctx = { "update_form": form }
+            ctx["object"] = article
+            ctx["error"] = '入力内容が不正です。'
+            return render(request, "muscle_app/mark_edit.html", ctx)
+
+        except ValueNoneError as e:
+            ctx = { "update_form": form }
+            ctx["object"] = article
+            ctx["error"] = e
+            return render(request, "muscle_app/mark_edit.html", ctx)
+
+    else:
+        #ctxに辞書型を挿入することでrenderの見た目と拡張性が上がるはず
+        ctx = { "update_form": form }
+        ctx["object"] = article
        
     return render(request, "muscle_app/mark_edit.html", ctx)
 
-def checkViews(request,id):
-    """入力データの確認画面。"""
-    # user_data_inputで入力したユーザー情報をセッションから取り出す。
-    session_form_data = request.session.get('form_data')
-    if session_form_data is None:
-        # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト。
-        return redirect('muscle_app:mark_edit')
-
-    context = {
-        'form': forms.Update_ArticleForm(session_form_data)
-    }
-    return render(request, 'muscle_app/mark_check.html', context)
-
-#======================================sessionユーザ変更保存関数↓
-# @require_POST
-def mark_saveView(request):
-    """記事変更を保存。"""
-    # user_data_inputで入力したユーザー情報をセッションから取り出す。
-    # ユーザー作成後は、セッションを空にしたいのでpopメソッドで取り出す。
-    session_form_data = request.session.pop('form_data', None)
-    if session_form_data is None:
-        # ここにはPOSTメソッドで、かつセッションに入力データがなかった場合だけ。
-        # セッション切れや、不正なアクセス対策。
-        return redirect('muscle_app:mark_edit')
-
-    form = forms.Update_ArticleForm(session_form_data)
-    if form.is_valid():
-        form.save()
-        return redirect('muscle_app:mark_list')
-
-    # is_validに通過したデータだけセッションに格納しているので、ここ以降の処理は基本的には通らない。
-    context = {
-        'form': form
-    }
-    return render(request, 'muscle_app/mark_edit', context)
-#==================================================↑
-
-
-#ログインしたユーザーの記事だけ表示処理
-def my_article(request):
-    db_views = Article.objects.all()
+# ログインしたユーザーの記事だけ表示処理
+def my_articles(request):
+    obj = Article.objects.filter(author_id=request.user.user_id)
     content = {
-        'db_list' : db_views
+        'db_list' : obj
     }
-    #下の処理はモデルからのDBの一行目のデータ取得。pk1のユーザー名を取得する
-    #pkの数値は現在一番小さい値 1,2は削除した為参照できない
-    # user_name = Article.objects.get(pk=3)
-    form = LoginForm(data=request.POST)
-    user_name = form.cleaned_data.get('username')#ユーザ名で判別　現在固定
-    return render(request,"muscle_app/my_article.html",{'content_list':content,'user_name':user_name.user_name})
+    return render(request, "muscle_app/my_article.html", {'content_list':content})
     
-#記事の削除処理 
-def mark_deleteView(request, id):
+# 記事の削除処理 
+def mark_delete_view(request, id):
     obj = get_object_or_404(Article, id=id)
-    ctx = {"object": obj}
-    if request.POST:
-        obj.delete()
-        return redirect("muscle_app:mark_insert")
-    return render(request, "muscle_app/mark_delete.html", ctx)
+    if request.user.user_id == obj.author_id:
+        ctx = {"object": obj}
+        if request.POST:
+            obj.delete()
+            return redirect("muscle_app:mark_insert")
+        return render(request, "muscle_app/mark_delete.html", ctx)
+
+    else:
+        obj = Article.objects.all()
+        content = {
+            'db_list' : obj
+        }
+        return render(request, "muscle_app/mark_list.html", {'content_list': content, 'error': "投稿者以外消せねーよばーか"})
+

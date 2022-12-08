@@ -5,15 +5,18 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DBから値を取りたい</title>
+        <title>HTMLで記事を表示</title>
     </head>
     <body>
-        {%csrf_token%}
+        {% csrf_token %}
         {% load markdown_extras %}
-        {%block title %} {{db_view.title}} {% endblock title %} 
-        {%block body%}
-        {{db_view.body|markdown|safe}}
-        {%endblock body%}
+        {% block title %} {{ db_view.title }} {% endblock title %} 
+        {% block body %}
+        {{ db_view.body|markdown|safe }}
+        {% endblock body %}
         <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">リストに戻る</button>
+        {% if user.user_id == db_view.user_id %}
+            <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
+        {% endif %}
     </body>
 </html>

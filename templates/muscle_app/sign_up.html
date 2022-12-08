@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <body>
+
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
+
+    {% block extra_head %}
+        <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/sign_up.css' %}">
+    {% endblock %}
+
+    {% block body_block %}
+  <div class="content">
     <form method="POST" action="{% url 'muscle_app:sign_up' %}">
       {% csrf_token %}
       <label>ユーザーID</label>
       {{ form.user_id }}
       {{ form.user_id.errors }}
+      <br>
       <label>ユーザー名</label>
       {{ form.username }}
       {{ form.username.errors }}
+      <br>
       <label>メールアドレス</label>
       {{ form.email }}
       {{ form.email.errors }}
+      <br>
       <label>パスワード</label>
       {{ form.password1 }}
       {{ form.password1.errors }}
+      <br>
       <label>パスワード(確認)</label>
       {{ form.password2 }}
       {{ form.password2.errors }}
+      <br>
       <button type = "submit">登録</button>
     </form>
-  </body>
+  </div>
+  {% endblock %}
 </html>
