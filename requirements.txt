@@ -1,9 +1,0 @@
-bcrypt
-Django==4.0.3
-django[argon2]
-django-mdeditor
-django-widget-tweaks
-django-environ
-Markdown
-mysqlclient
-pillow
