@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article, Users_list
+from .models import Article, UsersList
 from mdeditor.fields import MDTextFormField
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 
@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 # 新規登録のフォーム
 class Sign_up_Form(UserCreationForm):
     class Meta:
-       model = Users_list
+       model = UsersList
        fields = ("user_id", "username", "email", "password1", "password2")
 
     def __init__(self, *args, **kwargs):
@@ -23,7 +23,7 @@ class Sign_up_Form(UserCreationForm):
 # ログイン画面のフォーム
 class LoginForm(AuthenticationForm):
     class Meta:
-       model = Users_list
+       model = UsersList
        fields = ("email", "password")
 
     def __init__(self, *args, **kwargs):
@@ -35,14 +35,14 @@ class LoginForm(AuthenticationForm):
 # ユーザー情報の変更画面のフォーム
 # class UserChangeForm(forms.ModelForm):
 #     class Meta:
-#         model = Users_list
+#         model = UsersList
 #         fields = ("user_id", "username", "email")
 
 
 
 class UserChangeForm(forms.ModelForm):
     class Meta:
-        model = Users_list
+        model = UsersList
         fields = ("user_id", "username", "email")
 
     def __init__(self, user_id=None, username=None, email=None, *args, **kwargs):

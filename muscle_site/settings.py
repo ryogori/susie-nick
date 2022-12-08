@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 ]
 
 # ログインに使う情報をセット
-AUTH_USER_MODEL = 'muscle_app.Users_list'
+AUTH_USER_MODEL = 'muscle_app.UsersList'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

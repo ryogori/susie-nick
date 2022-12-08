@@ -1,4 +1,4 @@
-from .models import Users_list, Article
+from .models import UsersList, Article
 from . forms import *
 from .Exceptions import ValueNoneError
 
@@ -33,7 +33,7 @@ class SignUp(CreateView):
             username = form.cleaned_data.get("username")
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password1")
-            user = Users_list.objects.create(user_id=user_id, username=username, email=email)
+            user = UsersList.objects.create(user_id=user_id, username=username, email=email)
             user.set_password(password)
             user.save()
             login(request, user, backend="muscle_app.backends.EmailAuthenticationBackend")
@@ -84,7 +84,7 @@ def mypage_view(request):
 @login_required
 def user_detail(request, user_id):
     # get_object_or_404の引数は、(データベース名, カラム名=変数名)で書く。pkはプライマリーキーのこと。
-    user = get_object_or_404(Users_list, user_id=user_id)
+    user = get_object_or_404(UsersList, user_id=user_id)
     return render(request, 'muscle_app/users_detail.html', {'user': user})
 
 # パスワード変更処理
@@ -107,7 +107,7 @@ def mark_view(request):
 @login_required
 def mark_insert_view(request):
     form = ArticleForm(request.POST or None)
-    user = get_object_or_404(Users_list, user_id=request.user.user_id)
+    user = get_object_or_404(UsersList, user_id=request.user.user_id)
     if form.is_valid():
         title = form.cleaned_data["title"]
         body = form.cleaned_data["content"]
