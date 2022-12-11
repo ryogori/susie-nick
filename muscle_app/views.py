@@ -45,6 +45,7 @@ class SignUp(CreateView):
         form.initialized = False
         return  render(request, 'muscle_app/sign_up.html', {'form': form})
 
+
 # ログイン処理
 class Login(View):
     def post(self, request, *args, **kwargs):
@@ -87,6 +88,43 @@ def user_detail(request, user_id):
     user = get_object_or_404(UsersList, user_id=user_id)
     return render(request, 'muscle_app/users_detail.html', {'user': user})
 
+# ユーザー情報の更新処理
+# @login_required
+# class UserUpdate(UpdateView):
+#     def post(self, request, *args, **kwargs):
+#         user = get_object_or_404(UsersList, user_id=request.user.user_id)
+#         form = UserChangeForm(data=request.POST, instance=user)
+#         print(form.is_valid())
+#         if form.is_valid():
+#             form.save()
+#             return redirect("/user_detail/" + str(user.user_id))
+#         else:
+#             form = UserChangeForm(data=request.POST)
+#             return render(request, 'muscle_app/change.html', {'form': form})
+
+#     def get(self, request, *args, **kwargs):
+#         kwargs = dict(user_id=request.user.user_id, username=request.user.username, email=request.user.email)    
+#         form = UserChangeForm(request.POST, initial=kwargs)
+#         return  render(request, 'muscle_app/change.html', {'form': form})
+
+# ログインしてるかどうかの関数を作成したほうがよき。
+class UserUpdate(View):
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(UsersList, user_id=request.user.user_id)
+        form = UserChangeForm(data=request.POST, instance=user)
+        print(form.is_valid())
+        if form.is_valid():
+            form.save()
+            return redirect("/user_detail/" + str(user.user_id))
+        else:
+            form = UserChangeForm(data=request.POST)
+            return render(request, 'muscle_app/change.html', {'form': form})
+
+    def get(self, request, *args, **kwargs):
+        kwargs = dict(user_id=request.user.user_id, username=request.user.username, email=request.user.email)    
+        form = UserChangeForm(request.POST, initial=kwargs)
+        return  render(request, 'muscle_app/change.html', {'form': form})
+
 # パスワード変更処理
 class PasswordChange(PasswordChangeView):
     form_class = PasswordChangeForm
@@ -98,9 +136,10 @@ class PasswordChangeDone(PasswordChangeDoneView):
     template_name = 'muscle_app/password_change_done.html'
 
 #markdownの画面を呼び出す（新規）
+@login_required
 def mark_view(request):
     form = ArticleForm()
-    mkdown = {'form':form}
+    mkdown = {'form': form}
     return render(request, "muscle_app/markdown.html", mkdown)
 
 #保存する時の処理（保存した結果は表示しない）
@@ -113,7 +152,7 @@ def mark_insert_view(request):
         body = form.cleaned_data["content"]
         category= form.cleaned_data["category"]
         Article.objects.create(author=user, title=title, body=body, category=category)
-    return render(request, "muscle_app/mark_insert.html", {'form':form})
+    return render(request, "muscle_app/mark_insert.html", {'form': form})
 
 #記事一覧
 def mark_list_views(request):
@@ -121,7 +160,7 @@ def mark_list_views(request):
     content = {
         'db_list' : obj
     }
-    return render(request, "muscle_app/mark_list.html", {'content_list':content})
+    return render(request, "muscle_app/mark_list.html", {'content_list': content})
 
 # タグごとに記事を絞り込んで表示
 def parts_view(request, category):
@@ -139,13 +178,13 @@ def mark_find_views(request):
     content = {
         'db_list' : obj
     }
-    return render(request, "muscle_app/mark_list.html", {'content_list':content})
+    return render(request, "muscle_app/mark_list.html", {'content_list': content})
     
 #記事の詳細
 def mark_detail_view(request, id):
     # print(id)
     obj = get_object_or_404(Article, id=id)
-    return render(request, "muscle_app/mark_detail.html", {'article':obj})
+    return render(request, "muscle_app/mark_detail.html", {'article': obj})
 
 
 # デザインについてゴリラと要相談
@@ -159,13 +198,13 @@ def mark_html_view(request, id):
         'body' : obj.body,
         'category': obj.category,
     }
-    return render(request, "muscle_app/mark_view.html", {'db_view':content,'article':obj})
+    return render(request, "muscle_app/mark_view.html", {'db_view':content, 'article':obj})
 
 # 記事の編集
 def mark_edit_views(request, id):
     #modelのデータを持ってくる
     article = get_object_or_404(Article, id=id)
-    update_form = {"title": article.title, "content":article.body,"category":article.category}
+    update_form = {"title": article.title, "content":article.body, "category":article.category}
     form = Update_ArticleForm(request.POST or update_form)
     if request.POST:
         try:
@@ -208,11 +247,11 @@ def mark_edit_views(request, id):
 
 # ログインしたユーザーの記事だけ表示処理
 def my_articles(request):
-    obj = Article.objects.filter(author_id=request.user.user_id)
+    obj = Article.objects.filter(author_id__user_id=request.user.user_id)
     content = {
         'db_list' : obj
     }
-    return render(request, "muscle_app/my_article.html", {'content_list':content})
+    return render(request, "muscle_app/my_article.html", {'content_list': content})
     
 # 記事の削除処理 
 def mark_delete_view(request, id):

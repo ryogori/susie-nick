@@ -9,22 +9,18 @@
     <h1>{{ error }}</h1>
     <button onclick=location.href="{% url 'muscle_app:mark' %}">新規作成</button>
     {% csrf_token %}
-    {% for article in content_list.db_list%}
     <form  method="get">
-        <a href="{% url 'muscle_app:mark_html' id=article.id %}">
-        <span>@{{ article.author_id }}</span>
-        {{ article.author.user_id }}
-        {{ article.title }} 
-        {{ article.category }}
-        </a>
-        <input type="hidden" value="{{article.id}}"> 
-        <!-- {% comment %} <button type="button">編集する</button><br> {% endcomment %} -->
-        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_html' id=article.id %}"></button>HTML画面</button> -->
-        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id%}">編集する</button><br> -->
-        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面</button> -->
-        <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br> -->
+        {% for article in content_list.db_list%}
+            <a href="{% url 'muscle_app:mark_html' id=article.id %}">
+                <span>@{{ article.author.user_id }}</span>
+                {{ article.author.username }}
+                {{ article.title }} 
+                {{ article.category }}<br>
+            </a>
+            <input type="hidden" value="{{article.id}}"> 
+        {% endfor %}
     </form>
-    {% endfor %}
         <button onclick=location.href="{% url 'muscle_app:home' %}">戻る</button>
+        
     </body>
 </html>

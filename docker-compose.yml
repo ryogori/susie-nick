@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_USER_PASS}
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:${WEB_PORT}
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

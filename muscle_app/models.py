@@ -35,7 +35,7 @@ class MyUserManager(BaseUserManager):
 
 # ユーザーアカウントのモデルクラス
 class UsersList(AbstractBaseUser, PermissionsMixin):
-    user_id = models.CharField(max_length=20, primary_key=True, validators=[RegexValidator(r'^[A-Za-z0-9_]*$', message='ユーザーIDには小文字英字、大文字英字、数字、アンダースコア(_)のみ入力可能です。')])
+    user_id = models.CharField(max_length=20, unique=True, validators=[RegexValidator(r'^[A-Za-z0-9_]*$', message='ユーザーIDには小文字英字、大文字英字、数字、アンダースコア(_)のみ入力可能です。')])
     username = models.CharField(max_length=16)
     email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator])
     # password = models.CharField(max_length=128, validators=[MinLengthValidator(8), RegexValidator(r'^(?=.*[A-Z])(?=.*[1-9])(?=.*[&=-@#{}!\^\$\(\)\[\]\?\*])[a-zA-Z0-9&=-@#{}!\^\$\(\)\[\]\?\*]{8,16}$', message='パスワードには大文字英字、数字、記号(-@^#$(){}[]!?*&=)をそれぞれ1回以上使用し、8文字以上にしてください。')])

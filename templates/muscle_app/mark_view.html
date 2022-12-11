@@ -14,7 +14,7 @@
         {% block body %}
         {{ db_view.body|markdown|safe }}
         {% endblock body %}
-        <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">リストに戻る</button>
+        <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
         {% if user.user_id == db_view.user_id %}
             <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
         {% endif %}

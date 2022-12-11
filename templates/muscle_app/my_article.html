@@ -12,12 +12,14 @@
         {% csrf_token %}
         {% for article in content_list.db_list %}
         <form  method="get">
-            <span>@{{ article.username }}</span>
-            {{ article.title }} 
-            {{ article.category }}
-            <input type="hidden" value="{{article.id}}"> 
+            <a href="{% url 'muscle_app:mark_html' id=article.id %}">
+                <span>@{{ article.author.user_id }}</span>
+                {{ article.author.username}}
+                {{ article.title }} 
+                {{ article.category }}
+            </a>
             {% comment %} <button type="button">編集する</button><br> {% endcomment %}
-            <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面へ</button>
+            <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id %}">編集画面へ</button>
             <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除する</button><br>
         {% endfor %}
         <button type="button" onclick=location.href="{% url 'muscle_app:mypage' %}">戻る</button>

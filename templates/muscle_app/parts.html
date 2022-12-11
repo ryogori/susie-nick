@@ -13,17 +13,18 @@
 
     {% block body_block %}
         <h1>{{ category }}</h1>
-        {% for article in category_list %}
         <form  method="get">
-            {{ article.title }} 
-            {{ article.username }}
-            {{ article.category }}
-            <input type="hidden" value="{{article.id}}"> 
-            {% comment %} <button type="button">編集する</button><br> {% endcomment %}
-            <button type="button" onclick=location.href="{% url 'muscle_app:mark_detail' id=article.id %}">詳細画面</button>
-            <!-- <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br> -->
+            {% for article in category_list %}
+                <a href="{% url 'muscle_app:mark_html' id=article.id %}">
+                    <span>@{{ article.author.user_id }}</span>
+                    {{ article.author.username }}
+                    {{ article.title }} 
+                    {{ article.category }}<br>
+                </a>
+                {% comment %} <button type="button">編集する</button><br> {% endcomment %}
+            {% endfor %}
         <form>
-        {% endfor %}
+    <button type="button" onclick=location.href="{% url 'muscle_app:home' %}">戻る</button>  
     {% endblock %}
 </html>
 
