@@ -24,6 +24,10 @@ from wsgiref.handlers import format_date_time
 def index_view(request):
     return render(request, "muscle_app/index.html")
 
+# マークダウンの使い方
+def mark_guide_view(request):
+    return render(request, "muscle_app/mark_guide.html")
+
 # ユーザーの新規登録処理
 class SignUp(CreateView):
     def post(self, request, *args, **kwargs):
@@ -230,4 +234,5 @@ def mark_delete_view(request, id):
             'db_list' : obj
         }
         return render(request, "muscle_app/mark_list.html", {'content_list': content, 'error': "投稿者以外消せねーよばーか"})
+
 

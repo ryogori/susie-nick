@@ -1,22 +1,47 @@
+{% extends "muscle_app/base.html" %}
 {%load static%}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>HTMLで記事を表示</title>
-    </head>
-    <body>
-        {% csrf_token %}
-        {% load markdown_extras %}
-        {% block title %} {{ db_view.title }} {% endblock title %} 
-        {% block body %}
-        {{ db_view.body|markdown|safe }}
-        {% endblock body %}
-        <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">リストに戻る</button>
-        {% if user.user_id == db_view.user_id %}
+{% load widget_tweaks %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
+<link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
+<link rel="stylesheet" href="{% static 'muscle_app/login.css' %}">
+<link rel="stylesheet" href="{% static 'muscle_app/mark_view.css' %}">
+{% endblock %}
+
+{% block title_block %}
+<title>HTMLで表示</title>
+{% endblock %}
+<body>
+    {% block body_block %}
+    {%csrf_token%}
+    {% load markdown_extras %}
+    <section class="twocols">
+        <div class="cols">
+            <div class="one">
+                <div class="side">
+                    <h2>新着記事</h2>
+                </div>
+            </div>
+
+            <div class="two">
+                <div class="title">
+                    {% block title %} 
+                        {{ db_view.title }}
+                    {% endblock title %} 
+                </div>
+
+                <div class="content">
+                    {%block body%}
+                        {{db_view.body|markdown|safe}}
+                    {%endblock body%}
+                </div>
+            </div>
+        </div>
+    </section>
+    <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">リストに戻る</button>
+    {% if user.user_id == db_view.user_id %}
             <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
         {% endif %}
-    </body>
-</html>
+    {% endblock %}
+</body>

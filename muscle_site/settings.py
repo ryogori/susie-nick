@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'muscle_app',
     'mdeditor',
+    'widget_tweaks',
 ]
 
 # ログインに使う情報をセット

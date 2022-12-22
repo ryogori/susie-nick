@@ -1,0 +1,27 @@
+.photo{
+    text-align: center;
+}
+
+.product{
+    text-align: center;
+}
+
+.new_article{
+    background-color: #ff98008f;
+    width: 100%;
+}
+
+.protein_title{
+    font-size: 140px;
+    color: #f44336;
+    line-height: 1.0;
+    margin-bottom: -30px;
+}
+
+.protein{
+    text-align: center;
+    font-size: 40px;
+    line-height: 1.4;
+    margin-top: -45px;
+    font-weight: 800;
+}

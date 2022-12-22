@@ -4,7 +4,7 @@
     {% load static %}
 
     {% block extra_head %}
-        <link rel="stylesheet" href="{% static 'muscle_app/home.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/index.css' %}">
     {% endblock %}
 
     {% block title_block %}
@@ -12,12 +12,19 @@
     {% endblock %}
 
     {% block body_block %}
-        <div>
-            <h2>サプリ・プロテイン紹介</h2>
+    <div class="photo">
+        <img src="/static/img/0cf90bde040ee65d491c039c338c17fd-1024x683.jpg" alt="トップ画像">
+    </div>
+        <div class="product">
+            <h2 class="protein_title">Protein</h2>
+                <span class="protein">プロテインのについて</span>
+            <div class="supplement">
+
+            </div>
         </div>
 
-        <div>
-            <h2>新着記事</h2>
+        <div class="new_article">
+            <h2></h2>
         </div>
     {% endblock %}
 </html>

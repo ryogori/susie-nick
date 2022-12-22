@@ -1,0 +1,11 @@
+.main{
+    background-color: #fffce9;
+}
+
+.guide{
+    padding: 32px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 1080px;
+    margin: 50px auto;
+}

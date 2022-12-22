@@ -9,7 +9,7 @@ from django.contrib.auth import views as auth_views
 app_name= 'muscle_app'
 
 urlpatterns = [
-    path('', views.index_view, name='home'),
+    path('', views.index_view, name='index'),
 
     # ユーザー関連
     # 新規登録
@@ -55,6 +55,8 @@ urlpatterns = [
     path('my_articles', views.my_articles, name='my_articles'),
     # 7/26 変更 mark_deleteViewは記事の削除を行う
     path('mark_delete/<int:id>', views.mark_delete_view, name='mark_delete'),
+    # 12/21追加
+    path('mark_guide', views.mark_guide_view, name='mark_guide'),
 ]
 
 if settings.DEBUG:

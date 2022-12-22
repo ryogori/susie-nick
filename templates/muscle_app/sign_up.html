@@ -3,6 +3,7 @@
 
     {% extends "muscle_app/base.html" %}
     {% load static %}
+    {% load widget_tweaks %}
 
     {% block extra_head %}
         <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
@@ -11,30 +12,36 @@
     {% endblock %}
 
     {% block body_block %}
+  <!-- <div class="progressbar">
+      <div class="item active">STEP.1<br>入力</div>
+      <div class="item">STEP.2<br>確認</div>
+      <div class="item">STEP.3<br>完了</div>
+  </div> -->
   <div class="content">
+    <h2>新規登録</h2>
     <form method="POST" action="{% url 'muscle_app:sign_up' %}">
       {% csrf_token %}
       <label>ユーザーID</label>
-      {{ form.user_id }}
+      <div class="atto">{{form.user_id|add_class:"form-id" }}</div>
+      <p class="note">※半角英数字、全角英字、アンダースコア(_)のみ入力可能です。</p>
       {{ form.user_id.errors }}
-      <br>
       <label>ユーザー名</label>
-      {{ form.username }}
+      {{ form.username|add_class:"form-name" }}
       {{ form.username.errors }}
-      <br>
       <label>メールアドレス</label>
-      {{ form.email }}
+      {{ form.email|add_class:"form-email" }}
       {{ form.email.errors }}
-      <br>
       <label>パスワード</label>
-      {{ form.password1 }}
+      {{ form.password1|add_class:"form-pass" }}
+      <p class="note">※全角英字、数字、記号(-@^#$(){}[]!?*&=)をそれぞれ1文字以上<br>
+      8文字以上16文字以内にしてください。</p>
       {{ form.password1.errors }}
-      <br>
       <label>パスワード(確認)</label>
-      {{ form.password2 }}
+      {{ form.password2|add_class:"form-pass2" }}
       {{ form.password2.errors }}
-      <br>
-      <button type = "submit">登録</button>
+      <div class="post">
+        <button class = "send" type = "submit">登録</button>
+      </div>
     </form>
   </div>
   {% endblock %}

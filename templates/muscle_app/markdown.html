@@ -1,10 +1,13 @@
-{%load static%}
-<!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
+{% extends "muscle_app/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+    {% block extra_head %}
+    <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
+    <link rel="stylesheet" href="{% static 'muscle_app/markdown.css' %}">
+    {% endblock %}
 
-    </head>
+    {% block body_block %}
     <body>
         <form action="{% url 'muscle_app:mark_insert' %}" method="post" >
             {% csrf_token %}
@@ -13,8 +16,9 @@
             <p>タイトル:{{ form.title }}</p>
             {{ form.content }}
             <p>カテゴリ{{ form.category }}</p>
-            <button type = "submit">送信する</button>
-            <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
+            <button class="btn-mark" type = "submit">送信</button>
+            <button class="btn-back" type="button" onclick=location.href="{% url 'muscle_app:mark_list' %}">戻る</button>
         </form>
     </body>
+    {% endblock %}
 </html>

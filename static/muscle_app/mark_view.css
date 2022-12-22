@@ -1,0 +1,83 @@
+body{
+background-color: #f3f1ed;
+}
+
+/* レイアウト */
+.twocols {
+padding: 100px 0;
+}
+
+.cols{
+display: grid;
+grid-template-columns: 1fr 3fr;
+grid-column-gap: 15px;
+grid-template-rows: 700px;
+}
+
+/* 横幅と左右の余白 */
+.cols {
+width: min(92%);
+height: 90%;
+margin: auto;
+}
+
+/* カラム内のボックス */
+.one {
+    background-color: #fff;
+}
+
+.two{
+    height: 100%;
+    height: clamp(200px,45vw,98%);
+    background-color: #fff;
+    padding: 50px 10px;
+}
+
+.side{
+margin: 0 auto;
+}
+
+/* 記事デザイン */
+.title{
+    display: flex;
+    align-items: center;
+    height: min(15%);
+    padding: 10px;
+    margin-bottom: 0;
+    font-size: 35px;
+    font-weight: bold;
+    border-bottom: solid 4px #ffcdd2;
+    position: relative;
+}
+
+.title:after {
+    position: absolute;
+    content: " ";
+    display: block;
+    border-bottom: solid 4px #ff5151;
+    left: 0;
+    bottom: -3px;
+    width: 20%;
+  }
+
+.content{
+    margin-top: 0;
+}
+
+.content ul, ol {
+    color: #1e366a;
+    border: dotted #1e366a 1px;/*ドット 色 太さ*/
+    padding: 0.5em 0.5em 0.5em 2em;
+  }
+  
+.content  ul li, ol li {
+    line-height: 1.5;
+    padding: 0.5em 0;
+  }
+
+/* サイドバーのデザイン */
+
+.side h2{
+    text-align: center;
+}
+

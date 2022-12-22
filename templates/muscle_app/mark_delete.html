@@ -1,3 +1,5 @@
+{% extends "muscle_app/base.html" %}
+
 {%load static%}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>記事削除</title>
     </head>
+    {% block body_block %}
     <body>
         <form method="post" >{% csrf_token %}
             <p>「{{object.title}}」を削除しますか？</p>
@@ -18,4 +21,5 @@
             
         </form>
     </body>
+    {% endblock %}
 </html>
