@@ -13,7 +13,7 @@
     <span>@{{ article.author.user_id }}</span>
     {{ article.author.username }}
     {{ article.title }} 
-    {{ article.body }}
+    {{ article.content }}
     <input type="hidden" value="{{ article.id }}" name='id'> 
     <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id%}">編集する</button><br>
     <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
