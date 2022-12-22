@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
+
+    {% block extra_head %}
+        <link rel=""stylesheet" href="{% static '' %}">
+    {% endblock %}
+    
+    {% block title_block %}
+        leg
+    {% endblock %}
+
+    {% block body_block %}
+        <h1>{{ category }}</h1>
+        <form  method="get">
+            {% for article in category_list %}
+                <a href="{% url 'muscle_app:mark_html' id=article.id %}">
+                    <span>@{{ article.author.user_id }}</span>
+                    {{ article.author.username }}
+                    {{ article.title }} 
+                    {{ article.category }}<br>
+                </a>
+                {% comment %} <button type="button">編集する</button><br> {% endcomment %}
+            {% endfor %}
+        <form>
+    <button type="button" onclick=location.href="{% url 'muscle_app:home' %}">戻る</button>  
+    {% endblock %}
+</html>
+

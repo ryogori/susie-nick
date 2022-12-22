@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記事詳細</title>
+</head>
+<body>
+    {%csrf_token%}
+    <span>@{{ article.author.user_id }}</span>
+    {{ article.author.username }}
+    {{ article.title }} 
+    {{ article.body }}
+    <input type="hidden" value="{{ article.id }}" name='id'> 
+    <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id%}">編集する</button><br>
+    <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
+</body>
+</html>
+<!-- 正直これは使うかわからん -->

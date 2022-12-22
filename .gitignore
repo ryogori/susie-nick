@@ -1,0 +1,13 @@
+!muscle_app/migrations/
+*.log
+*.pot
+*.pyc
+*/__pycache__/
+uploads/
+
+# local_settings.py
+.env
+media
+my.cnf
+requirements.txt
+local_settings.py

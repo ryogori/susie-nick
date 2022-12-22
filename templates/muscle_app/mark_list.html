@@ -1,0 +1,26 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
+    </head>
+    <body>
+    <h1>記事一覧画面</h1>
+    <h1>{{ error }}</h1>
+    <button onclick=location.href="{% url 'muscle_app:mark' %}">新規作成</button>
+    {% csrf_token %}
+    <form  method="get">
+        {% for article in content_list.db_list%}
+            <a href="{% url 'muscle_app:mark_html' id=article.id %}">
+                <span>@{{ article.author.user_id }}</span>
+                {{ article.author.username }}
+                {{ article.title }} 
+                {{ article.category }}<br>
+            </a>
+            <input type="hidden" value="{{article.id}}"> 
+        {% endfor %}
+    </form>
+        <button onclick=location.href="{% url 'muscle_app:home' %}">戻る</button>
+        
+    </body>
+</html>

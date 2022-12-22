@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
+
+    {% block extra_head %}
+        <link rel=""stylesheet" href="{% static '' %}">
+    {% endblock %}
+    
+    {% block title_block %}
+        mypage
+    {% endblock %}
+
+    {% block body_block %}
+        <h1>マイページ！！！</h1>
+        <button onclick=location.href="{% url 'muscle_app:my_articles' %}">自分の記事一覧</button>
+        <button onclick=location.href="{% url 'muscle_app:user_detail' request.user.user_id %}">ユーザー情報</button>
+    {% endblock %}
+</html>

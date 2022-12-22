@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <body>
+    {{ error }}
+    <form method="POST" action="{% url 'muscle_app:login' %}">
+      {% csrf_token %}
+      <label>メールアドレス</label>
+      {{ form.username }}
+      <label>パスワード</label>
+      {{ form.password }}
+      <button type = "submit">ログイン</button>
+    </form>
+    {% if form.non_field_errors %}
+      <ul class="alert alert-danger list-unstyled">
+      <li style="list-style-type: none;">
+      <ul class="alert alert-danger list-unstyled">
+      {% for errors in form.non_field_errors %}
+        <li>{{ errors }}</li>
+        </ul>
+        </li>
+        </ul>
+      {% endfor %}
+    {% endif %}    
+  </body>
+</html>

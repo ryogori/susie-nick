@@ -1,0 +1,26 @@
+{% extends 'muscle_app/base.html' %}
+{% block title %}ITについて切磋琢磨する掲示板 - {{ block.super }}{% endblock %}
+{% block body_block %}
+<div class="ui grid stackable">
+    <div class="eleven wide column">
+        <div class="ui breadcrumb">
+            <!-- <a href="{% url 'muscle_app:home' %}" class="section">TOP</a> -->
+            <i class="right angle icon divider"></i>
+            <!-- <a href="{% url 'muscle_app:mypage' %}" class="section">プロフィール</a> -->
+            <i class="right angle icon divider"></i>
+            <!-- <div class="active section">ユーザー情報の変更</div> -->
+        </div>
+        <div class="ui segment">
+            <div class="content">
+                <div class="header"><h3>ユーザー情報の変更</h3></div>
+                <form class="ui form" action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="ui orange button" type="submit">変更</button>
+                    <button onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

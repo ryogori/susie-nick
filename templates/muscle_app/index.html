@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+    {% extends "muscle_app/base.html" %}
+    {% load static %}
+
+    {% block extra_head %}
+        <link rel="stylesheet" href="{% static 'muscle_app/home.css' %}">
+    {% endblock %}
+
+    {% block title_block %}
+        home
+    {% endblock %}
+
+    {% block body_block %}
+        <div>
+            <h2>サプリ・プロテイン紹介</h2>
+        </div>
+
+        <div>
+            <h2>新着記事</h2>
+        </div>
+    {% endblock %}
+</html>
