@@ -135,9 +135,9 @@ def mark_insert_view(request):
     user = get_object_or_404(UsersList, user_id=request.user.user_id)
     if form.is_valid():
         title = form.cleaned_data["title"]
-        body = form.cleaned_data["content"]
+        content = form.cleaned_data["content"]
         category= form.cleaned_data["category"]
-        Article.objects.create(author=user, title=title, body=body, category=category)
+        Article.objects.create(author=user, title=title, content=content, category=category)
     return render(request, "muscle_app/mark_insert.html", {'form': form})
 
 #記事一覧
@@ -181,7 +181,7 @@ def mark_html_view(request, id):
     content = {
         'author': obj.author_id,
         'title' : obj.title,
-        'body' : obj.body,
+        'content' : obj.content,
         'category': obj.category,
     }
     return render(request, "muscle_app/mark_view.html", {'db_view':content, 'article':obj})
@@ -190,14 +190,14 @@ def mark_html_view(request, id):
 def mark_edit_views(request, id):
     #modelのデータを持ってくる
     article = get_object_or_404(Article, id=id)
-    update_form = {"title": article.title, "content":article.body, "category":article.category}
+    update_form = {"title": article.title, "content":article.content, "category":article.category}
     form = Update_ArticleForm(request.POST or update_form)
     if request.POST:
         try:
             if form.is_valid():
                 #.cleaned_dataは.is_valid()がtrueだった場合に,正しかったデータが入る
                 article.title = form.cleaned_data["title"]
-                article.body = form.cleaned_data["content"]
+                article.content = form.cleaned_data["content"]
                 article.category = form.cleaned_data["category"]
                 article.save()
                 obj = Article.objects.filter(author_id__user_id=request.user.user_id)

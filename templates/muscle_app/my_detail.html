@@ -12,7 +12,7 @@
     {% csrf_token %}
     {{ article.username }}
     {{ article.title }} 
-    {{ article.body }}
+    {{ article.content }}
     <input type="hidden" value="{{ article.id }}" name='id'> 
     <p><input type = "submit" value = "編集画面へ移動する"></p>
     </form>

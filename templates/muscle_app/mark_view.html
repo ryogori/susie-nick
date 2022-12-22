@@ -12,7 +12,7 @@
         {% load markdown_extras %}
         {% block title %} {{ db_view.title }} {% endblock title %} 
         {% block body %}
-        {{ db_view.body|markdown|safe }}
+        {{ db_view.content|markdown|safe }}
         {% endblock body %}
         <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
         {% if user.is_authenticated %}
