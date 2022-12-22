@@ -8,7 +8,6 @@ uploads/
 # local_settings.py
 .env
 media
-Dockerfile
 my.cnf
 requirements.txt
 local_settings.py

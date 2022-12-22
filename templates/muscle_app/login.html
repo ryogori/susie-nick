@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
   <body>
+    {{ error }}
     <form method="POST" action="{% url 'muscle_app:login' %}">
       {% csrf_token %}
       <label>メールアドレス</label>
@@ -13,8 +14,8 @@
       <ul class="alert alert-danger list-unstyled">
       <li style="list-style-type: none;">
       <ul class="alert alert-danger list-unstyled">
-      {% for error in form.non_field_errors %}
-        <li>{{ error }}</li>
+      {% for errors in form.non_field_errors %}
+        <li>{{ errors }}</li>
         </ul>
         </li>
         </ul>

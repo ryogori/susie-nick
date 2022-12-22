@@ -19,6 +19,8 @@ from operator import is_
 from turtle import back
 from wsgiref.handlers import format_date_time
 
+# renderに渡した文字列の中にあるHTMLタグをエスケープさせないようにするモジュール
+from django.utils.safestring import mark_safe
 
 # Create your views here.
 def index_view(request):
@@ -50,23 +52,26 @@ class SignUp(CreateView):
 class Login(View):
     def post(self, request, *args, **kwargs):
         username = request.POST["username"]
-        if username.find("@") == 0:
-            username = username[1:]
-        form = LoginForm(data={"username": username, "password": request.POST["password"]})
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if username.find("@") == -1:
-                login(request, user, "muscle_app.backends.UseridAuthenticationBackend")
-                # print("ユーザーIDでログインしたよ。")
-            else:
-                login(request, user, "muscle_app.backends.EmailAuthenticationBackend")
-                # print("Emailでログインしたよ。")
-            return redirect('/')
+        if username.find("@") >= 0:
+            if username.find("@") == 0:
+                username = username[1:]
+            form = LoginForm(data={"username": username, "password": request.POST["password"]})
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+                user = authenticate(request, username=username, password=password)
+                if username.find("@") == -1:
+                    login(request, user, "muscle_app.backends.UseridAuthenticationBackend")
+                    # print("ユーザーIDでログインしたよ。")
+                else:
+                    login(request, user, "muscle_app.backends.EmailAuthenticationBackend")
+                    # print("Emailでログインしたよ。")
+                return redirect('/')
 
         form = LoginForm(data=request.POST)
-        return render(request, 'muscle_app/login.html', {'form': form})
+        error = "<h3>ユーザー情報とパスワードが一致しませんでした。<br>また、UserIdでログインする場合は先頭に@を入力してください。</h3>"
+        # return render(request, 'muscle_app/login.html', {'form': form, 'error': "ユーザー情報とパスワードが一致しませんでした。" + "<br>" + "また、UserIdでログインする場合は先頭に@を入力してください。"})
+        return render(request, 'muscle_app/login.html', {'form': form, 'error': mark_safe(error)})
 
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
@@ -88,26 +93,7 @@ def user_detail(request, user_id):
     user = get_object_or_404(UsersList, user_id=user_id)
     return render(request, 'muscle_app/users_detail.html', {'user': user})
 
-# ユーザー情報の更新処理
-# @login_required
-# class UserUpdate(UpdateView):
-#     def post(self, request, *args, **kwargs):
-#         user = get_object_or_404(UsersList, user_id=request.user.user_id)
-#         form = UserChangeForm(data=request.POST, instance=user)
-#         print(form.is_valid())
-#         if form.is_valid():
-#             form.save()
-#             return redirect("/user_detail/" + str(user.user_id))
-#         else:
-#             form = UserChangeForm(data=request.POST)
-#             return render(request, 'muscle_app/change.html', {'form': form})
-
-#     def get(self, request, *args, **kwargs):
-#         kwargs = dict(user_id=request.user.user_id, username=request.user.username, email=request.user.email)    
-#         form = UserChangeForm(request.POST, initial=kwargs)
-#         return  render(request, 'muscle_app/change.html', {'form': form})
-
-# ログインしてるかどうかの関数を作成したほうがよき。
+# ログインしていない際の例外処理の追加が必要。
 class UserUpdate(View):
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(UsersList, user_id=request.user.user_id)
@@ -214,11 +200,11 @@ def mark_edit_views(request, id):
                 article.body = form.cleaned_data["content"]
                 article.category = form.cleaned_data["category"]
                 article.save()
-                obj = Article.objects.all()
+                obj = Article.objects.filter(author_id__user_id=request.user.user_id)
                 content = {
                     'db_list' : obj
                 }
-                return render(request, "muscle_app/mark_list.html", {'content_list':content})
+                return render(request, "muscle_app/my_article.html", {'content_list':content})
 
             else:
                 if request.POST["title"].isspace or request.POST["content"].isspace:
@@ -253,10 +239,11 @@ def my_articles(request):
     }
     return render(request, "muscle_app/my_article.html", {'content_list': content})
     
-# 記事の削除処理 
+# ログインしていない際の例外処理が必要
+# 記事の削除処理
 def mark_delete_view(request, id):
     obj = get_object_or_404(Article, id=id)
-    if request.user.user_id == obj.author_id:
+    if request.user.user_id == obj.author.user_id:
         ctx = {"object": obj}
         if request.POST:
             obj.delete()
