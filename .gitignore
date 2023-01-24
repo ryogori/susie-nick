@@ -1,17 +1,13 @@
+!muscle_app/migrations/
 *.log
 *.pot
 *.pyc
 */__pycache__/
-# muscle_app/__pycache__/
-# muscle_app/migrations/
-muscle_app/migrations/
 uploads/
 
 # local_settings.py
+.env
 media
-docker-compose.yml
-Dockerfile
-install.sh
 my.cnf
 requirements.txt
 local_settings.py

@@ -23,7 +23,7 @@ urlpatterns = [
     # ユーザー情報詳細
     path('user_detail/<str:user_id>', views.user_detail, name='user_detail'),
     # ユーザー情報の変更
-    # path('user_update', views.UserUpdate.as_view(), name='user_update'),
+    path('user_update', views.UserUpdate.as_view(), name='user_update'),
     # path('user_update', views.user_update, name='user_update'),
     # パスワードの変更
     path('password_change', views.PasswordChange.as_view(), name='password_change'),

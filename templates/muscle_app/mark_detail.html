@@ -13,13 +13,14 @@
 {% block body_block %}
 <body>
     {%csrf_token%}
-    <span>@{{ article.author_id }}</span>
-    {{ article.username }}
+    <span>@{{ article.author.user_id }}</span>
+    {{ article.author.username }}
     {{ article.title }} 
-    {{ article.body }}
+    {{ article.content }}
     <input type="hidden" value="{{ article.id }}" name='id'> 
     <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id%}">編集する</button><br>
     <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
 </body>
 {% endblock %}
 </html>
+<!-- 正直これは使うかわからん -->
