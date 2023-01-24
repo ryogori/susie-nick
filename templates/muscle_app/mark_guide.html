@@ -1,0 +1,22 @@
+{% extends "muscle_app/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+    {% block extra_head %}
+    <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
+    <link rel="stylesheet" href="{% static 'muscle_app/mark_guide.css' %}">
+    {% endblock %}
+    {% block body_block %}
+        <body class="main">
+            <article class="guide">
+                <h1>マークダウンの使い方</h1>
+                <h2>タイトルについて</h2>
+                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                <hr>
+
+                <h2>タグについて</h2>
+                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+
+            </article>
+        </body>
+    {% endblock %}

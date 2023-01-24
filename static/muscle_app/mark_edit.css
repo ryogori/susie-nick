@@ -1,0 +1,34 @@
+#id_title{
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 12px 35px 12px 11px;
+    box-shadow: none;
+    background: transparent;
+    outline: none;
+    background: #fff
+}
+
+#id_category{
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 12px 35px 12px 11px;
+    box-shadow: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    background: #fff
+}
+
+.keep{
+    background: #F35A16;
+    border-radius: 2px;
+    border-color: #F35A16;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1.6em;
+    margin: 2em 0 0;
+    padding: 0.1em 2em;
+    outline: none;
+}

@@ -1,9 +1,12 @@
+{% extends "muscle_app/base.html" %}
 {%load static%}
+
 <!DOCTYPE html>
 <html lang = "en">
     <head>
         <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
     </head>
+    {% block body_block %}
     <body>
     <h1>記事一覧画面</h1>
     <h1>{{ error }}</h1>
@@ -19,8 +22,8 @@
             </a>
             <input type="hidden" value="{{article.id}}"> 
         {% endfor %}
-    </form>
-        <button onclick=location.href="{% url 'muscle_app:home' %}">戻る</button>
-        
+        </form>
+        <button onclick=location.href="{% url 'muscle_app:index' %}">戻る</button>
     </body>
+    {% endblock %}
 </html>

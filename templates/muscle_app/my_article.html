@@ -1,10 +1,13 @@
 <!-- 使用していません。 -->
+{% extends "muscle_app/base.html" %}
+
 {%load static%}
 <!DOCTYPE html>
 <html lang = "en">
     <head>
         <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
     </head>
+    {% block body_block %}
     <body>
         {% comment %} 現在markで作成したユーザー名を表示している {% endcomment %}
         {% comment %} 自分の作業作成された記事の表示かつ自分のもの限定 {% endcomment %}
@@ -24,4 +27,5 @@
         {% endfor %}
         <button type="button" onclick=location.href="{% url 'muscle_app:mypage' %}">戻る</button>
     </body>
+    {% endblock %}
 </html>

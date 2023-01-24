@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
+  {% extends "muscle_app/base.html" %}
+  {% load static %}
+  {% load widget_tweaks %}
+
+  {% block extra_head %}
+    <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
+    <link rel="stylesheet" href="{% static 'muscle_app/login.css' %}">
+  {% endblock %}
+  {% block body_block %}
   <body>
-    {{ error }}
+    <div class="login_post">
+      <h2>ログイン</h2>
     <form method="POST" action="{% url 'muscle_app:login' %}">
       {% csrf_token %}
       <label>メールアドレス</label>
-      {{ form.username }}
+      {{ form.username | add_class:"login-form"}}
+      {{ form.username.errors }}
+      <br>
       <label>パスワード</label>
-      {{ form.password }}
-      <button type = "submit">ログイン</button>
+      {{ form.password | add_class:"login-form" }}
+      {{ form.password.errors }}
+      <br>
+      <div class="post">
+      <button class="loginbutton" type = "submit">ログイン</button>
+      <a href="{% url 'muscle_app:sign_up' %}">新規登録はこちら</a>
+      </div>
     </form>
     {% if form.non_field_errors %}
       <ul class="alert alert-danger list-unstyled">
@@ -20,6 +38,9 @@
         </li>
         </ul>
       {% endfor %}
-    {% endif %}    
+    {% endif %}  
+  </div>
+    {% endblock %}
+  </div>
   </body>
 </html>

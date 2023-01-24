@@ -1,0 +1,50 @@
+.photo{
+    text-align: center;
+}
+
+.product{
+    text-align: center;
+}
+
+.new_article{
+    background-color: #ff98008f;
+    width: 100%;
+}
+
+.protein_title{
+    font-size: 140px;
+    color: #f44336;
+    line-height: 1.0;
+    margin-bottom: -30px;
+}
+
+.headline{
+    text-align: center;
+    font-size: 40px;
+    line-height: 1.4;
+    margin-top: -45px;
+    font-weight: 800;
+}
+
+.text{
+    margin: 0 auto;
+    padding: 30px 12px 0;
+    max-width: 1100px;
+    width: 100%;
+    text-align: left;
+}
+
+.title{
+    padding: 1rem 2rem;
+    border-bottom: 3px solid #000;
+    background: #f4f4f4;
+}
+
+.category{
+}
+
+.whey{
+}
+
+.soy{
+}

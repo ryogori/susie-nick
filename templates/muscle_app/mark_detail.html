@@ -1,3 +1,5 @@
+{% extends "muscle_app/base.html" %}
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -8,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>記事詳細</title>
 </head>
+{% block body_block %}
 <body>
     {%csrf_token%}
     <span>@{{ article.author.user_id }}</span>
@@ -18,5 +21,6 @@
     <button type="button" onclick=location.href="{% url 'muscle_app:mark_edit' id=article.id%}">編集する</button><br>
     <button type="button" onclick=location.href="{{ request.META.HTTP_REFERER }}">戻る</button>
 </body>
+{% endblock %}
 </html>
 <!-- 正直これは使うかわからん -->

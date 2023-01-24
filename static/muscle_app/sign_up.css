@@ -1,0 +1,180 @@
+/* フォームのナビケーション */
+/* .progressbar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .progressbar .item {
+      position: relative;
+      width: 33%;
+      text-align: center;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 0;
+      line-height: 1.5;
+      background: #F5F5F5;
+      color: #999999;
+  }
+  .progressbar .item:not(:last-child)::before,
+  .progressbar .item:not(:last-child)::after {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      content: '';
+      border: 37px solid transparent;
+      border-left: 20px solid #F5F5F5;
+      margin: auto;
+  }
+  .progressbar .item:not(:last-child)::before {
+      margin-left: 1px;
+      border-left-color: #FFF;
+  }
+  
+  @media screen and (max-width: 767px) {
+  .progressbar .item {
+      font-size: 11px;
+      line-height: 1.4;
+      padding: 10px 0;
+  }
+  .progressbar .item:not(:last-child)::before,
+  .progressbar .item:not(:last-child)::after {
+      border-width: 25px;
+      border-left-width: 12px;
+  }
+  } */
+  
+  /* active */
+  
+  /* .progressbar .item.active {
+      z-index: 1;
+      background: #0070BD;
+      color: #FFF;
+  }
+  .progressbar .item.active:not(:last-child)::after {
+      border-left-color: #0070bd;
+  }
+  .progressbar .item.active:not(:last-child)::before {
+      border-left: none;
+  } */
+
+/* フォームのデザイン */
+.content h2 {
+    margin:0 0 50px 0;
+    padding:10px;
+    text-align:center;
+    font-size:30px;
+    border-bottom:solid 1px #c3c3c3;
+}
+
+.content{
+    background: #fff;
+    padding: 4em 4em 2em;
+    max-width: 700px;
+    margin: 50px auto 0;
+    box-shadow: 0 0 0.5em #b0b0b0;
+    border-radius: 2px;
+}
+
+.form-id{
+    border:0;
+    padding:6px 95px 6px 25px;
+    font-size:1.3em;
+    color:#000;
+    border:solid 1px #ccc;
+    margin:0 0 20px 0;
+    position: relative;
+}
+
+.atto::before{
+    content: "@";
+    color:#aaa;
+    position: absolute;
+    font-size: 25px;
+    z-index: 1;
+}
+
+.form-name{
+    border:0;
+    padding:6px 120px 6px 0;
+    font-size:1.3em;
+    color:#aaa;
+    border:solid 1px #ccc;
+    margin:0 0 20px;
+}
+
+.form-email{
+    border:0;
+    padding:6px 120px 6px 0;
+    font-size:1.3em;
+    color:#aaa;
+    border:solid 1px #ccc;
+    margin:0 0 20px;
+}
+
+.form-pass{
+    border:0;
+    padding:6px 120px 6px 0;
+    font-size:1.3em;
+    color:#aaa;
+    border:solid 1px #ccc;
+    margin:0 0 20px;
+}
+
+.form-pass2{
+    border:0;
+    padding:6px 120px 6px 0;
+    font-size:1.3em;
+    color:#aaa;
+    border:solid 1px #ccc;
+    margin:0 0 20px;
+}
+
+
+.note{
+    font-size: 13px;
+    color: #8f8f8f;
+    position: relative;
+    bottom: 30px;
+    margin-bottom: -20px;
+}
+
+/* 送信ボタンのデザイン */
+label{
+    display: block;
+}
+
+.post{
+    text-align: center;
+}
+
+.errorlist{
+    margin: 0;
+    position: relative;
+    bottom: 12px;
+    right: 20px;
+}
+
+.errorlist li{
+    color: #F35A16;
+}
+
+.send{
+    background: #F35A16;
+    box-shadow: 0 3px 0 0;
+    border-radius: 2px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 30px;
+    line-height: 1.6em;
+    margin: 2em 0 0;
+    padding: 0.1em 2em;
+    outline: none;
+    /* text-shadow: 0 1px #; */
+}
+
+
