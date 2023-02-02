@@ -15,6 +15,7 @@ article {
     display: flex;
     margin-bottom: 20px;
     padding: 20px;
+    padding-right: 1000px;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 0 5px rgb(12, 12, 12);
@@ -26,10 +27,7 @@ article figure {
     height: 100px;
 }
 article figure img {
-    min-width: 150px;
     max-width: 100%;
-    /* vertical-align: top; */
-    margin: 20px 10px 30px -40px;
 }
 article a{
     color: black;

@@ -29,12 +29,12 @@
                     </li>
                     <li class="men"><a href=""><h2>Training</h2></a>
                         <ul>
-                          <li><a href="{% url 'muscle_app:mark_list' %}"><img class="icon" src="static/img/mypage.png">Mypage</a></li>
-                          <li><a href="{% url 'muscle_app:parts' 'leg' %}"><img class="icon" src="static/img/asi.png">Leg</a></li>
-                          <li><a href="{% url 'muscle_app:parts' 'abs' %}"><img class="icon" src="static/img/hukkin.png">Abs</a></li>
-                          <li><a href="{% url 'muscle_app:parts' 'chest' %}"><img class="icon" src="static/img/kyoukin.png">Chest</a></li>
-                          <li><a href="{% url 'muscle_app:parts' 'back' %}"><img class="icon" src="static/img/haikin.png">Back</a></li>
-                          <li><a href="{% url 'muscle_app:parts' 'arm' %}"><img class="icon" src="static/img/Arm.jpeg">Arm</a></li>
+                          <li><a href="{% url 'muscle_app:mark_list' %}"><img class="icon" src="/static/img/mypage.png">Mypage</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'leg' %}"><img class="icon" src="/static/img/asi.png">Leg</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'abs' %}"><img class="icon" src="/static/img/hukkin.png">Abs</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'chest' %}"><img class="icon" src="/static/img/kyoukin.png">Chest</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'back' %}"><img class="icon" src="/static/img/haikin.png">Back</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'arm' %}"><img class="icon" src="/static/img/Arm.jpeg">Arm</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -50,11 +50,11 @@
                         <p>{{ user.get_username }}でログイン中</p>
                         <div id="trim">
                             <ul class="dropdown">
-                                <li><a class="dropdown_btn" id="dropdown_btn"><img src="static/img/muscle_risu.png"></a>
+                                <li><a class="dropdown_btn" id="dropdown_btn"><img src="/static/img/muscle_risu.png" width="140px"></a>
                                         <ul id="dropdown_list" style="display: none;">
                                             <li><a href="{% url 'muscle_app:mypage' %}">マイページ</a></li>
                                             <li><a href="{% url 'muscle_app:mark' %}">記事作成</a></li>
-                                            <li><a href="{% url 'muscle_app:logout' %}">ログアウトする</a></li>
+                                            <li><a href="{% url 'muscle_app:logout' %}">ログアウト</a></li>
                                         </ul>
                                 </li>
                             </ul>

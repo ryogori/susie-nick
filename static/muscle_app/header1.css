@@ -37,6 +37,7 @@ height: 50px;
 vertical-align: bottom;
 right: 20px;
 }
+
 /* 検索バーのcss */
 
 .serch{
@@ -174,15 +175,85 @@ right: 20px;
     background-color: #fff; 
     }
 
+  /* アイコンのクリックメニュー */
+
     #trim img{
       position: relative;
-      top: 5px;
-      right: 5px;
-      width: 70px;
-      height: 70px;
+      top: 0;
+      width: 60px;
       border-radius: 50%;
-      background-color: #CE4242;
     }
+
+    #trim {
+      background-color: #fff;
+      height: 100%;
+    }
+    
+    .pop{
+      width: auto;
+      height: auto;
+      background-color: #fff;
+    }
+    
+    .dropdown {
+      height: 100%;
+      position: relative;
+      top: 0;
+      display: block;
+      margin-right: auto; 
+      margin-left: auto;
+    }
+    
+    
+    
+    /** ドロップメニュー元 **/
+    .dropdown a {
+      display: block;
+      height: 100%;
+      padding: 15px 10px;
+      color: rgb(0, 0, 0);
+      text-align: center; 
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    
+    .dropdown > li {
+      height: 100%;
+    }
+    
+    .dropdown > li > a {
+      background-color:#fdfdfd;
+    }
+    
+    .dropdown > li > ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      /* display: none; */
+      width: 150%;
+    }
+    
+    /** ドロップメニュー先 **/
+    .dropdown > li > ul > li {
+      display: block;
+    }
+
+    .dropdown > li > ul > li:hover {
+      display: block;
+      border: solid rgb(165, 0, 0);
+    }
+    
+    .dropdown > li > ul > li > a {
+      display: block;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background-color: #fff; 
+      /* background-color: #fff;*/
+    
+    }
+    
 
     
 

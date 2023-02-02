@@ -32,3 +32,17 @@
     padding: 0.1em 2em;
     outline: none;
 }
+
+.backmypage{
+    background: #ffffff;
+    border-radius: 2px;
+    border-color: #000000;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1.6em;
+    margin: 2em 0 0;
+    padding: 0.1em 2em;
+    outline: none;
+}

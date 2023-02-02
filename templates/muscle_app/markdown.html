@@ -12,9 +12,9 @@
             {% csrf_token %}
             <!-- <input type="hidden" name="user_name" value="{{ user.username }}"> -->
             {{ form.media }}
-            <p>タイトル:{{ form.title }}</p>
+            <p class="item">タイトル:{{ form.title }}</p>
             {{ form.content }}
-            <p>カテゴリ{{ form.category }}</p>
+            <p class="item">カテゴリ{{ form.category }}</p>
             <button class="btn-mark" type = "submit">送信</button>
             <button class="btn-back" type="button" onclick=location.href="{% url 'muscle_app:mark_list' %}">戻る</button>
         </form>

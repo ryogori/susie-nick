@@ -22,14 +22,14 @@
   width: 60%;
   -o-object-fit: cover;
      object-fit: cover;
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 /*スライダーのボタン調整*/
 .swiper-button-prev, .swiper-button-next{
     display:flex;
     position:absolute;
-    top:50%;
+    top:25%;
     align-items:center;
     justify-items:center;
     width: 6.4rem;

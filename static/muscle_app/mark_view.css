@@ -1,4 +1,4 @@
-body{
+.articleview{
 background-color: #f3f1ed;
 }
 
@@ -27,10 +27,8 @@ margin: auto;
 }
 
 .two{
-    height: 100%;
-    height: clamp(200px,45vw,98%);
+    height: fit-content;
     background-color: #fff;
-    padding: 50px 10px;
     box-shadow: 4px 7px 8px 0px #d2cece;
 }
 
@@ -63,6 +61,7 @@ margin: 0 auto;
 
 .content{
     margin-top: 0;
+    margin-left: 1.5em;
 }
 
 .content ul, ol {

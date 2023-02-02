@@ -19,6 +19,10 @@
     background: #fff
 }
 
+.item{
+    font-size: medium;
+}
+
 .btn-mark{
     background: #F35A16;
     border-radius: 2px;

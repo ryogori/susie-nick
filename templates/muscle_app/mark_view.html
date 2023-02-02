@@ -4,7 +4,6 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
-<link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
 <link rel="stylesheet" href="{% static 'muscle_app/login.css' %}">
 <link rel="stylesheet" href="{% static 'muscle_app/mark_view.css' %}">
 {% endblock %}
@@ -14,6 +13,7 @@
 {% endblock %}
 <body>
     {% block body_block %}
+    <div class="articleview">
     {%csrf_token%}
     {% load markdown_extras %}
     <section class="twocols">
@@ -41,7 +41,8 @@
     </section>
     <button type="button" onclick=location.href="{% url 'muscle_app:mark_list'%}">リストに戻る</button>
     {% if user.user_id == db_view.user_id %}
-            <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
-        {% endif %}
+        <button type="button" onclick=location.href="{% url 'muscle_app:mark_delete' id=article.id %}">削除画面</button><br>
+    {% endif %}
+    </div>
     {% endblock %}
 </body>

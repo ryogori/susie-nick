@@ -4,7 +4,8 @@
     {% load static %}
 
     {% block extra_head %}
-        <link rel="stylesheet" href="{% static 'muscle_app/sideber.css' %}">        <link rel="stylesheet" href="{% static 'muscle_app/mypage.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/sideber.css' %}">        
+        <link rel="stylesheet" href="{% static 'muscle_app/mypage.css' %}">
         <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/paginathing.min.js' %}"></script> 
         <script type="text/javascript" src="{% static 'js/titel.js' %}"></script>
@@ -18,7 +19,7 @@
     {% block body_block %}
     <div class="all">
         <div class="sidebar">
-            <img src="mediaa/susi-nick.png" alt="ロゴ画像">
+            <img src="/static/img/muscle_risu.png" alt="ロゴ画像">
             <a href="{% url 'muscle_app:my_articles' %}"><h3>自分の記事一覧</h3></a><br>
             <a href="{% url 'muscle_app:user_detail' request.user.user_id %}"><h3>ユーザー情報</h3></a><br>
             <a href="{% url 'muscle_app:logout' %}"><h3>ログアウト</h3></a><br>
@@ -32,24 +33,24 @@
             <div class="list">
                 <article>
                     <figure>
-                    <img src="" alt="サムネイル画像">
+                    <img src="/static/img/muscle_risu.png" alt="サムネイル画像">
                     </figure>
                     <div class="text_content">
                         <p class="text_date"><time datetime=""></time></p>
-                        <h2><a href="#" class="titel">ああああああaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a></h2>
-                        <p class="text_excerpt">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                        <h2><a href="#" class="titel">記事タイトル</a></h2>
+                        <p class="text_excerpt">コンテンツ</p>
                         <input type="button"  value="削除" class="delete" id="del">
                         <input type="button"  value="編集" class="edit">
                     </div>
                 </article>
                 <article>
                     <figure>
-                    <img src="" alt="サムネイル画像">
+                    <img src="/static/img/muscle_risu.png" alt="サムネイル画像" width="100px">
                     </figure>
                     <div class="text_content">
                         <p class="text_date"><time datetime=""></time></p>
-                        <h2><a href="#">aaaaaaaaaaa</a></h2>
-                        <p class="text_excerpt"></p>
+                        <h2><a href="#">記事タイトル2</a></h2>
+                        <p class="text_excerpt">コンテンツ2</p>
                         <input type="button"  value="削除" class="delete" id="del">
                         <input type="button"  value="編集" class="edit">
                     </div>

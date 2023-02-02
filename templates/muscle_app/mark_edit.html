@@ -3,7 +3,6 @@
 {% load widget_tweaks %}
     {% block extra_head %}
     <link rel="stylesheet" href="{% static 'muscle_app/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'muscle_app/header.css' %}">
     <link rel="stylesheet" href="{% static 'muscle_app/mark_edit.css' %}">
     {% endblock %}
     {% block body_block %}
@@ -18,12 +17,13 @@
             <p>コンテンツ：{{ update_form.content.errors }}{{ update_form.content }}</p>
             <p>カテゴリ：{{ update_form.category }}</p>
             {% csrf_token %}
-            {% comment %} <button type="submit" class="btn btn-primary btn-lg">送信</button> {% endcomment %}
+            {% comment %} 
+            <button type="submit" class="btn btn-primary btn-lg">送信</button> {% endcomment %}
             <!--ポップアップ表示をして見栄えを良くするために下の処理を行う-->
             <button class="keep" type="submit" onclick='return confirm("この内容で保存しますか？");'>保存</button>
+            <button class="backmypage" type="button" onclick=location.href="{% url 'muscle_app:my_articles'%}">戻る</button>
         </form>
         <input type="hidden" value="{{ article }}" name='id'> 
-        <button type="button" onclick=location.href="{% url 'muscle_app:my_articles'%}">自分の記事一覧へ戻る</button><br>
         <!-- <button type="button" onclick=location.href="{% url 'muscle_app:index'%}">TOPへ戻る</button><br> -->
     </body>
     {% endblock %}
