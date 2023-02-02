@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'muscle_app/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/header1.css' %}">
+        <script type="text/javascript" src="{% static 'js/drop.js' %}"></script>
+        
+        <!-- この中にCSSなどを指定。 -->
+        {% block extra_head %}
+        {% endblock %}
+        <title>
+            <!-- この中は継承先で定義 -->
+            {% block title_block %}
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        <header class="header01">
+                <a class="header01-logo" href="{% url 'muscle_app:index' %}"><img class="sitelogo" src="/static/img/susie_nick.png" width="140px" alt="ロゴ画像"></a>
+                <nav class="header01-nav">
+                <ul class="header01-lists">
+                    <li>
+                        <a href="{% url 'muscle_app:index' %}"><h2>Top</h2></a>
+                    </li>
+                    <li class="men"><a href=""><h2>Training</h2></a>
+                        <ul>
+                          <li><a href="{% url 'muscle_app:mark_list' %}"><img class="icon" src="static/img/mypage.png">Mypage</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'leg' %}"><img class="icon" src="static/img/asi.png">Leg</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'abs' %}"><img class="icon" src="static/img/hukkin.png">Abs</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'chest' %}"><img class="icon" src="static/img/kyoukin.png">Chest</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'back' %}"><img class="icon" src="static/img/haikin.png">Back</a></li>
+                          <li><a href="{% url 'muscle_app:parts' 'arm' %}"><img class="icon" src="static/img/Arm.jpeg">Arm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                    <ul class="header01-lists">
+                        <li class="serch">
+                            <form id="form1" action="" method="get">
+                                <input id="sbox1" type="search" name="search" placeholder="検索キーワードを入力">
+                                <input id="sbar1" type="submit" name="submit" value="検索">
+                            </form>
+                        </li>
+                    {% if user.is_authenticated %}
+                        <p>{{ user.get_username }}でログイン中</p>
+                        <div id="trim">
+                            <ul class="dropdown">
+                                <li><a class="dropdown_btn" id="dropdown_btn"><img src="static/img/muscle_risu.png"></a>
+                                        <ul id="dropdown_list" style="display: none;">
+                                            <li><a href="{% url 'muscle_app:mypage' %}">マイページ</a></li>
+                                            <li><a href="{% url 'muscle_app:mark' %}">記事作成</a></li>
+                                            <li><a href="{% url 'muscle_app:logout' %}">ログアウトする</a></li>
+                                        </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <li>
+                            <button class="btn slide-bg" onclick=location.href="{% url 'muscle_app:login' %}" >ログイン</button>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+        </header>
+
+        {% block body_block %}
+        <!-- この中は継承先で定義 -->
+        {% endblock %}
+    </body>
+</html>

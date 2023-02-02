@@ -1,4 +1,6 @@
+{% extends "muscle_app/base1.html" %}
 
+{% block body_block %}
 <p>ユーザーID:</p>
 <p>@{{ user.user_id }}</p>
 <br>
@@ -14,3 +16,4 @@
 <button onclick=location.href="{% url 'muscle_app:user_update' %}">ユーザー情報変更はこちらから</button><br>
 <button onclick=location.href="{% url 'muscle_app:password_change' %}">パスワードの変更はこちらから</button><br>
 <button onclick=location.href="{% url 'muscle_app:mypage' %}">マイページに戻る</button><br>
+{% endblock %}

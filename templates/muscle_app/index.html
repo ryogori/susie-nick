@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
-    {% extends "muscle_app/base.html" %}
+    {% extends "muscle_app/base1.html" %}
     {% load static %}
 
     {% block extra_head %}
         <link rel="stylesheet" href="{% static 'muscle_app/index.css' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/swiper.css' %}">
+        <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     {% endblock %}
 
     {% block title_block %}
@@ -12,9 +14,24 @@
     {% endblock %}
 
     {% block body_block %}
-    <div class="photo">
-        <img src="/static/img/0cf90bde040ee65d491c039c338c17fd-1024x683.jpg" alt="トップ画像">
+    <div class="swiper">
+        <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="slide-media img-cover">
+                    <img src="https://freephotomuscle.com/wp-content/uploads/2018/06/DSC_1687-1024x683.jpg" >
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slide-media img-cover">
+                    <img src="https://freephotomuscle.com/wp-content/uploads/2020/12/20201130-DSC00730-1024x683.jpg">
+                    </div>
+                </div>
+        </div>    
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
+</div>
         <div class="product">
             
             <h2 class="protein_title">Protein</h2>
@@ -79,15 +96,14 @@
                 <p>プロテイン（プロテインパウダー）を飲むだけで筋肉がごりごりついていくことはありません</p>
                 <p>健康的な体を作るのにもたんぱく質は必要不可欠なものなので積極的に摂っていきましょう</p>
             </div>
-                
-                
-            <div class="supplement">
 
-            </div>
         </div>
 
         <div class="new_article">
             <h2></h2>
         </div>
+
+        <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'js/swip.js' %}"%></script>
     {% endblock %}
 </html>

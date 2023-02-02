@@ -1,4 +1,4 @@
-{% extends "muscle_app/base.html" %}
+{% extends "muscle_app/base1.html" %}
 {%load static%}
 {% load widget_tweaks %}
 
@@ -32,9 +32,9 @@
                 </div>
 
                 <div class="content">
-                    {%block body%}
-                        {{db_view.body|markdown|safe}}
-                    {%endblock body%}
+                    {% block body %}
+                        {{ db_view.content|markdown|safe }}
+                    {% endblock body %}
                 </div>
             </div>
         </div>

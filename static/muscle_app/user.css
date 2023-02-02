@@ -1,0 +1,60 @@
+.all{
+    display: flex;
+    /* width: 100vw;
+    height: 100vh; */
+}
+.main {
+    display: flex;
+    flex-flow: column;
+}
+.headline{
+    width: 200px;
+    height: 100px;
+}
+
+.user{
+    display: inline-block;
+    width: 150px;
+}
+
+.passcha{
+    display: inline-block;
+    width: 150px;
+}
+
+.name{
+    display: flex;
+    float: left;
+}
+
+.name span{
+    padding-left: 1em;
+}
+
+.id{
+    display: flex;
+    float: left;
+}
+
+.id span{
+    padding-left: 1em;
+}
+
+.mail{
+    display: flex;
+    float: left;
+}
+
+.mail span{
+    padding-left: 1em;
+}
+
+.pass{
+    display: flex;
+}
+
+.pass h4{
+    padding-left: 1em;
+    margin: 0;
+
+}

@@ -1,494 +1,460 @@
 /** ココから下はヘッダーのアイコン・検索欄 **/
 @media screen and (min-width: 601px){
-  header{
-      box-sizing: 100%;
-      box-shadow: 0 10px 10px -8px #CFCFCF; 
-      background-color: #fff;
-      margin-top: 0;
-  }
+    header{
+        box-sizing: 100%;
+        box-shadow: 0 10px 10px -8px #CFCFCF; 
+        background-color: #fff;
+        margin-top: 0;
+        display: flex;
+    }
 
-  a img {
-      width: 153px;
-      height: 150px;
-      object-fit: cover;
+    
+    a img {
+        width: 153px;
+        height: 150px;
+        object-fit: cover;
+    
+    }
+    
+    a img:hover{
+        opacity: 1;
+    }
+
+    #trim img{
+      position: fixed;
+      top: 20px;
+      right: 10px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #CE4242;
+    }
+
+
+    }
+    
+    .login{
+      color: #FFF;
+      width: 250px;
+      margin-left: 20px;
+      position: absolute;
+      top: -10px;
+      right: 30px;
+      text-decoration: none;
+  }
+    
+    .flex{
+        margin-bottom: 3px;
+        position: relative;
+        bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .flex_item{
+        color: #000;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-bottom: 2px solid rgb(184, 184, 184);
+        /*border: solid;*/
+    }
+    
+    .flex_item:hover{
+        border-bottom: 2px solid #CE4242;
+    }
+    
+    .content {
+        width: 80%;
+        margin-left: 10%;
+    }
+    
+    .serch button{
+        border: none;
+        outline: none;
+        background: transparent;
+    }
+    
+    .serch{
+        position: absolute;
+        top: 20px;
+        right: 300px;
+        display: flex;
+    }
+    
+    .serch form input{
+        padding: 5px 50px 5px 10px;
+        border-radius: 30px;
+        border: solid;
+        border-width: thin;
+        background-color: #fff;
+    }
+    
+    .serch form button{
+        position: relative;
+        right: 19%;
+    }
+    
+    .serch form button img{
+        vertical-align: middle;
+        width: 20px;
+        height: 16px;
+    }
+
+    body{
+        margin: 0px;
+    }
+
   
-  }
-  
-  a img:hover{
-      opacity: 1;
-  }
+ /** ここから下はアイコンのドロップダウンのやつ **/
 
-  .dropmenu h2{
-    font-size: 25px;
-  }
-
-  .top_wrapper{
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .login{
-    color: #FFF;
-    text-decoration: none;
-  }
-
-/* 検索バー */
-  .serch{
-    display: flex;
-    align-items: center;
-  }
-  
-  #form1{
-    position:relative;
-    bottom: 15%;
-  }
-
-  #sbox1{	
-    border: none;	
-    height:50px;
-    padding-right: 100px;
-    position:absolute; 
-    left:0;
-    top:0; 
-    max-width:300px;
-    border-radius:2px;
-    background:#eee;
-  }
-
-  #sbtn1{
-    width:70px;
-    height:50px;
-    position:absolute; 
-    left:270px; 
-    top:0;
-    border-radius:2px;
-    background:#7fbfff;
-    color:#fff;
-    font-weight:bold;
-    font-size:16px;
-    border:none;
-  }
-
-  #sbtn1:hover{
-    opacity: 80%;
-  }
-
-  .login{
-    display: flex;
-    align-items: center;
-    margin-right: 1rem;
-  } 
-
-/* ここからログインボタンのcss */
-*,
-*:before,
-*:after {
--webkit-box-sizing: inherit;
-box-sizing: inherit;
+ #trim {
+  background-color: #fff;
 }
 
-html {
--webkit-box-sizing: border-box;
-box-sizing: border-box;
+.pop{
+  width: auto;
+  height: auto;
+  background-color: #fff;
 }
 
-.btn,
-a.btn,
-button.btn {
-font-size: 1rem;
-font-weight: 700;
-line-height: 1.5;
-position: relative;
-display: inline-block;
-padding: 1rem 4rem;
-cursor: pointer;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
--webkit-transition: all 0.3s;
-transition: all 0.3s;
-text-align: center;
-vertical-align: middle;
-text-decoration: none;
-letter-spacing: 0.1em;
-color: #212529;
-border-radius: 0.5rem;
-}
-
-a.btn-flat {
-overflow: hidden;
-padding: 0.9rem 4rem;
-color: #fff;
-border-radius: 0;
-background: #000;
-}
-
-a.btn-flat span {
-position: relative;
-}
-
-a.btn-flat:before {
-position: absolute;
-top: 0;
-left: 0;
-
-width: 100px;
-height: 100px;
-
-content: '';
--webkit-transition: all .5s ease-in-out;
-transition: all .5s ease-in-out;
--webkit-transform: translateX(-80%) translateY(-25px);
-transform: translateX(-80%) translateY(-25px);
-
-border-radius: 50%;
-background: #eb6100;
-}
-
-a.btn-flat:hover:before {
-width: 400px;
-height: 400px;
-
--webkit-transform: translateX(-1%) translateY(-175px);
-
-transform: translateX(-1%) translateY(-175px);
-}
-
-/* ここまで */
-
-  body{
-      margin: 0px;
-  }
-
-}
-
-/** ココから下はヘッダーのドロップメニューのcss **/
-
-#globalnavi {
-    background-color: #fff;
-  }
-  
-  .dropmenu {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    width: 850px;
-    margin-right: auto; 
-    margin-left: auto;
-    top: 15px;
-  }
-
-  .dropmenu h2:hover{
-    color: #CE4242;
-  }
-
-  /** ドロップメニュー元 **/
-  .dropmenu a {
-    display: block;
-    padding: 15px 10px;
-    color: rgb(0, 0, 0);
-    text-align: center; 
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 700;
-  }
-
-  .dropmenu > li {
-    list-style: none;
-    width: calc(100% / 7);
-  }
-
-  .dropmenu > li:hover > ul {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .dropmenu > li > a {
-    background-color:#fdfdfd;
-  }
-
-  .dropmenu > li > ul {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none;
-    width: 100%;
-  }
-
-  /** ドロップメニュー先 **/
-  .dropmenu > li > ul > li {
-    list-style: none;
-    width: calc(100% / 7);
-  }
-
-  .dropmenu > li > ul > li > a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: #000;
-    background-color: #fff; 
-    /* background-color: #fff;*/
-
-  }
-
-  .dropmenu > li > ul > li > a:hover {
-    color: #CE4242;
-    border-bottom: solid;
-    border-color: #000;
-    border-width: 4px;
-  }
-
-  .dropmenu .men > a:hover { background-color: #fff; }
-  
-  .dropmenu .lay > a:hover { background-color: #fff; }
-
-/** ココからハンバーガーメニューのcss **/
-
-/* .openbtn{
+.dropdown {
   position: relative;
-  background: #FF6868;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
+  display: block;
+  width: 860px;
+  margin-right: auto; 
+  margin-left: auto;
+  top: 15px;
+  right: 10px;
 }
 
-.openbtn span{
-  display: inline-block;
-  transition: all 4s;
-  position: absolute;
-  right: 14px;
-  height: 2px;
-  border-radius: 5px;
-  background: #fff;
-  width: 45%;
+/** ドロップメニュー元 **/
+.dropdown a {
+  display: block;
+  padding: 15px 10px;
+  color: rgb(0, 0, 0);
+  text-align: center; 
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
 }
 
-.openbtn span:nth-of-type(1){
-  top: 13px;
+.dropdown > li {
+  width: calc(100% / 7);
 }
 
-.openbtn span:nth-of-type(2){
-  top: 19px;
-}
 
-.openbtn span:nth-of-type(3){
-  top: 25%;
-}
 
-.openbtn span:nth-of-type(3)::after{
-  content: "Menu";
-  position: absolute;
-  top:5px;
-  left: -2px;
-  color: #fff;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-}
-
-.openbtn.active span:nth-of-type(1){
-  top: 14px;
-  left: 18px;
-  transform: translateY(6px) rotate(-45deg);
-  width: 30%;
-}
-
-.openbtn.active span:nth-of-type(2){
-  opacity: 0;
-}
-
-.openbtn.active span:nth-of-type(3){
-  top: 26px;
-  left: 18px;
-  transform: translateY(-6px) rotate(45deg);
-  width: 30%;
-}
-
-.openbtn.active span:nth-of-type(3)::after{
-  content: "Close";
-  transform: translateY(0) rotate(-45deg);
-  top: 5px;
-  left: 4px;
+/* .dropdown > li:hover > ul {
+  display: block;
 } */
 
-#g-nav{
-  /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
-  position:fixed;
-  z-index: 999;
-  /*ナビのスタート位置と形状*/
-top:0;
-  right: -120%;
-width:100%;
-  height: 100vh;/*ナビの高さ*/
-background:#999;
-  /*動き*/
-transition: all 0.6s;
+.dropdown > li > a {
+  background-color:#fdfdfd;
 }
 
-/*アクティブクラスがついたら位置を0に*/
-#g-nav.panelactive{
-  right: 0;
-}
-
-/*ナビゲーションの縦スクロール*/
-#g-nav.panelactive #g-nav-list{
-  /*ナビの数が増えた場合縦スクロール*/
-  position: fixed;
-  z-index: 999; 
-  width: 100%;
-  height: 100vh;/*表示する高さ*/
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/*ナビゲーション*/
-#g-nav ul {
-  /*ナビゲーション天地中央揃え*/
+.dropdown > li > ul {
   position: absolute;
-  z-index: 999;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
+  top: 100%;
+  left: 0;
+  /* display: none; */
+  width: 100%;
 }
 
-/*リストのレイアウト設定*/
-
-#g-nav li{
-list-style: none;
-  text-align: center;
+/** ドロップメニュー先 **/
+.dropdown > li > ul > li {
+  display: block;
+  width: calc(100% / 7);
+  border-left: solid #000;
+  border-right: solid #000;
 }
 
-#g-nav li a{
-color: #333;
-text-decoration: none;
-padding:10px;
-display: block;
-text-transform: uppercase;
-letter-spacing: 0.1em;
-font-weight: bold;
+.dropdown > li > ul > li > a {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #fff; 
+  /* background-color: #fff;*/
+
 }
 
-.openbtn{
-  position: relative;/*ボタン内側の基点となるためrelativeを指定*/
-  background:#FF6868;
-  cursor: pointer;
-    width: 50px;
-    height:50px;
-  border-radius: 5px;
-}
+/* .dropdown > li > ul > li > a:hover {
+  border-bottom: solid;
+  border-color: #000;
+  border-width: 4px;
+} */
 
-/*ボタン内側*/
-.openbtn span{
+.dropmenu .men > a:hover { background-color: #fff; }
+
+.dropmenu .lay > a:hover { background-color: #fff; }
+  
+  /** ココから下はヘッダーのドロップメニューのcss **/
+  
+  #globalnavi {
+      background-color: #fff;
+    }
+    
+    .dropmenu {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      width: 850px;
+      margin-right: auto; 
+      margin-left: auto;
+      top: 15px;
+    }
+
+    .dropmenu h2:hover{
+      color: #CE4242;
+    }
+  
+    /** ドロップメニュー元 **/
+    .dropmenu a {
+      display: block;
+      padding: 0px;
+      color: rgb(0, 0, 0);
+      text-align: center; 
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+    }
+  
+    .dropmenu > li {
+      list-style: none;
+      width: calc(100% / 7);
+    }
+  
+    .dropmenu > li:hover > ul {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  
+    .dropmenu > li > a {
+      background-color:#fdfdfd;
+    }
+  
+    .dropmenu > li > ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      display: none;
+      width: 100%;
+    }
+  
+    /** ドロップメニュー先 **/
+    .dropmenu > li > ul > li {
+      list-style: none;
+      width: calc(100% / 7);
+    }
+  
+    .dropmenu > li > ul > li > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #000;
+      background-color: #fff; 
+      /* background-color: #fff;*/
+
+    }
+  
+    .dropmenu > li > ul > li > a:hover {
+      color: #CE4242;
+      border-bottom: solid;
+      border-color: #000;
+      border-width: 4px;
+    }
+
+    .icon{
+      width: 50px;
+      height: 50px;
+      vertical-align: bottom;
+      right: 20px;
+}
+  
+    .dropmenu .men > a:hover { background-color: #fff; }
+    
+    .dropmenu .lay > a:hover { background-color: #fff; }
+  
+  /** ココからハンバーガーメニューのcss **/
+
+  
+  #g-nav{
+    /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+    position:fixed;
+    z-index: 999;
+    /*ナビのスタート位置と形状*/
+  top:0;
+    right: -120%;
+  width:100%;
+    height: 100vh;/*ナビの高さ*/
+  background:#999;
+    /*動き*/
+  transition: all 0.6s;
+  }
+  
+  /*アクティブクラスがついたら位置を0に*/
+  #g-nav.panelactive{
+    right: 0;
+  }
+  
+  /*ナビゲーションの縦スクロール*/
+  #g-nav.panelactive #g-nav-list{
+    /*ナビの数が増えた場合縦スクロール*/
+    position: fixed;
+    z-index: 999; 
+    width: 100%;
+    height: 100vh;/*表示する高さ*/
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /*ナビゲーション*/
+  #g-nav ul {
+    /*ナビゲーション天地中央揃え*/
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+  
+  /*リストのレイアウト設定*/
+  
+  #g-nav li{
+  list-style: none;
+    text-align: center;
+  }
+  
+  #g-nav li a{
+  color: #333;
+  text-decoration: none;
+  padding:10px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  }
+  
+  .openbtn{
+    position: relative;/*ボタン内側の基点となるためrelativeを指定*/
+    background:#FF6868;
+    cursor: pointer;
+      width: 50px;
+      height:50px;
+    border-radius: 5px;
+  }
+  
+  /*ボタン内側*/
+  .openbtn span{
+      display: inline-block;
+      transition: all .4s;/*アニメーションの設定*/
+      position: absolute;
+      left: 14px;
+      height: 2px;
+      border-radius: 5px;
+    background: #fff;
+      width: 45%;
+    }
+  
+  
+  .openbtn span:nth-of-type(1) {
+    top:13px; 
+  }
+  
+  .openbtn span:nth-of-type(2) {
+    top:19px;
+  }
+  
+  .openbtn span:nth-of-type(3) {
+    top:25px;
+  }
+  
+  .openbtn span:nth-of-type(3)::after {
+    content:"Menu";/*3つ目の要素のafterにMenu表示を指定*/
+    position: absolute;
+    top:5px;
+    left:-2px;
+    color: #fff;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+  }
+  
+  /*activeクラスが付与されると線が回転して×になり、Menu⇒Closeに変更*/
+  
+  .openbtn.active span:nth-of-type(1) {
+      top: 14px;
+      left: 18px;
+      transform: translateY(6px) rotate(-45deg);
+      width: 30%;
+  }
+  
+  .openbtn.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+  
+  .openbtn.active span:nth-of-type(3){
+      top: 26px;
+      left: 18px;
+      transform: translateY(-6px) rotate(45deg);
+      width: 30%;
+  }
+  
+  .openbtn.active span:nth-of-type(3)::after {
+    content:"Close";/*3つ目の要素のafterにClose表示を指定*/
+      transform: translateY(0) rotate(-45deg);
+    top:5px;
+    left:4px;
+  }
+  
+  
+  .openbtn{
+    position:fixed;
+      z-index: 9999;/*ボタンを最前面に*/
+    top:10px;
+    right: 10px;
+    cursor: pointer;
+      width: 50px;
+      height:50px;
+  }
+  
+  .openbtn span{
     display: inline-block;
-    transition: all .4s;/*アニメーションの設定*/
+    transition: all .4s;
     position: absolute;
     left: 14px;
-    height: 2px;
-    border-radius: 5px;
-  background: #fff;
+    height: 3px;
+    border-radius: 2px;
+  background-color: #ffff;
     width: 45%;
   }
-
-
-.openbtn span:nth-of-type(1) {
-  top:13px; 
-}
-
-.openbtn span:nth-of-type(2) {
-  top:19px;
-}
-
-.openbtn span:nth-of-type(3) {
-  top:25px;
-}
-
-.openbtn span:nth-of-type(3)::after {
-  content:"Menu";/*3つ目の要素のafterにMenu表示を指定*/
-  position: absolute;
-  top:5px;
-  left:-2px;
-  color: #fff;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-}
-
-/*activeクラスが付与されると線が回転して×になり、Menu⇒Closeに変更*/
-
-.openbtn.active span:nth-of-type(1) {
-    top: 14px;
+  
+  .openbtn span:nth-of-type(1) {
+  top:15px; 
+  }
+  
+  .openbtn span:nth-of-type(2) {
+  top:23px;
+  }
+  
+  .openbtn span:nth-of-type(3) {
+  top:31px;
+  }
+  
+  .openbtn.active span:nth-of-type(1) {
+    top: 18px;
     left: 18px;
     transform: translateY(6px) rotate(-45deg);
     width: 30%;
-}
-
-.openbtn.active span:nth-of-type(2) {
+  }
+  
+  .openbtn.active span:nth-of-type(2) {
   opacity: 0;
-}
-
-.openbtn.active span:nth-of-type(3){
-    top: 26px;
+  }
+  
+  .openbtn.active span:nth-of-type(3){
+    top: 30px;
     left: 18px;
     transform: translateY(-6px) rotate(45deg);
     width: 30%;
-}
-
-.openbtn.active span:nth-of-type(3)::after {
-  content:"Close";/*3つ目の要素のafterにClose表示を指定*/
-    transform: translateY(0) rotate(-45deg);
-  top:5px;
-  left:4px;
-}
-
-
-.openbtn{
-  position:fixed;
-    z-index: 9999;/*ボタンを最前面に*/
-  top:10px;
-  right: 10px;
-  cursor: pointer;
-    width: 50px;
-    height:50px;
-}
-
-.openbtn span{
-  display: inline-block;
-  transition: all .4s;
-  position: absolute;
-  left: 14px;
-  height: 3px;
-  border-radius: 2px;
-background-color: #ffff;
-  width: 45%;
-}
-
-.openbtn span:nth-of-type(1) {
-top:15px; 
-}
-
-.openbtn span:nth-of-type(2) {
-top:23px;
-}
-
-.openbtn span:nth-of-type(3) {
-top:31px;
-}
-
-.openbtn.active span:nth-of-type(1) {
-  top: 18px;
-  left: 18px;
-  transform: translateY(6px) rotate(-45deg);
-  width: 30%;
-}
-
-.openbtn.active span:nth-of-type(2) {
-opacity: 0;
-}
-
-.openbtn.active span:nth-of-type(3){
-  top: 30px;
-  left: 18px;
-  transform: translateY(-6px) rotate(45deg);
-  width: 30%;
-}
+  }

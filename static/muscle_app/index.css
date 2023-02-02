@@ -1,5 +1,10 @@
-.photo{
-    text-align: center;
+.swiper{
+    width: 100%;
+}
+
+.img-cover img{
+    width: 500px;
+    margin: 0 auto;
 }
 
 .product{

@@ -1,19 +1,207 @@
 <!DOCTYPE html>
 <html lang="ja">
-    {% extends "muscle_app/base.html" %}
+    {% extends "muscle_app/base1.html" %}
     {% load static %}
 
     {% block extra_head %}
-        <link rel=""stylesheet" href="{% static '' %}">
+        <link rel="stylesheet" href="{% static 'muscle_app/sideber.css' %}">        <link rel="stylesheet" href="{% static 'muscle_app/mypage.css' %}">
+        <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/paginathing.min.js' %}"></script> 
+        <script type="text/javascript" src="{% static 'js/titel.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/pop.js' %}"></script>
     {% endblock %}
-    
+
     {% block title_block %}
         mypage
     {% endblock %}
 
     {% block body_block %}
-        <h1>マイページ！！！</h1>
-        <button onclick=location.href="{% url 'muscle_app:my_articles' %}">自分の記事一覧</button>
-        <button onclick=location.href="{% url 'muscle_app:user_detail' request.user.user_id %}">ユーザー情報</button>
+    <div class="all">
+        <div class="sidebar">
+            <img src="mediaa/susi-nick.png" alt="ロゴ画像">
+            <a href="{% url 'muscle_app:my_articles' %}"><h3>自分の記事一覧</h3></a><br>
+            <a href="{% url 'muscle_app:user_detail' request.user.user_id %}"><h3>ユーザー情報</h3></a><br>
+            <a href="{% url 'muscle_app:logout' %}"><h3>ログアウト</h3></a><br>
+        </div>
+
+        <div class="main">
+            <div class="headline">
+                <h1>マイページ</h1>
+            </div>
+            <br>
+            <div class="list">
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#" class="titel">ああああああaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a></h2>
+                        <p class="text_excerpt">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                        <input type="button"  value="削除" class="delete" id="del">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#">aaaaaaaaaaa</a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete" id="del">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                 <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article> <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+
+                 <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article> <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+                 <article>
+                    <figure>
+                    <img src="" alt="サムネイル画像">
+                    </figure>
+                    <div class="text_content">
+                        <p class="text_date"><time datetime=""></time></p>
+                        <h2><a href="#"></a></h2>
+                        <p class="text_excerpt"></p>
+                        <input type="button"  value="削除" class="delete">
+                        <input type="button"  value="編集" class="edit">
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
     {% endblock %}
 </html>

@@ -1,0 +1,112 @@
+.all{
+    display: flex;
+    /* width: 100vw;
+    height: 100vh; */
+}
+.main {
+    display: flex;
+    flex-flow: column;
+}
+.headline{
+    width: 200px;
+    height: 100px;
+}
+article {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgb(12, 12, 12);
+    text-decoration: none;
+}
+article figure {
+    margin-right: 20px;
+    width: 100px;
+    height: 100px;
+}
+article figure img {
+    min-width: 150px;
+    max-width: 100%;
+    /* vertical-align: top; */
+    margin: 20px 10px 30px -40px;
+}
+article a{
+    color: black;
+    text-decoration: none;
+}
+
+
+
+.menu-button {
+    background: #FFFFFF;
+    display: block;
+    font-size: 16px;
+    height: 55px;
+    padding:10px 20px;
+    text-decoration: none;
+}
+
+/* ここからJS */
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+.pagination li{
+    margin: 5px;
+    border: 3px solid #333;
+}
+
+.pagination a{
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 20px;
+}
+
+.pagination a:hover{
+    background-color: #333;
+    color: aliceblue;
+}
+
+.active{
+    background-color: burlywood;
+}
+
+/* 削除ボタン */
+.delete{
+    display: inline-block;
+    color: rgb(233, 30, 30);
+    width: 50px;
+}
+
+.delete {
+    border: 2px solid rgb(233, 30, 30);
+    border-radius: 0;
+    background: #fff;
+  }
+  
+  .delete:hover {
+    color: #fff;
+    background: rgb(233, 30, 30);
+  }
+
+/* 編集ボタン */
+.edit{
+    display: inline-block;
+    color: rgb(26, 152, 236);
+    width: 50px;
+}
+
+.edit {
+    border: 2px solid rgb(26, 152, 236);
+    border-radius: 0;
+    background: #fff;
+  }
+  
+  .edit:hover {
+    color: #fff;
+    background: rgb(26, 152, 236);
+  }
